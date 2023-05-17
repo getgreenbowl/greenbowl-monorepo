@@ -1,0 +1,54 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "pipeline": {
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**", ".next/**"]
+    },
+    "node-api#build": {
+      "env": [
+        "NODE_ENV",
+        "ENCRYPT",
+        "HOSTNAME",
+        "PORT",
+        "DB_NAME",
+        "DB_HOST",
+        "DB_PORT",
+        "DB_USERNAME",
+        "DB_PASSWORD",
+        "DB_SYNC",
+        "npm_package_version",
+        "AWS_ACCESS_KEY",
+        "AWS_SECRET_KEY",
+        "AWS_REGION",
+        "AWS_BUCKET_NAME",
+        "DEFAULT_IMAGE_QUALITY_REDUCTION",
+        "SENDER_EMAIL_HOST",
+        "SENDER_EMAIL_PORT",
+        "SENDER_EMAIL_ID",
+        "SENDER_EMAIL_PASSWORD",
+        "ROOT_DIR"
+      ]
+    },
+    "encryption#build": {
+      "env": ["secret_key"]
+    },
+    "jwt#build": {
+      "env": ["secret", "expiry"]
+    },
+    "lint": {
+      "outputs": []
+    },
+    "dev": {
+      "cache": false
+    },
+    "db:sync": {
+      "cache": false
+    },
+    "clean": {},
+    "start": {},
+    "deploy": {}
+  },
+  "globalDependencies": [".env"],
+  "globalEnv": ["NODE_HOST", "NODE_PORT"]
+}

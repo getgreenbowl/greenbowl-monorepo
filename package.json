@@ -1,0 +1,38 @@
+{
+  "name": "tashan",
+  "version": "0.0.0",
+  "private": true,
+  "workspaces": {
+    "packages": [
+      "packages/*",
+      "apps/*"
+    ]
+  },
+  "scripts": {
+    "build-no-mobile": "turbo run build --filter=!rnative",
+    "build:server": "turbo run build --filter=api",
+    "deploy:server": "turbo run start --filter=api",
+    "deploy:web": "turbo run start --filter=web",
+    "deploy:docs": "turbo run start --filter=docs",
+    "clean": "turbo run clean",
+    "dev": "turbo run dev --parallel",
+    "dev:server": "turbo run dev --filter=api",
+    "dev:client": "turbo run dev --filter=adminng",
+    "web": "turbo run dev --filter=web",
+    "lint": "turbo run lint",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "prepare": "husky install",
+    "db:sync": "turbo run db:sync --filter=api",
+    "publish-data-models": ""
+  },
+  "devDependencies": {
+    "eslint-config-custom": "*",
+    "husky": "^8.0.0",
+    "turbo": "^1.9.3"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "dependencies": {},
+  "packageManager": "yarn@1.22.17"
+}

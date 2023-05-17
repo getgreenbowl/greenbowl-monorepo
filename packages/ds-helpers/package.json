@@ -1,0 +1,19 @@
+{
+    "name": "dshelpers",
+    "version": "0.0.1",
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "license": "MIT",
+    "scripts": {
+        "lint": "eslint \"**/*.ts*\"",
+        "build": "etsc",
+        "dev": "nodemon",
+        "clean": "rm -rf .turbo && rm -rf node_modules"
+      },
+    "dependencies": {
+    "@ungap/structured-clone": "^1.0.1"
+    },
+    "devDependencies": {
+    "@types/ungap__structured-clone": "^0.3.0"
+    }
+}
