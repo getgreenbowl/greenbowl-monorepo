@@ -8,10 +8,10 @@ import { GbInputDirective } from 'src/app/shared/input/directives/gb-input.direc
 import { ReactiveFormsModule } from '@angular/forms';
 import { ListComponent } from './list/list.component';
 import { FormComponent } from './form/form.component';
-import { DashDataGridModule } from 'src/app/shared/data-grid/data-grid.module';
 import { PageHeaderComponent } from 'src/app/shared/page-header/page-header.component';
 import { InputGroupComponent } from 'src/app/shared/input-group/input-group.component';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { GbDataGridModule } from 'src/app/shared/gb-data-grid/gb-data-grid.module';
 
 @NgModule({
   declarations: [ListComponent, FormComponent],
@@ -22,10 +22,10 @@ import { NgSelectModule } from '@ng-select/ng-select';
     GbButtonComponent,
     GbInputDirective,
     ReactiveFormsModule,
-    DashDataGridModule,
     PageHeaderComponent,
     InputGroupComponent,
-    NgSelectModule
+    NgSelectModule,
+    GbDataGridModule
   ],
 })
 export class ItemsModule {}

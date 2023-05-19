@@ -1,12 +1,11 @@
 {
-    "name": "greenbowl-data-models",
-    "version": "1.0.1",
-    "main": "index.d.ts",
-    "types": "index.d.ts",
-    "author": {
-        "name": "Vishal acharya",
-        "email": "vishal.greenbowl@gmail.com"
-    },
-    "scripts": { }
-  }
-  
+  "name": "greenbowl-data-models",
+  "version": "1.0.1",
+  "main": "index.d.ts",
+  "types": "index.d.ts",
+  "author": {
+    "name": "Vishal acharya",
+    "email": "vishal.greenbowl@gmail.com"
+  },
+  "scripts": {}
+}

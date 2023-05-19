@@ -1,0 +1,17 @@
+{
+    "name": "greenbowl-schema",
+    "version": "0.0.1",
+    "main": "./src/index.ts",
+    "author": {
+      "name": "Vishal acharya",
+      "email": "vishal.greenbowl@gmail.com"
+    },
+    "scripts": {
+        "dev": "nodemon",
+        "build": "etsc"
+    },
+    "dependencies": {
+        "zod": "3.21.4"
+    }
+  }
+  

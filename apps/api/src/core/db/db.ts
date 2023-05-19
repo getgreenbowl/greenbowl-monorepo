@@ -13,10 +13,10 @@ const logError = debug("app:error");
 const env = APP_SETTINGS.NODE_ENV || "development";
 const config = (configs as { [key: string]: Options })[env];
 
-export class Db {
+export class DbConnection {
   static models: Record<string, ModelStatic<Model<{}, {}>>>;
 
-  static instance: Sequelize = new Sequelize({
+  static db: Sequelize = new Sequelize({
     ...config,
     pool: { max: 5, idle: 30 },
     logging: false,
@@ -24,18 +24,30 @@ export class Db {
 
   static init() {
     this.authenticate();
+    this.models = initModels(this.db, models);
     this.associate();
   }
 
   static associate() {
-    for (let child of models) {
-     //write association logic from scratch for new db
+    const modelKeys = Object.keys(this.models);
+    for (let m of modelKeys) {
+      const child = this.models[m];
+      const refs = filterRefKeys(child.getAttributes());
+      for (let r of refs) {
+        const parent = this.models[r.references.model];
+        let options: any = { foreignKey: r.references.key || r.field };
+        if (r.references.as) {
+          options = _Object.merge(options, { as: r.references.as });
+        }
+        parent.hasMany(child, options);
+        child.belongsTo(parent, options);
+      }
     }
   }
 
   static authenticate() {
     fancyLogger.start("db", "connecting db...");
-    this.instance
+    this.db
       .authenticate()
       .then(async () => {
         fancyLogger.logForDB();
@@ -45,7 +57,7 @@ export class Db {
         }
 
         if (args.seed) {
-          // await runSeeders(this.instance, args.seed)
+          // await runSeeders(this.db, args.seed)
         }
       })
       .catch((err) => {
@@ -72,7 +84,7 @@ export class Db {
 
   static sync() {
     fancyLogger.start("dbsync", `syncing db ${APP_SETTINGS.DB_NAME}...`);
-    this.instance
+    this.db
       .sync()
       .then(() => {
         fancyLogger.logForDbSync();
@@ -84,10 +96,10 @@ export class Db {
         fancyLogger.error("dbsync", `Error Connecting db ${err}`);
       })
       .finally(() => {
-        this.instance.close();
+        this.db.close();
         process.kill(process.pid, "SIGINT");
       });
   }
 }
 
-export default Db;
+export default DbConnection;

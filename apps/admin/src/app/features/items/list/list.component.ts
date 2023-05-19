@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { headerObject } from 'src/app/shared/data-grid/data-grid.type';
 import { ApiService } from 'src/app/shared/services/api.service';
 
 @Component({
@@ -17,19 +16,6 @@ export class ListComponent implements OnInit {
     {name: 'vishal', age: 20, },
     {name: 'vishal', age: 20, },
   ]
-
-  headers: headerObject[] = [
-    {
-    name: 'name',
-    title: 'Name',
-    visible: true
-  },
-  {
-    name: 'age',
-    title: 'Age',
-    visible: true
-  }
-]
 
 
 ngOnInit(): void {

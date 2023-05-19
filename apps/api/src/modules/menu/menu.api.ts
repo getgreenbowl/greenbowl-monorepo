@@ -5,16 +5,29 @@ import { Menu } from "./models/menu.model";
 
 const MenuRouter = Router();
 
-//add new menu
-MenuRouter
-.post('/', ah(async(req, res) => {
-    const payload = req.body;
-    const menu = await Menu.create(payload);
-    success(res, menu, 'New menu added');
-}))
-.get('/', ah(async(req, res) => {
-    const menu = await Menu.findAll();
-    success(res, menu, 'all menu')
-}))
+//add Menu
+MenuRouter.post("/",
+    ah(async (req, res) => {
+        try {
+
+            let menu = await Menu.bulkCreate(req.body);
+            success(res, menu, "menu added");
+
+        } catch (err) {
+            other(err, "Something went wrong. Menu not added");
+        }
+    })
+)
+
+    .get("/",
+        ah(async (req, res) => {
+            try {
+                let menu = await Menu.findAll({ attributes: ['id', 'title', 'link'] });
+                success(res, menu, "all menu");
+            } catch (err) {
+                other(err, "Something went wrong");
+            }
+        })
+    );
 
 export default MenuRouter;

@@ -10,4 +10,3 @@ export type UserTokenPayload = {
         planType: "Monthly" | "Yearly" | "InitialOffer" | null
     }
 }
-
