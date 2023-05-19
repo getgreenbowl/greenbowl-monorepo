@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { TMenu } from 'greenbowl-schema';
 import { map } from 'rxjs';
 import { Ingredients } from 'src/app/models/ingredients.model';
-import { Menu } from 'src/app/models/menu.model';
 import { ApiService } from 'src/app/shared/services/api.service';
 
 @Component({
@@ -14,7 +14,7 @@ export class FormComponent implements OnInit {
   constructor(private fb: FormBuilder, private api: ApiService) {}
 
   showErrors: boolean = false;
-  menu$ = this.api.get<Menu[]>('/menu').pipe(map((res) => res.data));
+  menu$ = this.api.get<TMenu[]>('/menu').pipe(map((res) => res.data));
   ingredients$ = this.api.get<Ingredients[]>('/ingredients').pipe(map((res) => res.data));
   submitButton: 'submit'|'loading'|'added'|'error' = 'submit'
   menuForm = this.fb.group({

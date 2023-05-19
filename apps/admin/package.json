@@ -1,5 +1,5 @@
 {
-  "name": "adminng",
+  "name": "admin",
   "version": "0.0.0",
   "scripts": {
     "ng": "../../node_modules/@angular/cli/bin/ng",
@@ -27,7 +27,8 @@
     "subsink": "^1.0.2",
     "tslib": "^2.5.2",
     "zone.js": "~0.13.0",
-    "greenbowl-data-models": "*"
+    "greenbowl-data-models": "*",
+    "greenbowl-schema": "*"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^16.0.2",
