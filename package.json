@@ -17,7 +17,7 @@
     "clean": "turbo run clean",
     "dev": "turbo run dev --parallel",
     "dev:server": "turbo run dev --filter=api",
-    "dev:client": "turbo run dev --filter=adminng",
+    "dev:client": "turbo run dev --filter=admin",
     "web": "turbo run dev --filter=web",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
