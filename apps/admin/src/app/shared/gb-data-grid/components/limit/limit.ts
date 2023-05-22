@@ -5,7 +5,6 @@ import { PaginationService } from '../../services/pagination.service';
 @Component({
   selector: 'gb-grid-limit',
   template: `
-
 <div
     class="btn-toolbar  mb-2 justify-content-between"
     role="toolbar"

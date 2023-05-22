@@ -16,12 +16,12 @@ import clsx from 'clsx';
 })
 export class GbCardComponent {
 
-  @Input() c_body: string = '';
+  @Input() c_body = '';
   get bodyClass() {
     return clsx('card-body', this.c_body);
   }
 
 
-  @Input() cardTitle: string = ''
+  @Input() cardTitle = ''
 
 }

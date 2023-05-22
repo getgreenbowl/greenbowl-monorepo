@@ -15,5 +15,5 @@ import { ChangeDetectionStrategy, Component, Input } from "@angular/core";
 })
 
 export class InputGroupComponent {
-  @Input() header: string = ''
+  @Input() header = ''
 }

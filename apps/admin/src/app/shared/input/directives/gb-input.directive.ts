@@ -2,7 +2,6 @@ import {
   AfterViewInit,
   Directive,
   ElementRef,
-  OnInit,
   Renderer2,
 } from '@angular/core';
 

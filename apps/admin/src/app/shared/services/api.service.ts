@@ -1,7 +1,12 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ApiResponse } from 'src/app/models/response.model';
+
+
+type QueryParams = HttpParams | {
+  [param: string]: string | number | boolean | ReadonlyArray<string | number | boolean>;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -14,22 +19,22 @@ export class ApiService {
   constructor(private _http: HttpClient) {}
 
   private makeURL(endpoint: string) {
-    return `http://localhost:3000${endpoint}`;
+    return `https://jsonplaceholder.typicode.com${endpoint}`;
   }
 
-  get<T>(endpoint: string, queryParams?: any): Observable<ApiResponse<T>> {
-    return this._http.get<ApiResponse<T>>(this.makeURL(endpoint), { params: queryParams });
+  get<T>(endpoint: string, queryParams?: QueryParams): Observable<T> {
+    return this._http.get<T>(this.makeURL(endpoint), { params: queryParams });
   }
 
-  delete(endpoint: string, queryParams?: any): Observable<any> {
-    return this._http.delete(this.makeURL(endpoint), { params: queryParams });
+  delete<T>(endpoint: string, queryParams?: QueryParams): Observable<T> {
+    return this._http.delete<T>(this.makeURL(endpoint), { params: queryParams });
   }
 
-  post<T>(endpoint: string, body: any): Observable<ApiResponse<T>> {
-    return this._http.post<ApiResponse<T>>(this.makeURL(endpoint), body);
+  post<T>(endpoint: string, body: unknown): Observable<T> {
+    return this._http.post<T>(this.makeURL(endpoint), body);
   }
 
-  put(endpoint: string, body?: any): Observable<any> {
-    return this._http.put(this.makeURL(endpoint), body);
+  put<T>(endpoint: string, body: unknown): Observable<T> {
+    return this._http.put<T>(this.makeURL(endpoint), body);
   }
 }

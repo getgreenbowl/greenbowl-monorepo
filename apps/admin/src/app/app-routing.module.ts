@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MainComponent } from './layout/main/main.component';
-import { LoginComponent } from './authentication/login/login.component';
-import { authGuard } from './shared/services/auth.guard';
 
 const routes: Routes = [
   {
@@ -26,7 +24,7 @@ const routes: Routes = [
       {
         path: 'menu',
         loadChildren: () =>
-          import('./features/items/items.module').then((m) => m.ItemsModule),
+          import('./features/menu/menu.module').then((m) => m.MenuModule),
       },
       {
         path: 'subscription',

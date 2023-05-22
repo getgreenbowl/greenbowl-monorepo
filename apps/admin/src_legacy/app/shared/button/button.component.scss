@@ -1,0 +1,16 @@
+@use  '/src/styles/variables.scss' as v;
+@use  '/src/styles/colors.scss' as c;
+.btn {
+  border-radius: 0% !important;
+  border: 1px solid c.$neutral-900 !important;
+  background-color: c.$neutral-100 !important;
+  color: c.$emerald-950 !important;
+  text-transform: capitalize;
+  align-items: center;
+  justify-content: center;
+
+  &.inverse {
+    background-color: c.$emerald-950 !important;
+    color: c.$neutral-100 !important;
+  }
+}

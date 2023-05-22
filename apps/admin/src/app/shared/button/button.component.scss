@@ -1,7 +1,7 @@
 @use  '/src/styles/variables.scss' as v;
 @use  '/src/styles/colors.scss' as c;
 .btn {
-  border-radius: 0% !important;
+  border-radius:  0% !important;
   border: 1px solid c.$neutral-900 !important;
   background-color: c.$neutral-100 !important;
   color: c.$emerald-950 !important;
@@ -14,3 +14,5 @@
     color: c.$neutral-100 !important;
   }
 }
+
+

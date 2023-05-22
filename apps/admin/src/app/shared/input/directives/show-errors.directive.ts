@@ -12,7 +12,7 @@ import {
   standalone: true
 })
 export class ShowErrorDirective implements OnChanges {
-  @Input() showError: boolean = false;
+  @Input() showError = false;
 
   constructor(private el: ElementRef, private renderer: Renderer2) {}
 

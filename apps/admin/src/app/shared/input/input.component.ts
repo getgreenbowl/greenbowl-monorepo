@@ -35,17 +35,17 @@ import { ShowErrorDirective } from './directives/show-errors.directive';
 export class GbInputComponent implements OnInit, OnDestroy {
   constructor(private cdr: ChangeDetectorRef) {}
 
-  @Input() label: string = '';
+  @Input() label = '';
   @Input() hints?: string;
-  @Input() showError: boolean = false;
-  @Input() id: string = '';
+  @Input() showError = false;
+  @Input() id = '';
 
-  @Input() containerStyle: string = '';
+  @Input() containerStyle = '';
   get _containerStyle() {
     return this.mergeString(this.containerStyle, 'mb-3 has-validation');
   }
 
-  @Input() labelStyle: string = '';
+  @Input() labelStyle = '';
   get _labelStyle() {
     return this.mergeString(this.labelStyle, 'small text-muted mb-1');
   }
@@ -71,7 +71,7 @@ export class GbInputComponent implements OnInit, OnDestroy {
 
   subs = new SubSink();
 
-  private mergeString(incoming: string = '', defaultValue: string) {
+  private mergeString(incoming = '', defaultValue: string) {
     return `${incoming} ${defaultValue}`;
   }
 
@@ -80,7 +80,7 @@ export class GbInputComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.subs.sink = this.control.valueChanges.subscribe((data) => {
+    this.subs.sink = this.control.valueChanges.subscribe(() => {
       this.detectChanges();
     });
   }

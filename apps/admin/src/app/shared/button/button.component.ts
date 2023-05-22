@@ -7,7 +7,7 @@ import { CommonModule } from '@angular/common';
   imports: [CommonModule],
   styleUrls: ['./button.component.scss'],
   template: `
-  <button [class]="cssClass" [type]="type" [disabled]="disabled" (click)="onClick.emit($event)" >
+  <button [class]="cssClass" [type]="type" [disabled]="disabled" (click)="handleClick.emit($event)" >
     <ng-content></ng-content>
   </button>
   `
@@ -19,9 +19,9 @@ export class GbButtonComponent {
     inverse: 'btn inverse'
   }
 
-  @Output() onClick = new EventEmitter();
+  @Output() handleClick = new EventEmitter();
   @Input() type: 'submit'|'button' = 'submit'
-  @Input() disabled: boolean = false
+  @Input() disabled = false
   @Input() variant: keyof typeof this._cssClass = 'default'
   get cssClass() {
     return this._cssClass[this.variant]

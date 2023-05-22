@@ -14,5 +14,5 @@ import { BackButtonComponent } from "../back-button/back-button.component";
 })
 
 export class PageHeaderComponent {
-  @Input() header: string = ''
+  @Input() header = ''
 }

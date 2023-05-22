@@ -1,0 +1,17 @@
+<nav id="sidebar">
+  <div class="sidebar-header">
+      <img src="../../../../assets/gb.png" [width]="190"   />
+  </div>
+
+  <ul class="list-unstyled components">
+    <li *ngFor="let item of menu">
+      <a
+      [routerLink]="[item.link]"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+      >{{
+        item.name
+      }}</a>
+    </li>
+  </ul>
+</nav>

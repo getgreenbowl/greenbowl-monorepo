@@ -1,0 +1,15 @@
+@use '/src/styles/colors.scss' as c;
+
+.action-common {
+  background-color: c.$emerald-100;
+}
+
+
+.gb-table-container {
+  height: 75vh;
+  overflow: auto
+}
+
+.gb-table-footer {
+  border-top: 1px solid red !important;
+}

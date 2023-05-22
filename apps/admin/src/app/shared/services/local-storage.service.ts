@@ -17,7 +17,7 @@ export class LocalStorageService {
     return JSON.parse(data);
   }
 
-  set(key: keyof typeof this.keys, data: any) {
+  set(key: keyof typeof this.keys, data: unknown) {
     try {
       window.localStorage.setItem(this.keys[key], JSON.stringify(data));
       return true;

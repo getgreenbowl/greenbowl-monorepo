@@ -7,6 +7,9 @@ import { MainComponent } from './layout/main/main.component';
 import { SidebarComponent } from './layout/helpers/sidebar/sidebar.component';
 import { HeaderComponent } from './layout/helpers/header/header.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {CdkTreeModule} from '@angular/cdk/tree';
+
 
 @NgModule({
   declarations: [
@@ -15,7 +18,13 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
     SidebarComponent,
     HeaderComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule],
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    AppRoutingModule,
+    HttpClientModule,
+    CdkTreeModule
+  ],
   providers: [HttpClient],
   bootstrap: [AppComponent],
 })
