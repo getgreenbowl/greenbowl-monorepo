@@ -6,15 +6,19 @@ import { CacheDB } from "./core/cache/cache-db";
 import DbConnection from "./core/db/db";
 import fancyLogger from "./core/logger/fancy-logger";
 import app from "./express-app";
-import { Firebase } from "./firebase/firebase";
-import { Cronjob } from "./libs/cron-job";
+import {Model} from "sequelize"
+// import { Firebase } from "./firebase/firebase";
+// import { Cronjob } from "./libs/cron-job";
+// import { ModelManager } from "./core/db/model-manager";
 
 async function main() {
   CacheDB.init();
   DbConnection.init();
-  Firebase.init();
-  Cronjob.startAll();
-
+  // ModelManager.init();
+  
+  // Firebase.init();
+  // Cronjob.startAll();
+  
   const server = http.createServer(app);
 
   server.listen(APP_SETTINGS.PORT, () => {

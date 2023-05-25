@@ -5,8 +5,6 @@ import fancyLogger from "../logger/fancy-logger";
 import { filterRefKeys } from "../utils/filter-ref-models.util";
 import yargs from "yargs";
 import debug from "debug";
-import { initModels } from "../utils/init-models.util";
-import { models } from "./init-models";
 import { _Object } from "dshelpers";
 const logError = debug("app:error");
 
@@ -23,18 +21,21 @@ export class DbConnection {
   });
 
   static init() {
-    this.authenticate();
-    this.models = initModels(this.db, models);
+    this.authenticate();    
     this.associate();
+    // for (const model of models) {
+    //   console.log(model)
+    // }
   }
 
   static associate() {
-    const modelKeys = Object.keys(this.models);
+
+    const modelKeys = Object.keys(this.db.models);
     for (let m of modelKeys) {
-      const child = this.models[m];
+      const child = this.db.models[m];
       const refs = filterRefKeys(child.getAttributes());
-      for (let r of refs) {
-        const parent = this.models[r.references.model];
+      for (let r of refs) {        
+        const parent = this.db.models[r.references.model];        
         let options: any = { foreignKey: r.references.key || r.field };
         if (r.references.as) {
           options = _Object.merge(options, { as: r.references.as });

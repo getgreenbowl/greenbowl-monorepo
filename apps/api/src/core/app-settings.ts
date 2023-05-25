@@ -2,7 +2,7 @@ const {
   NODE_ENV = "development",
   PORT = 3000,
   ENCRYPT = false,
-  DB_NAME = "tashan",
+  DB_NAME = "greenbowl",
   DB_HOST = "localhost",
   DB_PORT = 3306,
   DB_USERNAME = "root",
