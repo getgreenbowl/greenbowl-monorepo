@@ -1,104 +1,103 @@
 /* You can add global styles to this file, and also import other style files */
-@use './styles/colors.scss' as c;
-@import "./styles/variables.scss";
-@import "/node_modules/bootstrap/scss/bootstrap.scss";
+// @use './styles/colors.scss' as c;
+// @import "./styles/variables.scss";
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 47.4% 11.2%;
 
-.form-control {
-    border-radius: 0% !important;
-    padding: 8px !important;
-}
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
 
-.form-control:focus {
- border: 1px solid c.$emerald-700 !important;
-}
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 47.4% 11.2%;
 
-::-webkit-scrollbar {
-  width: 0px;
-}
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-::-webkit-scrollbar-thumb {
-  background-color: rgba(155, 155, 155, 0.5);
-  border-radius: 20px;
-  border: transparent;
-}
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
 
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 47.4% 11.2%;
 
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
 
-textarea:focus,
-textarea.form-control:focus,
-input.form-control:focus,
-input[type=text]:focus,
-input[type=password]:focus,
-input[type=email]:focus,
-input[type=number]:focus,
-[type=text].form-control:focus,
-[type=password].form-control:focus,
-[type=email].form-control:focus,
-[type=tel].form-control:focus,
-[contenteditable].form-control:focus {
-  box-shadow: inset 0 0px 0 #ddd;
-}
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
 
-.pointer {
-  cursor: pointer;
-}
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
 
-.fw-100 {
-  font-weight: 100 !important;
-}
+    --destructive: 0 100% 50%;
+    --destructive-foreground: 210 40% 98%;
 
-.fw-200 {
-  font-weight: 200 !important;
-}
-.fw-300 {
-  font-weight: 300 !important;
-}
-.fw-400 {
-  font-weight: 400 !important;
-}
-.fw-500 {
-  font-weight: 500 !important;
-}
-.fw-600 {
-  font-weight: 600 !important;
-}
-.fw-700 {
-  font-weight: 700 !important;
-}
-.fw-800 {
-  font-weight: 800 !important;
-}
-.fw-900 {
-  font-weight: 900 !important;
+    --ring: 215 20.2% 65.1%;
+
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 224 71% 4%;
+    --foreground: 213 31% 91%;
+
+    --muted: 223 47% 11%;
+    --muted-foreground: 215.4 16.3% 56.9%;
+
+    --accent: 216 34% 17%;
+    --accent-foreground: 210 40% 98%;
+
+    --popover: 224 71% 4%;
+    --popover-foreground: 215 20.2% 65.1%;
+
+    --border: 216 34% 17%;
+    --input: 216 34% 17%;
+
+    --card: 224 71% 4%;
+    --card-foreground: 213 31% 91%;
+
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 1.2%;
+
+    --secondary: 222.2 47.4% 11.2%;
+    --secondary-foreground: 210 40% 98%;
+
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 210 40% 98%;
+
+    --ring: 216 34% 17%;
+
+    --radius: 0.5rem;
+  }
 }
 
-
-.bg-100 {
-  background-color: c.$emerald-100;
-}
-.bg-200 {
-  background-color: c.$emerald-200;
-}
-.bg-300 {
-  background-color: c.$emerald-300;
-}
-.bg-400 {
-  background-color: c.$emerald-400;
-}
-.bg-500 {
-  background-color: c.$emerald-500;
-}
-.bg-600 {
-  background-color: c.$emerald-600;
-}
-.bg-700 {
-  background-color: c.$emerald-700;
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    // @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
 }
 
-.bg-800 {
-  background-color: c.$emerald-800 !important;
+@layer utilities {
+  .step {
+    counter-increment: step;
+  }
+
+  .step:before {
+    @apply absolute w-8 h-8 bg-muted rounded-full font-medium text-center text-base inline-flex items-center justify-center -indent-px;
+    @apply ml-[-41px];
+    content: counter(step);
+  }
+}
+
+@media (max-width: 640px) {
+  .container {
+    @apply px-4;
+  }
 }

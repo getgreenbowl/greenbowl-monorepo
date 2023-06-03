@@ -46,7 +46,7 @@ ItemRouter.post(
     //update item
 }))
 .get('/', ah(async (req, res) => {
-  const items = await Item.findAndCountAll({order: [['id', 'DESC']]});
+  const items = await Item.findAndCountAll({order: [['id', 'DESC']]});  
   success(res, items, 'All items')
 }))
 

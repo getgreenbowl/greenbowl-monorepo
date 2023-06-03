@@ -38,8 +38,8 @@ import { GbGridToolbarComponent } from '../gb-data-grid/components/toolbar/gb-to
       [name]="tool.name"
       (handleClick)="tool.handleClick.emit($event)"
     />
-    <gb-toolbar icon="fa-light fa-filter" name="Filter" />
-    <gb-toolbar icon="fa-light fa-filter-circle-xmark" name="Clear Filter" />
+    <gb-toolbar icon="filter_alt" name="Filter" />
+    <gb-toolbar icon="filter_alt_off" name="Clear Filter" />
     <!-- Toolbar -->
 
     <!-- Action -->
@@ -120,9 +120,9 @@ export class GbGridShellComponent implements OnInit {
     }
     this.loading = true;
     this.data$ = this.api.get<any>(this.apiURL).pipe(
-      map((data: any) => {
+      map(({data}: any) => {
         this.collectionSize = data['count'] || data?.length || 0;
-        return data;
+        return data.rows;
       }),
       tap(() => (this.loading = false))
     );

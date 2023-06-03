@@ -6,7 +6,8 @@
     "packages": [
       "packages/*",
       "apps/*"
-    ]
+    ],
+    "nohoist": ["**/admin/**"]
   },
   "scripts": {
     "build-no-mobile": "turbo run build --filter=!rnative",

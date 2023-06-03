@@ -5,13 +5,18 @@ import { Router } from '@angular/router';
   selector: 'app-list',
   template: `<gb-grid-shell
     gridTitle="Menu"
-    apiURL="/posts"
+    apiURL="/items"
     (toolbarEvents)="toolbarClick($event)"
   >
     <!-- columns -->
     <gb-column field="id" alignment="left" />
-    <gb-column field="title" alignment="left" />
-    <gb-column field="userId" />
+    <gb-column field="name" />
+    <gb-column field="calories" />
+    <gb-column field="energy" />
+    <gb-column field="fat" />
+    <gb-column field="protien" />
+    <gb-column field="price" />
+    <gb-column field="carbs" />
   </gb-grid-shell> `,
 })
 export class ListComponent {

@@ -248,7 +248,7 @@ export class NgbPaginationPages {
         >
           <ng-template
             [ngTemplateOutlet]="tplPrevious&&tplPrevious.templateRef || previous"
-            [ngTemplateOutletContext]="{ disabled: previousDisabled() }"
+            [ngTemplateOutletContext]="{ disabled: previousDisabled(), currentPage: page }"
           ></ng-template>
         </a>
       </li>

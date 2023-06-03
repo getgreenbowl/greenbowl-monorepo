@@ -22,7 +22,11 @@ import { MetaDataService } from '../../services/meta-data.service';
         [title]="tool.name"
         (click)="tool.handleClick.emit(tool)"
       >
-        <i [class]="tool.icon"></i>
+      <span
+     class="material-symbols-sharp"
+      >
+{{tool.icon}}
+      </span>
       </button>
     </div>
   </div>`,

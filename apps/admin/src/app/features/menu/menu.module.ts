@@ -13,6 +13,7 @@ import { PageHeaderComponent } from 'src/app/shared/page-header/page-header.comp
 import { InputGroupComponent } from 'src/app/shared/input-group/input-group.component';
 import { GbGridShellComponent } from 'src/app/shared/grid-shell/grid-shell';
 import { GbGridColumnsComponent } from 'src/app/shared/gb-data-grid/components/base-table/columns';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({
   declarations: [ListComponent, FormComponent],
@@ -27,7 +28,8 @@ import { GbGridColumnsComponent } from 'src/app/shared/gb-data-grid/components/b
     PageHeaderComponent,
     InputGroupComponent,
     GbGridShellComponent,
-    GbGridColumnsComponent
+    GbGridColumnsComponent,
+    NgSelectModule
   ],
 })
 export class MenuModule {}
