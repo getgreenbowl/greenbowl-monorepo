@@ -26,7 +26,6 @@ UserRouter.post(
       raw: true,
     });
     //invalid mobile number
-
     if (!user) {
       return unauthorized(res, "Invalid User");
     }

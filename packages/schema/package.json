@@ -1,20 +1,23 @@
 {
     "name": "greenbowl-schema",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "main": "./dist/index.js",
     "types": "./src/index.ts",
     "license": "MIT",
     "author": {
-      "name": "Vishal acharya",
-      "email": "vishal.greenbowl@gmail.com"
+        "name": "Vishal acharya",
+        "email": "vishal.greenbowl@gmail.com"
     },
     "scripts": {
         "lint": "eslint \"**/*.ts*\"",
         "dev": "nodemon",
         "build": "etsc",
-        "clean": "rm -rf .turbo && rm -rf node_modules"
+        "clean": "rm -rf .turbo && rm -rf node_modules",
+        "publish-patch": "npm version patch && npm publish",
+        "publish-major": "npm version major && npm publish",
+        "publish-minor": "npm version minor && npm publish"
     },
     "dependencies": {
         "zod": "3.21.4"
     }
-  }
+}
