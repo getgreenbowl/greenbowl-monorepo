@@ -10,7 +10,7 @@
     "deploy": "npm-run-all build start",
     "dev": "nodemon",
     "db:sync": "node ./dist/server.js --sync",
-    "clean": "rm -rf .turbo && rm -rf node_modules"
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },
   "author": "",
   "license": "ISC",

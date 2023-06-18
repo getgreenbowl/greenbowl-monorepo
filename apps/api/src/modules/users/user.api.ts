@@ -6,7 +6,7 @@ import { success, unauthorized } from "proses-response";
 import { checkPassword } from "../../core/utils/password-hash";
 import { _Object } from "dshelpers";
 import Session from "../../core/middlewares/jwt.middleware";
-import {v_user} from "greenbowl-schema"
+import { v_user } from "greenbowl-schema";
 
 const UserRouter = Router();
 
@@ -16,7 +16,7 @@ const _formatPlainUser = (user: any) => {
 
 UserRouter.post(
   "/login",
-  validate({body: v_user}),
+  validate({ body: v_user }),
   ah(async (req, res) => {
     const user = await User.findOne({
       where: {
