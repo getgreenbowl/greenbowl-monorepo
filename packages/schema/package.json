@@ -13,9 +13,9 @@
         "dev": "tsc --watch",
         "build": "tsc",
         "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
-        "publish-patch": "npm version patch && npm publish",
-        "publish-major": "npm version major && npm publish",
-        "publish-minor": "npm version minor && npm publish"
+        "publish-patch": "tsc && npm version patch && npm publish",
+        "publish-major": "tsc && npm version major && npm publish",
+        "publish-minor": "tsc && npm version minor && npm publish"
     },
     "dependencies": {
         "zod": "3.21.4"
