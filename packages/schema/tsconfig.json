@@ -1,11 +1,29 @@
 {
-    "compilerOptions": {
-      "lib": ["ES2015"],
-      "module": "CommonJS",
-      "outDir": "./dist",
-      "rootDir": "./src"
-    },
-    "exclude": ["node_modules"],
-    "extends": "tsconfig/base.json",
-    "include": ["src", "src/index.d.ts"]
+  "files": ["src/index.ts"],
+  "compilerOptions": {
+    "target": "es2015",
+    "module": "es2015",
+    "declaration": true,
+    "outDir": "./dist",
+    "noEmit": false,
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "strictBindCallApply": true,
+    "strictPropertyInitialization": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+    "moduleResolution":"node"
   }
+}

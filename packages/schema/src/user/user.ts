@@ -1,16 +1,17 @@
 import { z } from "zod";
 import { ListResponse, Response } from "../shared/shared";
+import { errorMessages } from "../messages";
 
 export const v_user = z.object({
- id: z.number(),
- password: z.string(),
- name: z.string(),
+ id: z.number(errorMessages),
+ password: z.string(errorMessages).min(1, errorMessages.required_error),
+ name: z.string(errorMessages).min(1, errorMessages.required_error),
  email: z.string().optional(),
- mobile: z.string(),
+ mobile: z.string(errorMessages).min(1, errorMessages.required_error),
  createdAt: z.string().optional(),
  otp: z.number().optional(),
  otpVerified: z.number().optional(),
- active: z.boolean(),
+ active: z.boolean(errorMessages)
 })
 
 export type TUser = z.infer<typeof v_user>;
