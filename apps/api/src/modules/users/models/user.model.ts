@@ -1,19 +1,20 @@
 import { TUser } from "greenbowl-schema";
 import {
-  DataTypes
+  DataTypes, Optional
 } from "sequelize";
 import DbConnection from "../../../core/db/db";
 import { hashPassword } from "../../../core/utils/password-hash";
 import { G_Model } from "../../../types/shared";
 
-interface User extends G_Model<User>, TUser {}
+type UserCreationAttributes = Optional<TUser, 'id'>;
+interface User extends G_Model<User>, UserCreationAttributes {}
 
-export const User = DbConnection.db.define<User>('User',       {
+export const User = DbConnection.db.define<User, UserCreationAttributes>('User',{
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
     autoIncrement: true,
-    unique: true,
+    unique: true
   },
   email: {
     type: DataTypes.STRING,
