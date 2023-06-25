@@ -6,7 +6,8 @@
     "dev": "ng serve --port=4001",
     "build": "./node_modules/@angular/cli/bin/ng build",
     "watch": "./node_modules/@angular/cli/bin/ng build --watch --configuration development",
-    "test": "./node_modules/@angular/cli/bin/ng test"
+    "test": "./node_modules/@angular/cli/bin/ng test",
+    "clean": "rm -rf .turbo && rm -rf node_modules"
   },
   "private": true,
   "dependencies": {
@@ -19,14 +20,12 @@
     "@angular/platform-browser": "^16.0.2",
     "@angular/platform-browser-dynamic": "^16.0.2",
     "@angular/router": "^16.0.2",
-    "@ng-select/ng-select": "^10.0.4",
+    "@ng-select/ng-select": "^11.0.0",
     "bootstrap": "^5.2.3",
     "class-variance-authority": "^0.6.0",
     "clsx": "^1.2.1",
     "gb-ngx-ui": "^0.0.2",
-    "greenbowl-data-models": "*",
     "greenbowl-schema": "*",
-    "lucide-angular": "^0.220.0",
     "rxjs": "~7.8.1",
     "subsink": "^1.0.2",
     "tslib": "^2.5.2",
