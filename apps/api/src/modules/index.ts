@@ -9,7 +9,7 @@ import UserRouter from "./users/user.api";
 
 const moduleWrapper = (app: Application) => {
     app
-    .use('/users', UserRouter)
+    .use('/user', UserRouter)
     .use('/menu', MenuRouter)
     .use('/items', ItemRouter)
     .use('/role', RoleRouter)

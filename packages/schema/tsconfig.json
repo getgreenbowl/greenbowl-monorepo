@@ -1,8 +1,9 @@
 {
   "files": ["src/index.ts"],
   "compilerOptions": {
-    "target": "es2015",
-    "module": "es2015",
+    "target": "ES2019",
+    "module": "CommonJS",
+    "lib": ["ES2019"],
     "declaration": true,
     "outDir": "./dist",
     "noEmit": false,

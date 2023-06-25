@@ -6,7 +6,8 @@
     "dev": "ng serve --port=4001",
     "build": "./node_modules/@angular/cli/bin/ng build",
     "watch": "./node_modules/@angular/cli/bin/ng build --watch --configuration development",
-    "test": "./node_modules/@angular/cli/bin/ng test"
+    "test": "./node_modules/@angular/cli/bin/ng test",
+    "clean": "rm -rf .turbo && rm -rf node_modules"
   },
   "private": true,
   "dependencies": {
@@ -24,7 +25,6 @@
     "class-variance-authority": "^0.6.0",
     "clsx": "^1.2.1",
     "gb-ngx-ui": "^0.0.2",
-    "greenbowl-data-models": "*",
     "greenbowl-schema": "*",
     "rxjs": "~7.8.1",
     "subsink": "^1.0.2",

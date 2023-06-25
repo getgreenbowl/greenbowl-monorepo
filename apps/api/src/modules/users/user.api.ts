@@ -28,34 +28,35 @@ UserRouter.post(
 
     //invalid mobile number
     if (!user) {
-      return unauthorized(res, "Invalid User");
+      return other(res, "No user found");
     }
 
     if (user.active === false) {
-      return unauthorized(res, "Invalid User");
+      return other(res, "No user found");
     }
 
     //wrong password
-    if (!checkPassword(user.password, req.body.password)) {
-      return unauthorized(res, "Invalid password");
+    if (!checkPassword(req.body.password, user.password)) {
+      return other(res, "Invalid password");
     }
 
     const payload = _formatPlainUser(user);
-    const token = Session.generateToken(payload);
+    const token = Session.generateToken(payload);    
     success(res, { token, user: payload }, "login successfully");
   })
 );
 
 UserRouter.post(
   "/register",
-  validate({ body: v_user.omit({ id: true }) }),
+  validate({ body: v_user.pick({ mobile:true, name: true, password: true }) }),
   ah(async (req, res) => {
     const [user, created] = await User.findOrCreate({
       where: { mobile: req.body.mobile },
       defaults: req.body,
     });
 
-    if (user) {
+    
+    if (!created) {
       return other(res, "User already exists");
     }
 

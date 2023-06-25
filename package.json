@@ -10,7 +10,6 @@
     "nohoist": ["**/admin/**"]
   },
   "scripts": {
-    "build-no-mobile": "turbo run build --filter=!rnative",
     "build:server": "turbo run build --filter=api",
     "deploy:server": "turbo run start --filter=api",
     "deploy:web": "turbo run start --filter=web",
@@ -23,7 +22,8 @@
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "prepare": "husky install",
-    "db:sync": "turbo run db:sync --filter=api"    
+    "db:sync": "turbo run db:sync --filter=api",
+    "build-schema": "turbo run build --filter=greenbowl-schema"  
   },
   "devDependencies": {
     "eslint-config-custom": "*",

@@ -6,7 +6,7 @@ import DbConnection from "../../../core/db/db";
 import { hashPassword } from "../../../core/utils/password-hash";
 import { G_Model } from "../../../types/shared";
 
-type UserCreationAttributes = Optional<TUser, 'id'>;
+type UserCreationAttributes = Optional<TUser, 'id' | 'active'>;
 interface User extends G_Model<User>, UserCreationAttributes {}
 
 export const User = DbConnection.db.define<User, UserCreationAttributes>('User',{
@@ -31,9 +31,9 @@ export const User = DbConnection.db.define<User, UserCreationAttributes>('User',
   password: {
     type: DataTypes.STRING,
     allowNull: false,
-    set(this: User, value: string) {
+    set(this: User, value: string) {      
       let hash = hashPassword(value);
-      this.setDataValue("password", hash);
+      this.setDataValue('password', hash);
     },
   },
   otp: {
