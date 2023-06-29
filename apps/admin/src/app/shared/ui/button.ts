@@ -1,0 +1,100 @@
+import { NgIf } from '@angular/common';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnChanges,
+  SimpleChanges,
+  EventEmitter,
+  Output,
+} from '@angular/core';
+import { cva, VariantProps } from 'class-variance-authority';
+import { SgbIconComponent } from './icon';
+
+const buttonVariants = cva(
+  'inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none ring-offset-background',
+  {
+    variants: {
+      variant: {
+        default:
+          'bg-primary text-primary-foreground hover:bg-primary/90 w-full',
+        destructive:
+          'bg-destructive text-destructive-foreground hover:bg-destructive/90 w-full',
+        outline:
+          'border border-input hover:bg-accent hover:text-accent-foreground w-full',
+        secondary:
+          'bg-secondary text-secondary-foreground hover:bg-secondary/80 w-full',
+        ghost: 'hover:bg-accent hover:text-accent-foreground',
+        link: 'underline-offset-4 hover:underline text-primary',
+      },
+      size: {
+        default: 'h-10 py-2 px-4',
+        sm: 'h-9 px-3 rounded-md',
+        lg: 'h-11 px-8 rounded-md',
+        icon: 'h-10 w-10',
+      },
+    },
+    defaultVariants: {
+      variant: 'default',
+      size: 'default',
+    },
+  }
+);
+
+@Component({
+  selector: 'sgb-button',
+  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [NgIf, SgbIconComponent],
+  template: `<button
+      [type]="type"
+      [disabled]="disabled"
+      (click)="handleClick.emit($event)"
+      [class]="defaultClass"
+      *ngIf="!icon"
+    >
+      {{ text }}
+    </button>
+    <button
+      [type]="type"
+      [disabled]="disabled"
+      (click)="handleClick.emit($event)"
+      [class]="defaultClass"
+      *ngIf="icon"
+    >
+      <sgb-icon [icon]="icon" />
+    </button> `,
+})
+export class SgbButtonComponent implements OnChanges {
+  @Input() text = '';
+  @Output() handleClick = new EventEmitter();
+  @Input() type: 'submit' | 'button' = 'submit';
+  @Input() disabled = false;
+  @Input() variant: VariantProps<typeof buttonVariants>['variant'] = 'default';
+  @Input() loading = false;
+  @Input() icon = '';
+
+  protected defaultClass = buttonVariants({ variant: this.variant });
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['variant']?.currentValue) {
+      this.defaultClass = buttonVariants({
+        variant: changes['variant'].currentValue,
+      });
+    }
+
+    if (changes['icon']?.currentValue) {
+      this.defaultClass = buttonVariants({
+        size: 'icon',
+        variant: this.variant,
+      });
+    }
+
+    if (
+      changes['loading']?.currentValue ||
+      changes['loading']?.currentValue === false
+    ) {
+      this.disabled = changes['loading']?.currentValue;
+    }
+  }
+}

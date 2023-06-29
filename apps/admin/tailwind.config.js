@@ -1,5 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  darkMode: 'class',
+
   content: ["./src/**/*.{html,ts}"],
   theme: {
     container: {
@@ -44,6 +46,9 @@ module.exports = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        brand: {
+          DEFAULT: "#064e3b"
+        }
       },
       borderRadius: {
         lg: 'var(--radius)',
@@ -65,6 +70,34 @@ module.exports = {
         "accordion-up": "accordion-up 0.2s ease-out",
       },
     },
+    fontWeight: {
+      thin: '100',
+      hairline: '100',
+      extralight: '200',
+      light: '300',
+      normal: '400',
+      medium: '500',
+      semibold: '600',
+      bold: '700',
+      extrabold: '800',
+      'extra-bold': '800',
+      black: '900',
+    },
+    fontSize: {
+      xs: ['0.75rem', '1rem'],
+      sm: ['0.875rem', '1.25rem'],
+      base: ['1rem', '1.5rem'],
+      lg: ['1.125rem', '1.75rem'],
+      xl: ['1.25rem', '1.75rem'],
+      '2xl': ['1.5rem', '2rem'],
+      '3xl': ['1.875rem', '2.25rem'],
+      '4xl': ['2.25rem', '2.5rem'],
+      '5xl': ['3rem', '1rem'],
+      '6xl': ['3.75rem', '1rem'],
+      '7xl': ['4.5rem', '1rem'],
+      '8xl': ['6rem', '1rem'],
+      '9xl': ['8rem', '1rem']
+    }
   },
   plugins: [],
 }
