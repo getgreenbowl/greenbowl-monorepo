@@ -19,7 +19,7 @@ export class ApiService {
   constructor(private _http: HttpClient) {}
 
   private makeURL(endpoint: string) {
-    return `http://localhost:3000${endpoint}`;
+    return `https://jsonplaceholder.typicode.com${endpoint}`;
   }
 
   get<T>(endpoint: string, queryParams?: QueryParams): Observable<T> {

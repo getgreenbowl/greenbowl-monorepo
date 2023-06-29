@@ -19,28 +19,26 @@ import { CommonModule } from '@angular/common';
       <ng-container
         *ngTemplateOutlet="
           action;
-          context: { icon, column, cellData, handleClick, tooltip  }
+          context: { $implicit: icon, column, cellData }
         "
       ></ng-container>
     </ng-container>
-    <span
-    *ngIf="!action"
-    class="material-symbols-sharp"
-    (click)="handleClick.emit({cellData, column})"
-    [title]="tooltip || 'action'"
-    >
-{{icon}}
-</span>`,
+    <i
+      *ngIf="!action"
+      [class]="icon + ' fa-xs pointer px-1'"
+      [title]="tooltip || 'action'"
+      (click)="handleClick.emit({cellData, column})"
+    ></i>`,
 })
 export class GbActionComponent {
   @Input() icon!: string;
   @Input() tooltip = '';
   @Input() cellData?: any;
   @Input() column?: GbGridColumnsComponent;
-  @Input() action?:TemplateRef<GbActionComponent> | null = null;
+  @Input() action:TemplateRef<GbActionComponent> | null = null;
 
   @Output() handleClick = new EventEmitter();
 
-  @ContentChild('template') _action?: TemplateRef<GbActionComponent> | null = null;
+  @ContentChild('template') _action: TemplateRef<GbActionComponent> | null = null;
 
 }

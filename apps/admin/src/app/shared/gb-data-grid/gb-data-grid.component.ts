@@ -14,9 +14,7 @@ import {
 import { GridDataService } from './services/data.service';
 import { GridColumnService } from './services/columns.service';
 import { GbGridColumnsComponent } from './components/base-table/columns';
-import {
-  STATIC_ACTION_HEADER
-} from './types';
+import { STATIC_ACTION_HEADER } from './types';
 import { ActionService } from './services/actions.service';
 import { LoadingService } from './services/loading.service';
 import { ToolbarService } from './services/toolbar.service';
@@ -56,20 +54,20 @@ export class GbDataGridComponent
   @ContentChildren(GbGridColumnsComponent)
   columns!: QueryList<GbGridColumnsComponent>;
 
-  @ContentChildren(GbActionComponent) actions?: QueryList<GbActionComponent>
+  @ContentChildren(GbActionComponent) actions?: QueryList<GbActionComponent>;
 
-  @ContentChildren(GbGridToolbarComponent) toolbar?: QueryList<GbGridToolbarComponent>;
+  @ContentChildren(GbGridToolbarComponent)
+  toolbar?: QueryList<GbGridToolbarComponent>;
 
   ngAfterContentInit(): void {
-      this.updateColumns(this.columns);
-      if(this.actions) {
-        this.actionService.updateActions(this.actions)
-      }
+    this.updateColumns(this.columns);
+    if (this.actions) {
+      this.actionService.updateActions(this.actions);
+    }
 
-      if(this.toolbar) {
-        this.toolbarService.updateToolbar(this.toolbar)
-      }
-
+    if (this.toolbar) {
+      this.toolbarService.updateToolbar(this.toolbar);
+    }
   }
 
   ngOnInit(): void {
@@ -85,7 +83,10 @@ export class GbDataGridComponent
       this.gridData.updateData(changes['data'].currentValue);
     }
 
-    if (changes['loading']?.currentValue) {
+    if (
+      changes['loading']?.currentValue ||
+      changes['loading']?.currentValue === false
+    ) {
       this.loader.updateLoader(changes['loading'].currentValue);
     }
 
@@ -106,7 +107,7 @@ export class GbDataGridComponent
     if (this.actions?.length) {
       _columns.push(STATIC_ACTION_HEADER);
     }
-    col.reset(_columns)
+    col.reset(_columns);
     this.columnService.updateColumns(col);
   }
 }

@@ -1,7 +1,7 @@
-<div class="wrapper">
-  <gb-header></gb-header>
-  <gb-sidebar></gb-sidebar>
-  <div id="content">
+<div class="antialiased">
+  <!-- <gb-header></gb-header> -->
+  <gb-sidebar (changeTheme)="changeTheme($event)" [theme]="theme"></gb-sidebar>
+  <main class="p-4 md:ml-64 h-auto bg-background text-card-foreground min-h-screen">
     <router-outlet></router-outlet>
-  </div>
+  </main>
 </div>
