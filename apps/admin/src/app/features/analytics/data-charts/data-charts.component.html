@@ -1,29 +1,13 @@
-<h3 class="font-bold text-3xl pb-4">Dashboard</h3>
-<div class="grid grid-cols-3 gap-4">
-  <div sgb-card *ngFor="let i of [1, 2, 3]">
-    <div
-      sgb-card-header
-      class="flex-row items-center justify-between space-y-1 p-6"
-    >
-      <div sgb-card-title>Total Revenue</div>
-      <sgb-icon icon="person" />
-    </div>
-    <div sgb-card-content>
-      <p class="text-2xl font-bold">$45,231.89</p>
-      <p class="text-xs text-muted-foreground">+20.1% from last month</p>
-    </div>
-  </div>
+<div class="row">
+  <gb-card class="col-md-4" cardTitle="Total Orders">
+    <p class="h1">100</p>
+  </gb-card>
+  <gb-card class="col-md-4" cardTitle="App users">
+    <p class="h1">100</p>
+  </gb-card>
+  <gb-card class="col-md-4" cardTitle="Revenue">
+    <p class="h1">100</p>
+  </gb-card>
 </div>
-<div class="pt-4">
-  <p class="font-bold text-xl mb-3">Recent orders</p>
 
-  <gb-data-grid [data]="mock" [loading]="false" [collectionSize]="mock.length">
-    <gb-column field="id" alignment="left" />
-    <gb-column field="name" alignment="left" />
-    <gb-column field="pinCode" title="Pin Code" />
-    <gb-column field="value" />
-    <gb-column field="recieved" alignment="left">
-      <ng-container> </ng-container>
-    </gb-column>
-  </gb-data-grid>
-</div>
+<sgb-button  text="test"/>

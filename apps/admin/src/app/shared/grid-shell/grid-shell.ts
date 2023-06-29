@@ -10,7 +10,7 @@ import {
 import { GbDataGridModule } from '../gb-data-grid/gb-data-grid.module';
 import { GbGridColumnsComponent } from '../gb-data-grid/components/base-table/columns';
 import { ApiService } from '../services/api.service';
-import { Observable, catchError, map, of, tap } from 'rxjs';
+import { Observable, map, of, tap } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { GbActionComponent } from '../gb-data-grid/components/base-table/action';
 import { GbGridToolbarComponent } from '../gb-data-grid/components/toolbar/gb-toolbar';
@@ -25,7 +25,7 @@ import { GbGridToolbarComponent } from '../gb-data-grid/components/toolbar/gb-to
     GbActionComponent,
     GbGridToolbarComponent,
   ],
-  template: ` <gb-data-grid
+  template: `<gb-data-grid
     [data]="data$ | async"
     [loading]="loading"
     [collectionSize]="collectionSize"
@@ -120,15 +120,11 @@ export class GbGridShellComponent implements OnInit {
     }
     this.loading = true;
     this.data$ = this.api.get<any>(this.apiURL).pipe(
-      map((data: any) => {
+      map(({data}: any) => {
         this.collectionSize = data['count'] || data?.length || 0;
-        this.loading = false;
-        return data;
+        return data.rows;
       }),
-      catchError(() => {
-        this.loading = false;
-        return of([]);
-      })
+      tap(() => (this.loading = false))
     );
   }
 }

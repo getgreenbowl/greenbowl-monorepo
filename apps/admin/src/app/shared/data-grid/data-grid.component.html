@@ -31,10 +31,7 @@
                 *ngIf="actualLoader"
                 class="text-center"
               ></grid-loader>
-              <p
-                class="text-center mt-5"
-                *ngIf="!(_ds.data$ | async)?.length && !actualLoader"
-              >
+              <p class="text-center mt-5" *ngIf="!(_ds.data$ | async)?.length && !actualLoader">
                 No data available !
               </p>
             </div>
@@ -47,14 +44,14 @@
             </div>
             <div class="col col-auto px-1">
               <!-- <p> -->
-              |&nbsp;&nbsp;Rows:&nbsp;<b>{{ totalCount | number }}</b>
+                |&nbsp;&nbsp;Rows:&nbsp;<b>{{ totalCount | number }}</b>
               <!-- </p> -->
             </div>
             <div class="col col-auto px-1">
               <!-- <p> -->
-              |&nbsp;&nbsp;Selected Rows:&nbsp;<b>{{
-                _ds.selectedCount(totalCount) | async | number
-              }}</b>
+                |&nbsp;&nbsp;Selected Rows:&nbsp;<b>{{
+                  _ds.selectedCount(totalCount) | async | number
+                }}</b>
               <!-- </p> -->
             </div>
           </div>

@@ -8,10 +8,11 @@ import { Router } from '@angular/router';
     apiURL="/items"
     (toolbarEvents)="toolbarClick($event)"
   >
-    <gb-toolbar icon="add" name="Add" />
-
     <!-- columns -->
     <gb-column field="id" alignment="left" />
+    <gb-column field="name" />
+    <gb-column field="calories" />
+    <gb-column field="energy" />
     <gb-column field="fat" />
     <gb-column field="protien" />
     <gb-column field="price" />
@@ -20,6 +21,13 @@ import { Router } from '@angular/router';
 })
 export class ListComponent {
   constructor(private router: Router) {}
+
+  // actions [
+  //   {
+  //     icon: 'fa-light fa-pen',
+  //     tooltip: 'edit',
+  //   },
+  // ];
 
   toolbarClick({ id }: { id: string; name: string }) {
     if (id === 'add') {

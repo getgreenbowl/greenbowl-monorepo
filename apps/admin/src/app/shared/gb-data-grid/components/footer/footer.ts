@@ -3,19 +3,19 @@ import { PaginationService } from '../../services/pagination.service';
 
 @Component({
   selector: 'table-footer',
-  template: `<div class="rounded-0 p-2 flex justify-between border-x border-b">
+  template: `<div class="rounded-0 p-2 d-flex justify-content-between border">
     <ng-container *ngIf="paginationService.pagination$ | async as pagination">
-      <div class="flex">
+      <div class="d-flex">
         <gb-grid-limit />
-        <div class="flex items-center pl-4">
-          Rows:
-          <span class="font-bold pl-2">{{
+        <div>
+          |&nbsp;&nbsp;Rows:&nbsp;<b>{{
             pagination.collectionSize | number
-          }}</span>
+          }}</b>
         </div>
       </div>
 
       <gb-pagination
+        class="f-right align-self-end"
         [collectionSize]="pagination.collectionSize"
         [pageSize]="pagination.limit"
         [page]="pagination.page"
@@ -23,7 +23,7 @@ import { PaginationService } from '../../services/pagination.service';
         [boundaryLinks]="true"
         [rotate]="true"
         (pageChange)="paginationService.updatePage($event)"
-        class="ml-auto flex"
+        class="ml-auto"
       />
     </ng-container>
   </div> `,

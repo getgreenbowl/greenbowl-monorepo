@@ -9,12 +9,12 @@ import { ActionService } from '../../services/actions.service';
   selector: 'base-data-table',
   styleUrls: ['../../gb-data-grid.scss'],
   template: `
-    <div class="w-full overflow-auto border">
+    <div class="table-responsive-sm gb-table-container">
       <table
         cdk-table
         recycleRows
         [dataSource]="gridData.data$"
-        class="w-full caption-bottom text-sm border-collapse"
+        class="table table-bordered table-sm table-hover mb-0"
       >
         <ng-container
           [cdkColumnDef]="column.field"
@@ -26,12 +26,10 @@ import { ActionService } from '../../services/actions.service';
             <th
               cdk-header-cell
               *cdkHeaderCellDef
-              [ngClass]="{
-                'text-left': column.alignment === 'left',
-                'text-center': column.alignment === 'center',
-                'text-right': column.alignment === 'right',
-              }"
-              class="h-10 text-sm px-4 font-medium capitalize tracking-md text-muted-foreground"
+              [class]="
+                'text-capitalize bg-800 fw-400 thead-dark text-' +
+                column.alignment
+              "
             >
               <ng-container *ngIf="!column.head; else columnHeadOutlet">
                 {{ column.title || column.field }}
@@ -55,12 +53,7 @@ import { ActionService } from '../../services/actions.service';
             <td
               cdk-cell
               *cdkCellDef="let element"
-              [ngClass]="{
-                'text-left': column.alignment === 'left',
-                'text-center': column.alignment === 'center',
-                'text-right': column.alignment === 'right',
-              }"
-              class="p-4"
+              [class]="'text-' + column.alignment"
             >
               <ng-container *ngIf="!column.cell; else cellOutlet">
                 {{ element[column.field] }}
@@ -87,7 +80,11 @@ import { ActionService } from '../../services/actions.service';
             </th></ng-template
           >
           <ng-template #gridActions>
-            <td cdk-cell *cdkCellDef="let element">
+            <td
+              cdk-cell
+              *cdkCellDef="let element"
+              class="text-center action-common"
+            >
               <gb-action
                 *ngFor="let action of actionService.actions$ | async"
                 [icon]="action.icon"
@@ -103,13 +100,12 @@ import { ActionService } from '../../services/actions.service';
         </ng-container>
 
         <tr
-          class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted"
+          class=" text-white"
           cdk-header-row
           *cdkHeaderRowDef="columnService.fields$ | async; sticky: true"
         ></tr>
         <tr
           cdk-row
-          class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted"
           *cdkRowDef="let row; columns: columnService.fields$ | async"
         ></tr>
 
@@ -119,13 +115,8 @@ import { ActionService } from '../../services/actions.service';
             class="text-center py-5"
             [colSpan]="columnService.totalColumns$ | async"
           >
-            <span
-              *ngIf="loader.loading$ | async; else nodata"
-              class="flex justify-center items-center"
-            >
-              <div
-                class="animate-spin rounded-full h-20 w-20 border-t-2 border-b-2 border-gray-900"
-              ></div>
+            <span *ngIf="loader.loading$ | async; else nodata">
+              <i class="fas fa-circle-notch fa-spin fa-2xl"></i>
             </span>
             <ng-template #nodata>
               <span>No data</span>

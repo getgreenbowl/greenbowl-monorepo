@@ -11,6 +11,7 @@ export class LoadingService {
   }
 
   updateLoader(value: boolean) {
-    this._loading.next(value);
+    this._loading.next(value)
   }
+
 }

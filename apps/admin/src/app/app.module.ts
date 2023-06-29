@@ -8,10 +8,8 @@ import { SidebarComponent } from './layout/helpers/sidebar/sidebar.component';
 import { HeaderComponent } from './layout/helpers/header/header.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CdkTreeModule } from '@angular/cdk/tree';
-import { SgbButtonComponent } from './shared/ui/button';
-import { SgbInputDirective } from './shared/ui/input/input.directive';
-import { SgbIconComponent } from './shared/ui/icon';
+import {CdkTreeModule} from '@angular/cdk/tree';
+
 
 @NgModule({
   declarations: [
@@ -25,10 +23,7 @@ import { SgbIconComponent } from './shared/ui/icon';
     BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
-    CdkTreeModule,
-    SgbButtonComponent,
-    SgbInputDirective,
-    SgbIconComponent,
+    CdkTreeModule
   ],
   providers: [HttpClient],
   bootstrap: [AppComponent],

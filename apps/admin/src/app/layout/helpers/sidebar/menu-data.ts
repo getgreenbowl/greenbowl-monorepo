@@ -2,25 +2,22 @@ export const MENU = [
   {
     name: 'Analytics',
     link: '/',
-    children: [],
-    icon: 'show_chart',
+    children: []
   },
   {
     name: 'Menu management',
     link: '/menu',
-    children: [],
-    icon: 'menu_book',
+    children: []
   },
   {
     name: 'App users',
     link: '/app-users',
-    children: [],
-    icon: 'group',
+    children: []
   },
   {
     name: 'Subscription',
     link: '/subscription',
-    children: [],
-    icon: 'subscriptions',
+    children: []
   },
+
 ] as const;

@@ -7,6 +7,7 @@ import { BaseDataTableComponent } from './components/base-table/base-table';
 import { GridColumnService } from './services/columns.service';
 import { GbGridColumnsComponent } from './components/base-table/columns';
 import { ActionService } from './services/actions.service';
+import { ClsxPipe } from './pipes/clsx';
 import { LoadingService } from './services/loading.service';
 import { ToolbarService } from './services/toolbar.service';
 import { GbTableFooterComponent } from './components/footer/footer';
@@ -17,24 +18,23 @@ import { MetaDataService } from './services/meta-data.service';
 import { GbActionComponent } from './components/base-table/action';
 import { GridToolbarComponent } from './components/toolbar/toolbar';
 import { GbGridToolbarComponent } from './components/toolbar/gb-toolbar';
-import { SgbBtnGroupModule } from '../ui/button-group/btn-group.module';
 
 @NgModule({
   declarations: [
     GbDataGridComponent,
     BaseDataTableComponent,
     GbTableFooterComponent,
+    ClsxPipe,
     GbPaginationComponent,
     GbGridLimitComponent,
-    GridToolbarComponent,
+    GridToolbarComponent
   ],
   imports: [
     CdkTableModule,
     CommonModule,
     GbGridColumnsComponent,
     GbActionComponent,
-    GbGridToolbarComponent,
-    SgbBtnGroupModule,
+    GbGridToolbarComponent
   ],
   providers: [
     GridDataService,
@@ -43,7 +43,7 @@ import { SgbBtnGroupModule } from '../ui/button-group/btn-group.module';
     LoadingService,
     ToolbarService,
     PaginationService,
-    MetaDataService,
+    MetaDataService
   ],
   exports: [GbDataGridComponent],
 })
