@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
 import { ToolbarService } from '../../services/toolbar.service';
-import { ToolbarOptions } from '../../types';
-import { slugify } from '../../utils';
 import { MetaDataService } from '../../services/meta-data.service';
 import { combineLatest, map, of } from 'rxjs';
 
@@ -35,10 +33,5 @@ export class GridToolbarComponent {
       this.meta.gridTitle$,
       this.toolbarService.options$,
     ]).pipe(map(([title, options]) => !!title || !!options?.length));
-  }
-
-  handleOptionClick({ emit, name }: ToolbarOptions) {
-    if (emit === false) return;
-    this.toolbarService.emit({ name, id: slugify(name) });
   }
 }

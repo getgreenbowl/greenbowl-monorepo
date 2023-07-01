@@ -3,12 +3,8 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-list',
-  template: `<gb-grid-shell
-    gridTitle="Menu"
-    apiURL="/items"
-    (toolbarEvents)="toolbarClick($event)"
-  >
-    <gb-toolbar icon="add" name="Add" />
+  template: `<gb-grid-shell gridTitle="Menu" apiURL="/items">
+    <gb-toolbar icon="add" name="Add" (handleClick)="addItem()" />
 
     <!-- columns -->
     <gb-column field="id" alignment="left" />
@@ -21,9 +17,7 @@ import { Router } from '@angular/router';
 export class ListComponent {
   constructor(private router: Router) {}
 
-  toolbarClick({ id }: { id: string; name: string }) {
-    if (id === 'add') {
-      this.router.navigate(['/menu/add']);
-    }
+  addItem() {
+    this.router.navigate(['/menu/add']);
   }
 }

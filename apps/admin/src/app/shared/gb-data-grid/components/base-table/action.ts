@@ -8,13 +8,14 @@ import {
   EventEmitter,
 } from '@angular/core';
 import { GbGridColumnsComponent } from './columns';
-import { CommonModule } from '@angular/common';
+import { NgIf } from '@angular/common';
+import { SgbIconComponent } from 'src/app/shared/ui/icon';
 
 @Component({
   selector: 'gb-action',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule],
+  imports: [NgIf, SgbIconComponent],
   template: ` <ng-container *ngIf="action">
       <ng-container
         *ngTemplateOutlet="
@@ -23,12 +24,10 @@ import { CommonModule } from '@angular/common';
         "
       ></ng-container>
     </ng-container>
-    <i
-      *ngIf="!action"
-      [class]="icon + ' fa-xs pointer px-1'"
-      [title]="tooltip || 'action'"
-      (click)="handleClick.emit({cellData, column})"
-    ></i>`,
+    <sgb-icon
+    *ngIf="!action"
+    (click)="handleClick.emit({cellData, column})"
+    [icon]="icon" />`,
 })
 export class GbActionComponent {
   @Input() icon!: string;

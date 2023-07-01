@@ -44,35 +44,23 @@ const buttonVariants = cva(
 @Component({
   selector: 'sgb-button',
   standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  // changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [NgIf, SgbIconComponent],
   template: `<button
       [type]="type"
       [disabled]="disabled"
       (click)="handleClick.emit($event)"
       [class]="defaultClass"
-      *ngIf="!icon"
     >
-      {{ text }}
-    </button>
-    <button
-      [type]="type"
-      [disabled]="disabled"
-      (click)="handleClick.emit($event)"
-      [class]="defaultClass"
-      *ngIf="icon"
-    >
-      <sgb-icon [icon]="icon" />
-    </button> `,
+      <ng-content></ng-content>
+    </button>`,
 })
 export class SgbButtonComponent implements OnChanges {
-  @Input() text = '';
   @Output() handleClick = new EventEmitter();
   @Input() type: 'submit' | 'button' = 'submit';
   @Input() disabled = false;
   @Input() variant: VariantProps<typeof buttonVariants>['variant'] = 'default';
   @Input() loading = false;
-  @Input() icon = '';
 
   protected defaultClass = buttonVariants({ variant: this.variant });
 
@@ -80,13 +68,6 @@ export class SgbButtonComponent implements OnChanges {
     if (changes['variant']?.currentValue) {
       this.defaultClass = buttonVariants({
         variant: changes['variant'].currentValue,
-      });
-    }
-
-    if (changes['icon']?.currentValue) {
-      this.defaultClass = buttonVariants({
-        size: 'icon',
-        variant: this.variant,
       });
     }
 

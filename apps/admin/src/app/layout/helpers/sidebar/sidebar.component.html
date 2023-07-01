@@ -1,10 +1,10 @@
 <aside
-  class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full dark:bg-white border-r dark:border-gray-200 md:translate-x-0 bg-gray-800 border-gray-700"
+  class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full border-r md:translate-x-0 bg-gray-800 border-gray-700"
   aria-label="Sidenav"
   id="drawer-navigation"
 >
   <div
-    class="overflow-y-auto py-5 px-3 h-full dark:bg-white bg-black flex flex-col justify-between"
+    class="overflow-y-auto py-5 px-3 h-full bg-black flex flex-col justify-between"
   >
     <div>
       <div class="flex justify-center items-center mb-4">
@@ -13,7 +13,7 @@
           >gb</span
         >
         <span
-          class="text-md font-semibold whitespace-nowrap text-white dark:text-gray-900 underline"
+          class="text-md font-semibold whitespace-nowrap text-white underline"
           >greenbowl</span
         >
       </div>
@@ -21,9 +21,9 @@
         <li *ngFor="let m of menu">
           <a
             [routerLink]="m.link"
-            routerLinkActive="dark:bg-gray-100 bg-gray-800"
+            routerLinkActive="bg-gray-800"
             [routerLinkActiveOptions]="{ exact: true }"
-            class="flex items-center p-2 text-base font-medium dark:text-gray-900 rounded-lg text-white dark:hover:bg-gray-100 hover:bg-gray-800 group"
+            class="flex items-center p-2 text-base font-medium rounded-lg text-white hover:bg-gray-800 group"
           >
             <sgb-icon [icon]="m.icon" />
             <span class="ml-3">{{ m.name }}</span>
@@ -35,7 +35,7 @@
       <li *ngIf="theme === 'light'">
         <a
           (click)="changeTheme.emit('dark')"
-          class="flex items-center p-2 text-base font-medium dark:text-gray-900 rounded-lg text-white dark:hover:bg-gray-100 hover:bg-gray-700 group cursor-pointer"
+          class="flex items-center p-2 text-base font-medium dark:text-gray-900 rounded-lg text-white hover:bg-gray-700 group cursor-pointer"
         >
           <sgb-icon icon="dark_mode" />
           <span class="ml-3">Dark</span>
@@ -44,7 +44,7 @@
       <li *ngIf="theme === 'dark'">
         <a
           (click)="changeTheme.emit('light')"
-          class="flex items-center p-2 text-base font-medium dark:text-gray-900 rounded-lg text-white dark:hover:bg-gray-100 hover:bg-gray-700 group cursor-pointer"
+          class="flex items-center p-2 text-base font-medium rounded-lg text-white hover:bg-gray-700 group cursor-pointer"
         >
           <sgb-icon icon="light_mode" />
           <span class="ml-3">Light</span>
@@ -53,7 +53,7 @@
       <li>
         <a
           routerLink="/auth"
-          class="flex items-center p-2 text-base font-medium dark:text-gray-900 rounded-lg text-white dark:hover:bg-gray-100 hover:bg-gray-700 group"
+          class="flex items-center p-2 text-base font-medium rounded-lg text-white hover:bg-gray-700 group"
         >
           <sgb-icon icon="logout" />
           <span class="ml-3">Logout</span>

@@ -9,7 +9,7 @@ import { ActionService } from '../../services/actions.service';
   selector: 'base-data-table',
   styleUrls: ['../../gb-data-grid.scss'],
   template: `
-    <div class="w-full overflow-auto border">
+    <div class="w-full overflow-auto border h-[70vh] no-scrollbar">
       <table
         cdk-table
         recycleRows
@@ -31,7 +31,7 @@ import { ActionService } from '../../services/actions.service';
                 'text-center': column.alignment === 'center',
                 'text-right': column.alignment === 'right',
               }"
-              class="h-10 text-sm px-4 font-medium capitalize tracking-md text-muted-foreground"
+              class="h-10 text-sm px-4 font-medium capitalize tracking-md text-muted-foreground bg-background"
             >
               <ng-container *ngIf="!column.head; else columnHeadOutlet">
                 {{ column.title || column.field }}
@@ -116,7 +116,7 @@ import { ActionService } from '../../services/actions.service';
         <!-- NO DATA -->
         <tr *cdkNoDataRow>
           <td
-            class="text-center py-5"
+            class="text-center py-5 h-[60vh]"
             [colSpan]="columnService.totalColumns$ | async"
           >
             <span

@@ -28,9 +28,7 @@ import { GbGridToolbarComponent } from './components/toolbar/gb-toolbar';
   templateUrl: './gb-data-grid.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class GbDataGridComponent
-  implements OnChanges, AfterContentInit, OnInit
-{
+export class GbDataGridComponent implements OnChanges, AfterContentInit {
   constructor(
     private gridData: GridDataService,
     private columnService: GridColumnService,
@@ -49,8 +47,6 @@ export class GbDataGridComponent
   @Input() collectionSize = 0;
   @Input() gridTitle = '';
 
-  @Output() toolbarEvents = new EventEmitter();
-
   @ContentChildren(GbGridColumnsComponent)
   columns!: QueryList<GbGridColumnsComponent>;
 
@@ -68,14 +64,6 @@ export class GbDataGridComponent
     if (this.toolbar) {
       this.toolbarService.updateToolbar(this.toolbar);
     }
-  }
-
-  ngOnInit(): void {
-    this._updateEmitters();
-  }
-
-  private _updateEmitters() {
-    this.toolbarService.updateEmitter(this.toolbarEvents);
   }
 
   ngOnChanges(changes: SimpleChanges): void {

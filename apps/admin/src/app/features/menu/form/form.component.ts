@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 // import { TMenu } from 'greenbowl-schema';
 import { map } from 'rxjs';
@@ -15,7 +15,7 @@ export class FormComponent {
   showErrors = false;
   menu$ = this.api.get<any>('/menu').pipe(map((res) => res.data));
   ingredients$ = this.api.get<any>('/ingredients').pipe(map((res) => res.data));
-  submitButton: 'submit'|'loading'|'added'|'error' = 'submit'
+  submitButton: 'submit' | 'loading' | 'added' | 'error' = 'submit';
   menuForm = this.fb.group({
     menuID: [null, Validators.required],
     name: ['', Validators.required],
@@ -32,11 +32,10 @@ export class FormComponent {
     return this.menuForm.controls;
   }
 
-
   handleSubmit() {
-    if(this.menuForm.invalid) {
-    this.showErrors = true;
-      return
+    if (this.menuForm.invalid) {
+      this.showErrors = true;
+      return;
     }
     this.submitButton = 'loading';
     this.api.post<any[]>('/items', this.menuForm.value).subscribe({
@@ -44,7 +43,7 @@ export class FormComponent {
         this.showErrors = false;
         this.submitButton = 'added';
         setTimeout(() => {
-          this.submitButton = 'submit'
+          this.submitButton = 'submit';
         }, 1500);
         this.menuForm.reset();
       },
@@ -52,11 +51,11 @@ export class FormComponent {
         console.log(err);
         this.submitButton = 'error';
         setTimeout(() => {
-          this.submitButton = 'submit'
+          this.submitButton = 'submit';
         }, 1500);
-        alert(err.error)
-      }
-    })
+        alert(err.error);
+      },
+    });
     console.log(this.menuForm.value, 'form value');
   }
 }

@@ -10,7 +10,6 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CdkTreeModule } from '@angular/cdk/tree';
 import { SgbButtonComponent } from './shared/ui/button';
-import { SgbInputDirective } from './shared/ui/input/input.directive';
 import { SgbIconComponent } from './shared/ui/icon';
 
 @NgModule({
@@ -27,7 +26,6 @@ import { SgbIconComponent } from './shared/ui/icon';
     HttpClientModule,
     CdkTreeModule,
     SgbButtonComponent,
-    SgbInputDirective,
     SgbIconComponent,
   ],
   providers: [HttpClient],

@@ -10,6 +10,9 @@ import { PageHeaderComponent } from 'src/app/shared/page-header/page-header.comp
 import { GbGridShellComponent } from 'src/app/shared/grid-shell/grid-shell';
 import { GbGridColumnsComponent } from 'src/app/shared/gb-data-grid/components/base-table/columns';
 import { GbGridToolbarComponent } from 'src/app/shared/gb-data-grid/components/toolbar/gb-toolbar';
+import { GbInputComponent } from 'src/app/shared/ui/form/input';
+import { SgbButtonComponent } from 'src/app/shared/ui/button';
+import { SgbIconComponent } from 'src/app/shared/ui/icon';
 // import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({
@@ -23,7 +26,9 @@ import { GbGridToolbarComponent } from 'src/app/shared/gb-data-grid/components/t
     GbGridShellComponent,
     GbGridColumnsComponent,
     GbGridToolbarComponent,
-    // NgSelectModule
+    GbInputComponent,
+    SgbButtonComponent,
+    SgbIconComponent
   ],
 })
 export class MenuModule {}

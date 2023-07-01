@@ -92,7 +92,6 @@ export class GbGridShellComponent implements OnInit {
   @Input() apiURL = '';
   @Input() gridTitle = '';
 
-  @Output() protected toolbarEvents = new EventEmitter<any>();
   @Output() protected actionEvents = new EventEmitter<any>();
 
   @ContentChildren(GbGridColumnsComponent)
