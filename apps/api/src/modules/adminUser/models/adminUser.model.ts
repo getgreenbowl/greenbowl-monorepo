@@ -1,79 +1,84 @@
-import { DataTypes, Model, Sequelize, Op, WhereOptions, InferAttributes, InferCreationAttributes, CreationOptional } from "sequelize";
-import { checkPassword, hashPassword } from "../../../core/utils/password-hash";
-import { Role } from "../../role/models/role.model";
+import { t_admin_user } from "greenbowl-schema";
+import { DataTypes, Optional } from "sequelize";
+import DbConnection from "../../../core/db/db";
+import { hashPassword } from "../../../core/utils/password-hash";
+import { G_Model } from "../../../types/shared";
 
-export class AdminUser extends Model<InferAttributes<AdminUser>, InferCreationAttributes<AdminUser>> {
 
-  declare id: CreationOptional<number>;
-  declare password: string;
-  declare email: string;
-  declare roleId?: number;
-  declare passwordChangedOn?: string;
-  declare active: boolean;
+type AdminUserCreationAttributes = Optional<t_admin_user, 'id' | 'active'>;
+interface AdminUser extends G_Model<AdminUser>, AdminUserCreationAttributes {}
 
-  static _attr = ["email", "passwordChangedOn", "roleId", "active",];
-
-  getPlain() {
-    return this.get({ plain: true });
-  }
-
-  validatePassword(this: AdminUser, userPass: string) {
-    return checkPassword(userPass, this.password);
-  }
-
-  static findByEmail = (email: string) => {
-    return AdminUser.findOne({
-      where: { email },
-      attributes: this._attr,
-    });
-  };
-
-  static initModel(sequelize: Sequelize): typeof AdminUser {
-    AdminUser.init(
-      {
-        id: {
-          type: DataTypes.INTEGER,
-          primaryKey: true,
-          autoIncrement: true,
-          unique: true,
-        },
-        email: {
-          type: DataTypes.STRING,
-          allowNull: false,
-        },
-        password: {
-          type: DataTypes.STRING,
-          allowNull: false,
-          set(this: AdminUser, value: string) {
-            let hash = hashPassword(value);
-            this.setDataValue("password", hash);
-          },
-        },
-        roleId: {
-          type: DataTypes.INTEGER,
-          allowNull: true,
-          references: {
-            model: Role
-          }
-        },
-        active: {
-          type: DataTypes.BOOLEAN,
-          defaultValue: false,
-        },
-        passwordChangedOn: {
-          type: DataTypes.STRING,
-          allowNull: true
-        }
+export const AdminUser = DbConnection.db.define<AdminUser, AdminUserCreationAttributes>('AdminUser',
+  {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+      unique: true,
+    },
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      set(this: AdminUser, value: string) {
+        let hash = hashPassword(value);
+        this.setDataValue("password", hash);
       },
-      {
-        sequelize,
-        timestamps: false,
-        indexes: [{ fields: ["email"], using: "BTREE" }],
-      }
-    );
+    },
+    roleId: {
+      type: DataTypes.INTEGER,
+      allowNull: true
+    },
+    active: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+    },
+    passwordChangedOn: {
+      type: DataTypes.STRING,
+      allowNull: true
+    }
+  },
+  {
+    timestamps: false,
+    indexes: [{ fields: ["email"], using: "BTREE" }],
+  })
 
-    return AdminUser;
-  }
 
-}
+// export class AdminUser extends Model<InferAttributes<AdminUser>, InferCreationAttributes<AdminUser>> {
+
+//   declare id: CreationOptional<number>;
+//   declare password: string;
+//   declare email: string;
+//   declare roleId?: number;
+//   declare passwordChangedOn?: string;
+//   declare active: boolean;
+
+//   static _attr = ["email", "passwordChangedOn", "roleId", "active",];
+
+//   getPlain() {
+//     return this.get({ plain: true });
+//   }
+
+//   validatePassword(this: AdminUser, userPass: string) {
+//     return checkPassword(userPass, this.password);
+//   }
+
+//   static findByEmail = (email: string) => {
+//     return AdminUser.findOne({
+//       where: { email },
+//       attributes: this._attr,
+//     });
+//   };
+
+//   static initModel(sequelize: Sequelize): typeof AdminUser {
+//     AdminUser.init(
+//     );
+
+//     return AdminUser;
+//   }
+
+// }
 

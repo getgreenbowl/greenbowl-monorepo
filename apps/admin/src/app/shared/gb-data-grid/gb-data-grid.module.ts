@@ -42,7 +42,6 @@ import { SgbBtnGroupModule } from '../ui/button-group/btn-group.module';
     ActionService,
     LoadingService,
     ToolbarService,
-    PaginationService,
     MetaDataService,
   ],
   exports: [GbDataGridComponent],

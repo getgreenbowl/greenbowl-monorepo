@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, combineLatest, map, shareReplay } from 'rxjs';
 
-Injectable();
+Injectable({
+  providedIn: 'root'
+});
 export class PaginationService {
   private _selectedLimit = new BehaviorSubject(10);
   private _currentPage = new BehaviorSubject(1);

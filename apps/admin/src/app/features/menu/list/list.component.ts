@@ -5,9 +5,9 @@ import { Router } from '@angular/router';
   selector: 'app-list',
   template: `<gb-grid-shell gridTitle="Menu" apiURL="/items">
     <gb-toolbar icon="add" name="Add" (handleClick)="addItem()" />
-
     <!-- columns -->
     <gb-column field="id" alignment="left" />
+    <gb-column field="name" alignment="left" />
     <gb-column field="fat" />
     <gb-column field="protien" />
     <gb-column field="price" />

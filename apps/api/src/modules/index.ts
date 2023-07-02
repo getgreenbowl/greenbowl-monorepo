@@ -5,6 +5,7 @@ import PermissionRouter from "./role/permission.api";
 import NotificationRouter from "./notification/notification.api";
 import ItemRouter from "./items/items.api";
 import UserRouter from "./users/user.api";
+import AdminUserRouter from "./adminUser/adminUser.api";
 
 
 const moduleWrapper = (app: Application) => {
@@ -15,6 +16,7 @@ const moduleWrapper = (app: Application) => {
     .use('/role', RoleRouter)
     .use('/permission', PermissionRouter)
     .use('/notification', NotificationRouter)
+    .use('/admin-user', AdminUserRouter)
 }
 
 export default moduleWrapper

@@ -15,3 +15,12 @@ export type {
   ListUsers,
   PartialUser,
 } from "./user/user";
+
+export * from "./adminUser/adminUser";
+export type {
+  t_adminlogin,
+  t_update_user,
+  t_admin_user
+} from "./adminUser/adminUser";
+export * from "./v_pagination";
+export type {t_pagination} from "./v_pagination";

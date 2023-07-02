@@ -3,7 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ApiService } from 'src/app/shared/services/api.service';
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service';
-
+import {R_AdminLogin} from "greenbowl-schema"
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -17,21 +17,24 @@ export class LoginComponent {
     private ls: LocalStorageService
   ) {}
 
+  showErrors = false;
+
   loginForm = this.fb.group({
     email: ['', [Validators.email, Validators.required]],
     password: ['', [Validators.required]],
   });
 
-  handleSuccess() {
-    this.ls.set('token', 'gb_dummy_token');
-    this.router.navigate(['/']);
-  }
-
   handleSubmit() {
-    this.handleSuccess();
-    // this.api.post('/login', this.loginForm.value).subscribe({
-    //   next: () => {},
-    //   error: () => {}
-    // })
+    if(this.loginForm.invalid) {
+      this.showErrors = true;
+      return
+    }
+    this.api.post<R_AdminLogin>('/admin-user/login', this.loginForm.value).subscribe({
+      next: (data) => {
+        this.ls.set('token', data.data.token);
+        this.router.navigate(['/']);
+      },
+      error: () => {}
+    })
   }
 }

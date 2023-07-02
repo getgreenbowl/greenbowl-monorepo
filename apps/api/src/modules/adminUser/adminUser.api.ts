@@ -5,10 +5,10 @@ import {
   v_adminlogin,
   v_admin_change_password,
   v_email_picked,
-  v_pagination,
   v_update_user,
-  v_user,
-} from "validations";
+  v_admin_user as  v_user,
+  v_pagination
+} from "greenbowl-schema";
 import Session from "../../core/middlewares/jwt.middleware";
 import { validate } from "../../core/middlewares/validation.middleware";
 import ah from "../../core/utils/async-handler.util";
@@ -264,27 +264,16 @@ AdminUserRouter.post(
       }
 
       //wrong password
-      if (!user.validatePassword(password)) {
+      if (!checkPassword(password, user.password)) {
         throw unauthorized(res, "Invalid password");
       }
 
-      const plainUser = _formatPlainUser(user?.getPlain());
+      const plainUser = _formatPlainUser(user.get({plain: true}));
       const token = Session.generateToken(plainUser);
-
-      const menu = await getAllActiveMenu();
-
-      const getPermission: any = await getRolebyID({ id: user.roleId });
-
-      const perMenu: any = await permitedMenu(
-        menu,
-        JSON.parse(getPermission.permission)
-      );
 
       const data = {
         token,
-        user: plainUser,
-        menu: perMenu,
-        flatMenu: menu,
+        user: plainUser
       };
       success(res, data, "login successfully");
     })
@@ -295,7 +284,7 @@ AdminUserRouter.post(
     ah(async (req, res) => {
       const { email } = v_email_picked.parse(req.body);
 
-      const user = await AdminUser.findByEmail(email);
+      const user = await AdminUser.findOne({where: {email}});
 
       if (!user) {
         return notFound(res, "Email Not found");

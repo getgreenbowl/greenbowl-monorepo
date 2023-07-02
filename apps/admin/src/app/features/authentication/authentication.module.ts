@@ -4,6 +4,8 @@ import { LoginComponent } from './login/login.component';
 import { AuthRoutingModule } from './authentication.routing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SgbButtonComponent } from 'src/app/shared/ui/button';
+import { GbInputComponent } from 'src/app/shared/ui/form/input';
+import { SgbIconComponent } from 'src/app/shared/ui/icon';
 
 @NgModule({
   declarations: [LoginComponent],
@@ -12,6 +14,8 @@ import { SgbButtonComponent } from 'src/app/shared/ui/button';
     AuthRoutingModule,
     ReactiveFormsModule,
     SgbButtonComponent,
+    GbInputComponent,
+    SgbIconComponent
   ],
 })
 export class AuthenticationModule {}

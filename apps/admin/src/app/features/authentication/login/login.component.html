@@ -17,31 +17,27 @@
       <div class="grid gap-6">
         <div class="grid gap-2">
           <div class="grid gap-1">
-            <label class="sr-only" htmlFor="email"> Email </label>
-            <input
-              id="email"
-              placeholder="name@example.com"
+            <gb-input
+              [control]="loginForm.controls.email"
+              [showErrors]="showErrors"
               type="email"
-              autoCapitalize="none"
-              autoComplete="email"
-              autoCorrect="off"
+              label="Email"
+              placeholder="name@example.com"
             />
           </div>
           <div class="grid gap-1">
-            <label class="sr-only" htmlFor="email"> Password </label>
-            <input
-              id="password"
-              placeholder="Enter your password"
+            <gb-input
+              [control]="loginForm.controls.password"
+              [showErrors]="showErrors"
+              label="Password"
               type="password"
-              autoCapitalize="none"
-              autoCorrect="off"
+              placeholder="Enter your password"
             />
           </div>
           <sgb-button
-            text="Login"
             type="button"
             (handleClick)="handleSubmit()"
-          />
+          >Login</sgb-button>
         </div>
       </div>
     </div>

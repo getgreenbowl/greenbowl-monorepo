@@ -118,16 +118,16 @@ export class GbGridShellComponent implements OnInit {
       return console.error('Please provide a api url');
     }
     this.loading = true;
-    this.data$ = this.api.get<any>(this.apiURL).pipe(
-      map((data: any) => {
-        this.collectionSize = data['count'] || data?.length || 0;
-        this.loading = false;
-        return data;
-      }),
-      catchError(() => {
-        this.loading = false;
-        return of([]);
-      })
-    );
+      this.data$ = this.api.get<any>(this.apiURL, {limit:10, page: 1}).pipe(
+        map(({data}: any) => {
+          this.collectionSize = data['count'] || data?.length || 0;
+          this.loading = false;
+          return data.rows;
+        }),
+        catchError(() => {
+          this.loading = false;
+          return of([]);
+        })
+      );
   }
 }
