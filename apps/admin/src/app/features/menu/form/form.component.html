@@ -1,0 +1,57 @@
+<page-header header="Add item"
+(save)="handleSubmit()"
+[loading]="false"
+/>
+<form [formGroup]="menuForm">
+  <div class="grid grid-cols-4 gap-4">
+    <gb-input
+      label="Name"
+      [control]="menuFormControls.name"
+      [showErrors]="showErrors"
+    />
+
+    <gb-input
+      label="Description"
+      [control]="menuFormControls.description"
+      [showErrors]="showErrors"
+    />
+    <gb-input
+    label="Price"
+    type="number"
+    [control]="menuFormControls.price"
+    [showErrors]="showErrors"
+  />
+    <gb-input
+      label="Protien"
+      [control]="menuFormControls.protien"
+      [showErrors]="showErrors"
+    />
+    <gb-input
+      label="Fat"
+      [control]="menuFormControls.fat"
+      [showErrors]="showErrors"
+    />
+    <gb-input
+      label="Energy"
+      [control]="menuFormControls.energy"
+      [showErrors]="showErrors"
+    ></gb-input>
+    <gb-input
+      label="Carbs"
+      [control]="menuFormControls.carbs"
+      [showErrors]="showErrors"
+    ></gb-input>
+    <gb-input
+      label="Calories"
+      [control]="menuFormControls.calories"
+      [showErrors]="showErrors"
+    />
+
+    <gb-input
+      label="Ingredients"
+      [control]="menuFormControls.ingredients"
+      [showErrors]="showErrors"
+    >
+    </gb-input>
+  </div>
+</form>

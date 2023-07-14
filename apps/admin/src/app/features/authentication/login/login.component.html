@@ -1,0 +1,45 @@
+<div
+  class="container relative hidden h-screen flex-col items-center justify-center md:grid lg:max-w-none lg:grid-cols-2 lg:px-0"
+>
+  <div class="h-full flex-col bg-brand p-10 flex justify-center items-center">
+    <span class="text-2xl font-bold text-white">greenbowl</span>
+  </div>
+  <div class="flex justify-center items-center flex-col h-full bg-white">
+    <div
+      class="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]"
+    >
+      <div class="flex flex-col space-y-2 text-center">
+        <h1 class="text-2xl font-semibold tracking-tight">Control Panel</h1>
+        <p class="text-sm text-muted-foreground">
+          Enter your email below to Login to your account
+        </p>
+      </div>
+      <div class="grid gap-6">
+        <div class="grid gap-2">
+          <div class="grid gap-1">
+            <gb-input
+              [control]="loginForm.controls.email"
+              [showErrors]="showErrors"
+              type="email"
+              label="Email"
+              placeholder="name@example.com"
+            />
+          </div>
+          <div class="grid gap-1">
+            <gb-input
+              [control]="loginForm.controls.password"
+              [showErrors]="showErrors"
+              label="Password"
+              type="password"
+              placeholder="Enter your password"
+            />
+          </div>
+          <sgb-button
+            type="button"
+            (handleClick)="handleSubmit()"
+          >Login</sgb-button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
