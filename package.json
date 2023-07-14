@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "generate-lib": "nx g @nx/js:lib name"
+    "generate-lib": "nx g @nx/js:lib name",
+    "run-many": "nx run-many -t serve -p admin api"
   },
   "private": true,
   "dependencies": {

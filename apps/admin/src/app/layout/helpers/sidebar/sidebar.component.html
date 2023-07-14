@@ -4,19 +4,10 @@
   id="drawer-navigation"
 >
   <div
-    class="overflow-y-auto py-5 px-3 h-full bg-sidebar-bg flex flex-col justify-between"
+    class="overflow-y-auto pt-16 py-5 px-3 h-full bg-sidebar-bg flex flex-col justify-between"
   >
     <div>
-      <div class="flex justify-center items-center mb-4">
-        <span
-          class="text-xl font-semibold whitespace-nowrap text-white bg-emerald-900 py-1 px-2 flex items-center justify-center mr-2 rounded"
-          >gb</span
-        >
-        <span
-          class="text-md font-semibold whitespace-nowrap text-white underline"
-          >greenbowl</span
-        >
-      </div>
+
       <ul class="space-y-2">
         <li *ngFor="let m of menu">
           <a
@@ -32,10 +23,10 @@
       </ul>
     </div>
     <ul class="space-y-2">
-      <li *ngIf="theme === 'light'">
+      <!-- <li *ngIf="theme === 'light'">
         <a
           (click)="changeTheme.emit('dark')"
-          class="flex items-center p-2 text-base font-medium dark:text-gray-900 rounded-lg text-white hover:bg-gray-700 group cursor-pointer"
+          class="flex items-center p-2 text-base font-medium rounded-lg text-white hover:bg-gray-700 group cursor-pointer"
         >
           <sgb-icon icon="dark_mode" />
           <span class="ml-3">Dark</span>
@@ -49,7 +40,7 @@
           <sgb-icon icon="light_mode" />
           <span class="ml-3">Light</span>
         </a>
-      </li>
+      </li> -->
       <li>
         <a
           routerLink="/auth"
