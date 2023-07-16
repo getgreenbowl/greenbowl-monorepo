@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, ContentChildren, OnChanges, OnInit, QueryList } from "@angular/core";
+import { ChangeDetectionStrategy, Component, ContentChildren, QueryList } from "@angular/core";
 import { SgbBtnGroupComponent } from "./btn-group";
 
 @Component({
@@ -10,6 +10,7 @@ import { SgbBtnGroupComponent } from "./btn-group";
       <sgb-btn-group
       [text]="btn.text"
       [icon]="btn.icon"
+      [active]="btn.active"
       (handleClick)="btn.handleClick.emit($event)"
       />
     </ng-container>

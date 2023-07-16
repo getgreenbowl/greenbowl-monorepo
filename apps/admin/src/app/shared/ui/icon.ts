@@ -5,7 +5,7 @@ import { Component, Input } from "@angular/core";
   selector: 'sgb-icon',
   standalone: true,
   imports: [NgStyle],
-  template: `<i class="material-symbols-rounded" [ngStyle]="{'font-size': sizes[size]}">
+  template: `<i class="material-symbols-rounded mt-1" [ngStyle]="{'font-size': sizes[size]}">
   {{icon}}
   </i>`
 })

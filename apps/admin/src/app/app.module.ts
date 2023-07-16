@@ -11,6 +11,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CdkTreeModule } from '@angular/cdk/tree';
 import { SgbButtonComponent } from './shared/ui/button';
 import { SgbIconComponent } from './shared/ui/icon';
+import { GbNotificationModule } from './shared/ui/notification/notification.module';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { SgbIconComponent } from './shared/ui/icon';
     CdkTreeModule,
     SgbButtonComponent,
     SgbIconComponent,
+    GbNotificationModule.forRoot()
   ],
   providers: [HttpClient],
   bootstrap: [AppComponent],

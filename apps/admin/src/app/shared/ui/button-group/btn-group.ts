@@ -11,26 +11,27 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <button
-      class="inline-block border-e px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:hover:bg-gray-900 focus:relative bg-background dark:text-white"
-      (click)="handleClick.emit($event)"
-      *ngIf="text && !icon"
-    >
-      {{ text }}
-    </button>
-    <button
-      class="inline-block border-e px-3 py-2 text-sm font-medium text-gray-700 dark:text-white hover:bg-gray-50 focus:relative bg-background dark:hover:bg-gray-900"
       [title]="text"
       (click)="handleClick.emit($event)"
       type="button"
-      *ngIf="icon"
+      [class]="styles"
+      [ngClass]="{
+        'dark:bg-gray-900 bg-gray-50 dark:hover:bg-gray-900 hover:bg-gray-50': active,
+        'bg-background dark:hover:bg-gray-900 hover:bg-gray-50': !active
+      }"
     >
-      <sgb-icon [icon]="icon" />
+      <sgb-icon [icon]="icon" *ngIf="icon" />
+      <ng-container *ngIf="text && !icon">
+      {{ text }}
+      </ng-container>
     </button>
   `,
 })
 export class SgbBtnGroupComponent {
+  readonly styles = "border-e px-2 py-1 text-sm font-medium focus:relative"
   @Input() text = '';
   @Input() icon = '';
+  @Input() active = false
 
   @Output() handleClick = new EventEmitter();
 }

@@ -30,12 +30,3 @@ export const DEFAULT_ROWS = [5, 10, 20, 50, 100, 200]
 export interface MetaData {
   title: string
 }
-
-
-export type EmittedEvents = {
-  pagination: {
-    page: number;
-    collectionSize: number;
-    limit: number;
-  };
-};

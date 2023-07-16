@@ -7,10 +7,8 @@ import { PaginationService } from '../../services/pagination.service';
   template: `
     <sgb-btn-group-container>
       <sgb-btn-group
-        [ngClass]="{
-          active: (paginationService.selectedLimit$ | async) === limit
-        }"
         *ngFor="let limit of limits"
+        [active]="(paginationService.selectedLimit$ | async) === limit"
         [text]="limit.toString()"
         (handleClick)="paginationService.updateSelectedLimit(limit)"
       />

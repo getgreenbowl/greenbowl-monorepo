@@ -5,6 +5,7 @@
     {
       "files": ["*.ts"],
       "rules": {
+        "@typescript-eslint/no-explicit-any": "off"
       },
       "extends": [
         "plugin:@nx/angular",

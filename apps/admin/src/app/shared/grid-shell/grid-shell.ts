@@ -1,20 +1,19 @@
+import { CommonModule } from '@angular/common';
 import {
   Component,
   ContentChildren,
-  QueryList,
-  Input,
-  OnInit,
   EventEmitter,
+  Input,
   Output,
+  QueryList
 } from '@angular/core';
-import { GbDataGridModule } from '../gb-data-grid/gb-data-grid.module';
-import { GbGridColumnsComponent } from '../gb-data-grid/components/base-table/columns';
-import { ApiService } from '../services/api.service';
-import { Observable, Subscription, catchError, map, of, tap } from 'rxjs';
-import { CommonModule } from '@angular/common';
+import { Observable, catchError, map, of } from 'rxjs';
 import { GbActionComponent } from '../gb-data-grid/components/base-table/action';
+import { GbGridColumnsComponent } from '../gb-data-grid/components/base-table/columns';
 import { GbGridToolbarComponent } from '../gb-data-grid/components/toolbar/gb-toolbar';
-import { EmittedEvents } from '../gb-data-grid/types';
+import { GbDataGridModule } from '../gb-data-grid/gb-data-grid.module';
+import { ApiService } from '../services/api.service';
+import { GridEvents } from '@gb/schema';
 
 @Component({
   selector: 'gb-grid-shell',
@@ -109,16 +108,16 @@ export class GbGridShellComponent {
   protected data$: Observable<any> = of([]);
 
 
-  gridEvents(events: EmittedEvents) {
+  gridEvents(events: GridEvents) {
       this._getData(events)
   }
 
-  private _getData(options?: EmittedEvents) {
+  private _getData(options?: GridEvents) {
     if (!this.apiURL) {
       return console.error('Please provide a api url');
     }
     this.loading = true;
-     this.data$ = this.api.get<any>(this.apiURL, {...options?.pagination}).pipe(
+     this.data$ = this.api.get<any>(this.apiURL, options).pipe(
         map(({data}: any) => {
           this.collectionSize = data['count'] || data?.length || 0;
           this.loading = false;

@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { ApiService } from 'src/app/shared/services/api.service';
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service';
 import {R_AdminLogin} from "@gb/schema"
+import { HttpErrorResponse } from '@angular/common/http';
+import { GbNotification } from 'src/app/shared/ui/notification/notification.service';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +17,8 @@ export class LoginComponent {
     private fb: FormBuilder,
     private api: ApiService,
     private router: Router,
-    private ls: LocalStorageService
+    private ls: LocalStorageService,
+    private notif: GbNotification
   ) {}
 
   showErrors = false;
@@ -34,6 +37,11 @@ export class LoginComponent {
       next: (data) => {
         this.ls.set('token', data.data.token);
         this.router.navigate(['/']);
+      },
+      error: (err:HttpErrorResponse) => {
+          this.notif.show({
+            text: err.error
+          })
       }
     })
   }

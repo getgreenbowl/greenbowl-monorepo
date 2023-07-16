@@ -24,3 +24,5 @@ export type {
 } from "./lib/adminUser/adminUser";
 export * from "./lib/v_pagination";
 export type {t_pagination} from "./lib/v_pagination";
+export * from "./lib/grid-events"
+export type {GridEvents} from "./lib/grid-events"

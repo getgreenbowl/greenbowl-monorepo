@@ -15,7 +15,7 @@ import {
 import { GridDataService } from './services/data.service';
 import { GridColumnService } from './services/columns.service';
 import { GbGridColumnsComponent } from './components/base-table/columns';
-import { EmittedEvents, STATIC_ACTION_HEADER } from './types';
+import { STATIC_ACTION_HEADER } from './types';
 import { ActionService } from './services/actions.service';
 import { LoadingService } from './services/loading.service';
 import { ToolbarService } from './services/toolbar.service';
@@ -25,6 +25,7 @@ import { GbActionComponent } from './components/base-table/action';
 import { GbGridToolbarComponent } from './components/toolbar/gb-toolbar';
 import { combineLatest } from 'rxjs';
 import { SubSink } from 'subsink';
+import { GridEvents } from '@gb/schema';
 
 
 
@@ -54,7 +55,7 @@ export class GbDataGridComponent
   @Input() collectionSize = 0;
   @Input() gridTitle = '';
 
-  @Output() emitEvents = new EventEmitter<EmittedEvents>();
+  @Output() emitEvents = new EventEmitter<GridEvents>();
 
   private subs = new SubSink();
 
@@ -102,9 +103,10 @@ export class GbDataGridComponent
 
   ngOnInit(): void {
     this.subs.sink = combineLatest([
-      this.paginationService.pagination$,
-    ]).subscribe(([pagination]) => {
-      this.emitEvents.emit({ pagination });
+      this.paginationService.page$,
+      this.paginationService.selectedLimit$
+    ]).subscribe(([page, limit]) => {
+      this.emitEvents.emit({ page, limit});
     });
   }
 
