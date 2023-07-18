@@ -14,24 +14,23 @@ import {
       [title]="text"
       (click)="handleClick.emit($event)"
       type="button"
-      [class]="styles"
+      class="border-e px-2 py-1 text-sm font-medium focus:relative bg-background transition-colors"
       [ngClass]="{
-        'dark:bg-gray-900 bg-gray-50 dark:hover:bg-gray-900 hover:bg-gray-50': active,
-        'bg-background dark:hover:bg-gray-900 hover:bg-gray-50': !active
+        'bg-muted/95': active,
+        'hover:bg-muted/100': !active
       }"
     >
       <sgb-icon [icon]="icon" *ngIf="icon" />
       <ng-container *ngIf="text && !icon">
-      {{ text }}
+        {{ text }}
       </ng-container>
     </button>
   `,
 })
 export class SgbBtnGroupComponent {
-  readonly styles = "border-e px-2 py-1 text-sm font-medium focus:relative"
   @Input() text = '';
   @Input() icon = '';
-  @Input() active = false
+  @Input() active = false;
 
   @Output() handleClick = new EventEmitter();
 }

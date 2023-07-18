@@ -5,15 +5,14 @@ import {
   EventEmitter,
   Input,
   Output,
-  QueryList
+  QueryList,
 } from '@angular/core';
-import { Observable, catchError, map, of } from 'rxjs';
 import { GbActionComponent } from '../gb-data-grid/components/base-table/action';
 import { GbGridColumnsComponent } from '../gb-data-grid/components/base-table/columns';
 import { GbGridToolbarComponent } from '../gb-data-grid/components/toolbar/gb-toolbar';
 import { GbDataGridModule } from '../gb-data-grid/gb-data-grid.module';
 import { ApiService } from '../services/api.service';
-import { GridEvents } from '@gb/schema';
+import { GbNotification } from '../ui/notification/notification.service';
 
 @Component({
   selector: 'gb-grid-shell',
@@ -26,7 +25,7 @@ import { GridEvents } from '@gb/schema';
     GbGridToolbarComponent,
   ],
   template: ` <gb-data-grid
-    [data]="data$ | async"
+    [data]="data"
     [loading]="loading"
     [collectionSize]="collectionSize"
     [gridTitle]="gridTitle"
@@ -86,8 +85,7 @@ import { GridEvents } from '@gb/schema';
   </gb-data-grid>`,
 })
 export class GbGridShellComponent {
-  constructor(private api: ApiService) {}
-
+  constructor(private api: ApiService, private notif: GbNotification) {}
 
   @Input() apiURL = '';
   @Input() gridTitle = '';
@@ -105,28 +103,32 @@ export class GbGridShellComponent {
 
   protected loading = false;
   protected collectionSize!: number;
-  protected data$: Observable<any> = of([]);
+  protected data: any[] = [];
 
-
-  gridEvents(events: GridEvents) {
-      this._getData(events)
+  gridEvents(events: any) {
+    this._getData(events);
   }
 
-  private _getData(options?: GridEvents) {
+  private _getData(options: any) {
     if (!this.apiURL) {
       return console.error('Please provide a api url');
     }
     this.loading = true;
-     this.data$ = this.api.get<any>(this.apiURL, options).pipe(
-        map(({data}: any) => {
-          this.collectionSize = data['count'] || data?.length || 0;
-          this.loading = false;
-          return data.rows;
-        }),
-        catchError(() => {
-          this.loading = false;
-          return of([]);
-        })
-      );
+    this.api.getList<any>(this.apiURL, options).subscribe({
+      next: ({ data }) => {
+        this.loading = false;
+        this.collectionSize = data['count'];
+        this.data = data.rows;
+      },
+      error: () => {
+        this.loading = false;
+        this.notif.show({
+          text: 'Failed to load list',
+          title: 'Error',
+          id: 'fetch-list',
+          type: 'error',
+        });
+      },
+    });
   }
 }

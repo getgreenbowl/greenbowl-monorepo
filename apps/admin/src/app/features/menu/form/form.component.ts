@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-// import { TMenu } from 'greenbowl-schema';
 import { map } from 'rxjs';
+import { GbNotification } from 'src/app/shared/ui/notification/notification.service';
 import { ApiService } from '../../../shared/services/api.service';
+import { TMenu } from '@gb/schema';
 
 @Component({
   selector: 'app-form',
@@ -10,11 +11,13 @@ import { ApiService } from '../../../shared/services/api.service';
   styleUrls: ['./form.component.scss'],
 })
 export class FormComponent {
-  constructor(private fb: FormBuilder, private api: ApiService) {}
+  constructor(
+    private fb: FormBuilder,
+    private api: ApiService,
+    private notif: GbNotification
+  ) {}
 
   showErrors = false;
-  menu$ = this.api.get<any>('/menu').pipe(map((res) => res.data));
-  ingredients$ = this.api.get<any>('/ingredients').pipe(map((res) => res.data));
   submitButton: 'submit' | 'loading' | 'added' | 'error' = 'submit';
   menuForm = this.fb.group({
     menuID: [null, Validators.required],
@@ -37,25 +40,29 @@ export class FormComponent {
       this.showErrors = true;
       return;
     }
-    this.submitButton = 'loading';
+    this.notif.show({
+      text: 'Adding item',
+      id: 'add-item',
+      type: 'loading',
+    });
+
     this.api.post<any[]>('/items', this.menuForm.value).subscribe({
       next: () => {
         this.showErrors = false;
-        this.submitButton = 'added';
-        setTimeout(() => {
-          this.submitButton = 'submit';
-        }, 1500);
         this.menuForm.reset();
+        this.notif.updateToast({
+          text: 'Item added',
+          id: 'add-item',
+          type: 'success',
+        });
       },
-      error: (err) => {
-        console.log(err);
-        this.submitButton = 'error';
-        setTimeout(() => {
-          this.submitButton = 'submit';
-        }, 1500);
-        alert(err.error);
+      error: () => {
+        this.notif.updateToast({
+          text: 'Something went wrong !',
+          type: 'error',
+          id: 'add-item',
+        });
       },
     });
-    console.log(this.menuForm.value, 'form value');
   }
 }

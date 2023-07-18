@@ -25,9 +25,6 @@ import { GbActionComponent } from './components/base-table/action';
 import { GbGridToolbarComponent } from './components/toolbar/gb-toolbar';
 import { combineLatest } from 'rxjs';
 import { SubSink } from 'subsink';
-import { GridEvents } from '@gb/schema';
-
-
 
 @Component({
   selector: 'gb-data-grid',
@@ -55,7 +52,7 @@ export class GbDataGridComponent
   @Input() collectionSize = 0;
   @Input() gridTitle = '';
 
-  @Output() emitEvents = new EventEmitter<GridEvents>();
+  @Output() emitEvents = new EventEmitter<any>();
 
   private subs = new SubSink();
 
@@ -72,7 +69,6 @@ export class GbDataGridComponent
     if (this.actions) {
       this.actionService.updateActions(this.actions);
     }
-
     if (this.toolbar) {
       this.toolbarService.updateToolbar(this.toolbar);
     }
@@ -104,9 +100,9 @@ export class GbDataGridComponent
   ngOnInit(): void {
     this.subs.sink = combineLatest([
       this.paginationService.page$,
-      this.paginationService.selectedLimit$
+      this.paginationService.selectedLimit$,
     ]).subscribe(([page, limit]) => {
-      this.emitEvents.emit({ page, limit});
+      this.emitEvents.emit({ page, limit });
     });
   }
 

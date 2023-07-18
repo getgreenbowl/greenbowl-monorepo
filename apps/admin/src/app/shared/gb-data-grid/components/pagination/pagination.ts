@@ -178,7 +178,7 @@ export class NgbPaginationPages {
       >
         <a
           *ngIf="isEllipsis(pageNumber)"
-          class="px-3 py-2 leading-tight border bg-background text-sm font-medium hover:bg-gray-50 dark:hover:bg-gray-900"
+          class="px-3 py-2 leading-tight border text-sm font-medium bg-background hover:bg-muted/100"
           tabindex="-1"
           aria-disabled="true"
         >
@@ -191,8 +191,8 @@ export class NgbPaginationPages {
         </a>
         <a
           *ngIf="!isEllipsis(pageNumber)"
-          class="px-3 py-2 leading-tight border bg-background text-sm font-medium hover:bg-gray-50 dark:hover:bg-gray-900"
-          [ngClass]="{ 'bg-gray-100 dark:bg-gray-900': page === pageNumber }"
+          class="px-3 py-2 leading-tight border text-sm font-medium bg-background hover:bg-muted/100"
+          [ngClass]="{ 'bg-muted/95': page === pageNumber }"
           href
           (click)="selectPage(pageNumber); $event.preventDefault()"
           [attr.tabindex]="disabled ? '-1' : null"
@@ -217,13 +217,10 @@ export class NgbPaginationPages {
         (size ? ' pagination-' + size : '')
       "
     >
-      <li
-        *ngIf="boundaryLinks"
-        [class.disabled]="previousDisabled()"
-      >
+      <li *ngIf="boundaryLinks" [class.disabled]="previousDisabled()">
         <a
           aria-label="First"
-          class="px-3 py-2 ml-0 leading-tight border rounded-l-md bg-background text-sm font-medium hover:bg-gray-50 dark:hover:bg-gray-900"
+          class="px-3 py-2 ml-0 leading-tight border rounded-l-md bg-background text-sm font-medium hover:bg-muted/100"
           href
           (click)="selectPage(1); $event.preventDefault()"
           [attr.tabindex]="previousDisabled() ? '-1' : null"
@@ -239,13 +236,10 @@ export class NgbPaginationPages {
         </a>
       </li>
 
-      <li
-        *ngIf="directionLinks"
-        [class.disabled]="previousDisabled()"
-      >
+      <li *ngIf="directionLinks" [class.disabled]="previousDisabled()">
         <a
           aria-label="Previous"
-          class="px-3 py-2 leading-tight border bg-background text-sm font-medium hover:bg-gray-50 dark:hover:bg-gray-900"
+          class="px-3 py-2 leading-tight border bg-background text-sm font-medium hover:bg-muted/100"
           href
           (click)="selectPage(page - 1); $event.preventDefault()"
           [attr.tabindex]="previousDisabled() ? '-1' : null"
@@ -255,7 +249,10 @@ export class NgbPaginationPages {
             [ngTemplateOutlet]="
               (tplPrevious && tplPrevious.templateRef) || previous
             "
-            [ngTemplateOutletContext]="{ disabled: previousDisabled(), currentPage: page }"
+            [ngTemplateOutletContext]="{
+              disabled: previousDisabled(),
+              currentPage: page
+            }"
           ></ng-template>
         </a>
       </li>
@@ -268,13 +265,10 @@ export class NgbPaginationPages {
         }"
       >
       </ng-template>
-      <li
-        *ngIf="directionLinks"
-        [class.disabled]="nextDisabled()"
-      >
+      <li *ngIf="directionLinks" [class.disabled]="nextDisabled()">
         <a
           aria-label="Next"
-          class="px-3 py-2 leading-tight   border    bg-background text-sm font-medium hover:bg-gray-50 dark:hover:bg-gray-900"
+          class="px-3 py-2 leading-tight   border    bg-background text-sm font-medium hover:bg-muted/100"
           href
           (click)="selectPage(page + 1); $event.preventDefault()"
           [attr.tabindex]="nextDisabled() ? '-1' : null"
@@ -290,13 +284,10 @@ export class NgbPaginationPages {
         </a>
       </li>
 
-      <li
-        *ngIf="boundaryLinks"
-        [class.disabled]="nextDisabled()"
-      >
+      <li *ngIf="boundaryLinks" [class.disabled]="nextDisabled()">
         <a
           aria-label="Last"
-          class="px-3 py-2 leading-tight   border  rounded-r-sm   bg-background text-sm font-medium hover:bg-gray-50 dark:hover:bg-gray-900"
+          class="px-3 py-2 leading-tight   border  rounded-r-sm   bg-background text-sm font-medium hover:bg-muted/100"
           href
           (click)="selectPage(pageCount); $event.preventDefault()"
           [attr.tabindex]="nextDisabled() ? '-1' : null"

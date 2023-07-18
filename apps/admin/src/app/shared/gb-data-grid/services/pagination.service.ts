@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, combineLatest, map, shareReplay } from 'rxjs';
 
 Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 });
 export class PaginationService {
   private _selectedLimit = new BehaviorSubject(10);
@@ -21,7 +21,7 @@ export class PaginationService {
     map(([page, collectionSize, limit]) => ({ page, collectionSize, limit }))
   );
 
-  updateSelectedLimit(limit:number) {
+  updateSelectedLimit(limit: number) {
     this._selectedLimit.next(limit);
   }
 

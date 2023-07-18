@@ -28,7 +28,7 @@ import { GbNotificationModule } from './shared/ui/notification/notification.modu
     CdkTreeModule,
     SgbButtonComponent,
     SgbIconComponent,
-    GbNotificationModule.forRoot()
+    GbNotificationModule.forRoot(),
   ],
   providers: [HttpClient],
   bootstrap: [AppComponent],

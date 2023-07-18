@@ -9,7 +9,7 @@ import { ActionService } from '../../services/actions.service';
   selector: 'base-data-table',
   styleUrls: ['../../gb-data-grid.scss'],
   template: `
-    <div class="w-full overflow-auto border h-[70vh] no-scrollbar">
+    <div class="w-full overflow-auto border h-[75vh] no-scrollbar">
       <table
         cdk-table
         recycleRows
@@ -124,7 +124,7 @@ import { ActionService } from '../../services/actions.service';
               class="flex justify-center items-center"
             >
               <div
-                class="animate-spin rounded-full h-20 w-20 border-t-2 border-b-2 border-gray-900"
+                class="animate-spin rounded-full h-20 w-20 border-t-2 border-b-2 border-gray-500"
               ></div>
             </span>
             <ng-template #nodata>

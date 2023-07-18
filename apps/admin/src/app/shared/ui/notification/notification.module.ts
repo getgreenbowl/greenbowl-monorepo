@@ -1,5 +1,5 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
-import {  NgIf } from '@angular/common';
+import { NgClass, NgIf, NgTemplateOutlet } from '@angular/common';
 import { NotificationComponent } from './notification.component';
 import { OverlayModule } from '@angular/cdk/overlay';
 import {
@@ -9,7 +9,7 @@ import {
 
 @NgModule({
   declarations: [NotificationComponent],
-  imports: [NgIf, OverlayModule],
+  imports: [NgIf, OverlayModule, NgClass, NgTemplateOutlet],
   exports: [NotificationComponent],
 })
 export class GbNotificationModule {

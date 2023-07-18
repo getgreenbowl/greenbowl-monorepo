@@ -25,19 +25,21 @@ import { SgbIconComponent } from 'src/app/shared/ui/icon';
       ></ng-container>
     </ng-container>
     <sgb-icon
-    *ngIf="!action"
-    (click)="handleClick.emit({cellData, column})"
-    [icon]="icon" />`,
+      *ngIf="!action"
+      (click)="handleClick.emit({cellData, column})"
+      [icon]="icon"
+      class="cursor-pointer"
+    />`,
 })
 export class GbActionComponent {
   @Input() icon!: string;
   @Input() tooltip = '';
   @Input() cellData?: any;
   @Input() column?: GbGridColumnsComponent;
-  @Input() action:TemplateRef<GbActionComponent> | null = null;
+  @Input() action: TemplateRef<GbActionComponent> | null = null;
 
   @Output() handleClick = new EventEmitter();
 
-  @ContentChild('template') _action: TemplateRef<GbActionComponent> | null = null;
-
+  @ContentChild('template') _action: TemplateRef<GbActionComponent> | null =
+    null;
 }

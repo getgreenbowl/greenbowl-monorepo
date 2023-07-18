@@ -19,7 +19,7 @@ import { GbHintComponent } from '../hint';
     NgClass,
     NgIf,
     GbHintComponent,
-    NgFor
+    NgFor,
   ],
   template: `<div>
     <label
@@ -54,21 +54,4 @@ export class GbInputComponent extends GbFormBaseComponent {
   @Input() minlength = 0;
   @Input() type = 'text';
   @Input() inputClass = '';
-  @Input() showErrors = false;
-  get errors() {
-    return this.control.errors;
-  }
-  /**
-   * @Determines if the field is required or not
-   */
-  get required() {
-    if (this.control.validator) {
-      const validator = this.control.validator({} as AbstractControl);
-      if (validator?.['required']) {
-        return validator['required'];
-      }
-      return this.control.validator({} as AbstractControl);
-    }
-    return false;
-  }
 }

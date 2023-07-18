@@ -22,7 +22,12 @@ export class GbNotificationData {
   } = defaultGbNotificationConfig.classes;
 }
 
-export type GbNotificationType = 'warning' | 'info' | 'success' | 'error';
+export type GbNotificationType =
+  | 'warning'
+  | 'info'
+  | 'success'
+  | 'error'
+  | 'loading';
 export type GbNotificationClasses =
   | 'container'
   | 'card'

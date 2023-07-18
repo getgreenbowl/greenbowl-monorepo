@@ -12,7 +12,8 @@ import { GbGridToolbarComponent } from '../../shared/gb-data-grid/components/too
 import { GbInputComponent } from '../../shared/ui/form/input';
 import { SgbButtonComponent } from '../../shared/ui/button';
 import { SgbIconComponent } from '../../shared/ui/icon';
-// import { NgSelectModule } from '@ng-select/ng-select';
+import { GbSelectComponent } from 'src/app/shared/ui/form/gb-select';
+import { GbActionComponent } from 'src/app/shared/gb-data-grid/components/base-table/action';
 
 @NgModule({
   declarations: [ListComponent, FormComponent],
@@ -26,7 +27,9 @@ import { SgbIconComponent } from '../../shared/ui/icon';
     GbGridToolbarComponent,
     GbInputComponent,
     SgbButtonComponent,
-    SgbIconComponent
+    SgbIconComponent,
+    GbSelectComponent,
+    GbActionComponent,
   ],
 })
 export class MenuModule {}

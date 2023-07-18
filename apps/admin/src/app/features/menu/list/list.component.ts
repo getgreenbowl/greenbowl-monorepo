@@ -12,6 +12,9 @@ import { Router } from '@angular/router';
     <gb-column field="protien" />
     <gb-column field="price" />
     <gb-column field="carbs" />
+    <!-- columns -->
+
+    <gb-action icon="edit" (handleClick)="edit($event)" />
   </gb-grid-shell> `,
 })
 export class ListComponent {
@@ -19,5 +22,9 @@ export class ListComponent {
 
   addItem() {
     this.router.navigate(['/menu/add']);
+  }
+
+  edit(e: any) {
+    console.log(e, 'this is e');
   }
 }

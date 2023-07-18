@@ -1,9 +1,15 @@
-<page-header header="Add item"
-(save)="handleSubmit()"
-[loading]="false"
-/>
+<page-header header="Add item" (save)="handleSubmit()" [loading]="false" />
 <form [formGroup]="menuForm">
-  <div class="grid grid-cols-4 gap-4">
+  <div class="grid grid-cols-3 gap-4">
+    <gb-select
+      label="Menu"
+      [control]="menuFormControls.menuID"
+      [showErrors]="showErrors"
+      apiURL="/menu"
+      bindLabel="name"
+      bindValue="id"
+    >
+    </gb-select>
     <gb-input
       label="Name"
       [control]="menuFormControls.name"
@@ -16,42 +22,55 @@
       [showErrors]="showErrors"
     />
     <gb-input
-    label="Price"
-    type="number"
-    [control]="menuFormControls.price"
-    [showErrors]="showErrors"
-  />
+      label="Price"
+      type="number"
+      [control]="menuFormControls.price"
+      [showErrors]="showErrors"
+      [hints]="['Prices are in rupees']"
+    />
     <gb-input
       label="Protien"
+      type="number"
       [control]="menuFormControls.protien"
       [showErrors]="showErrors"
     />
     <gb-input
       label="Fat"
+      type="number"
       [control]="menuFormControls.fat"
       [showErrors]="showErrors"
     />
     <gb-input
       label="Energy"
+      type="number"
       [control]="menuFormControls.energy"
       [showErrors]="showErrors"
     ></gb-input>
     <gb-input
       label="Carbs"
+      type="number"
       [control]="menuFormControls.carbs"
       [showErrors]="showErrors"
     ></gb-input>
     <gb-input
       label="Calories"
+      type="number"
       [control]="menuFormControls.calories"
       [showErrors]="showErrors"
     />
-
-    <gb-input
-      label="Ingredients"
-      [control]="menuFormControls.ingredients"
-      [showErrors]="showErrors"
-    >
-    </gb-input>
+    <div>
+      <div class="flex gap-2">
+        <gb-select
+          label="Ingredients"
+          [control]="menuFormControls.ingredients"
+          [showErrors]="showErrors"
+          apiURL="/ingredients"
+          class="flex-grow"
+        />
+        <sgb-button variant="secondary" class="mt-5">
+          <sgb-icon icon="add" title="Add new ingredient" />
+        </sgb-button>
+      </div>
+    </div>
   </div>
 </form>

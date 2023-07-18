@@ -13,8 +13,10 @@ import { GbNotificationRef } from './notification-ref';
   providedIn: 'root',
 })
 export class GbNotification {
-  private lastNotification!: GbNotificationRef;
-  private currentlyRendered = new Map();
+  private currentlyRendered = new Map<
+    string | number,
+    { notificationRef: GbNotificationRef; position: any }
+  >();
 
   constructor(
     private overlay: Overlay,
@@ -26,12 +28,16 @@ export class GbNotification {
     if (data.id && this.currentlyRendered.has(data.id)) {
       return;
     }
-    this.currentlyRendered.set(data.id, data.id);
     const positionStrategy = this.getPositionStrategy();
     const overlayRef = this.overlay.create({ positionStrategy });
-
     const notificationRef = new GbNotificationRef(overlayRef);
-    this.lastNotification = notificationRef;
+    if (data.id) {
+      this.currentlyRendered.set(data.id, {
+        notificationRef,
+        position: positionStrategy,
+      });
+    }
+    // this.lastNotification = notificationRef;
 
     const injector = this.getInjector(data, notificationRef);
     const notificationPortal = new ComponentPortal(
@@ -53,7 +59,7 @@ export class GbNotification {
     return this.overlay
       .position()
       .global()
-      .bottom(`${(this.currentlyRendered.size - 1) * 60 + 20}px`)
+      .bottom(`${(this.currentlyRendered.size || 1 - 1) * 60 + 20}px`)
       .right(this.notificationConfig.position?.right + 'px');
   }
 
@@ -69,5 +75,39 @@ export class GbNotification {
         { provide: GbNotificationRef, useValue: notificationRef },
       ],
     });
+  }
+
+  updateToast(data: GbNotificationData) {
+    if (!data.id) {
+      return;
+    }
+    const toast = this.currentlyRendered.get(data.id);
+    if (!toast) {
+      return;
+    }
+    const positionStrategy = toast.position;
+
+    toast.notificationRef.close();
+    const overlayRef = this.overlay.create({ positionStrategy });
+
+    const notificationRef = new GbNotificationRef(overlayRef);
+    if (data.id) {
+      this.currentlyRendered.set(data.id, {
+        notificationRef,
+        position: positionStrategy,
+      });
+    }
+    // this.lastNotification = notificationRef;
+
+    const injector = this.getInjector(data, notificationRef);
+    const notificationPortal = new ComponentPortal(
+      NotificationComponent,
+      null,
+      injector
+    );
+
+    overlayRef.attach(notificationPortal);
+
+    return notificationRef;
   }
 }

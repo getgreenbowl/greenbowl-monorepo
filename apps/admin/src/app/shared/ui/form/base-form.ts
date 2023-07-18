@@ -34,4 +34,23 @@ export class GbFormBaseComponent {
    * Placeholder text for the element
    */
   @Input() placeholder = '';
+
+  @Input() showErrors = false;
+
+  get errors() {
+    return this.control.errors;
+  }
+  /**
+   * @Determines if the field is required or not
+   */
+  get required() {
+    if (this.control.validator) {
+      const validator = this.control.validator({} as AbstractControl);
+      if (validator?.['required']) {
+        return validator['required'];
+      }
+      return this.control.validator({} as AbstractControl);
+    }
+    return false;
+  }
 }
