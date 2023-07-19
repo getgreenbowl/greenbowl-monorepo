@@ -13,5 +13,5 @@ export class DataChartsComponent {
     value: 1000,
     recieved: new Date(),
   };
-  mock = new Array(8).fill(this.mockItem);
+  mock = new Array(10).fill(this.mockItem);
 }

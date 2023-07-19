@@ -5,9 +5,9 @@ import { AnalyticsRoutingModule } from './analytics-routing.module';
 import { DataChartsComponent } from './data-charts/data-charts.component';
 import { CardModule } from 'src/app/shared/ui/card/card.module';
 import { SgbIconComponent } from 'src/app/shared/ui/icon';
-import { GbGridColumnsComponent } from 'src/app/shared/gb-data-grid/components/base-table/columns';
-import { GbDataGridModule } from 'src/app/shared/gb-data-grid/gb-data-grid.module';
-import { GbActionComponent } from 'src/app/shared/gb-data-grid/components/base-table/action';
+import { GbGridColumnsComponent } from 'src/app/shared/ui/gb-data-grid/components/base-table/columns';
+import { GbDataGridModule } from 'src/app/shared/ui/gb-data-grid/gb-data-grid.module';
+import { GbActionComponent } from 'src/app/shared/ui/gb-data-grid/components/base-table/action';
 import { GbDropdownComponent } from 'src/app/shared/ui/dropdown';
 import { CdkMenuModule } from '@angular/cdk/menu';
 
@@ -22,7 +22,7 @@ import { CdkMenuModule } from '@angular/cdk/menu';
     GbDataGridModule,
     GbActionComponent,
     GbDropdownComponent,
-    CdkMenuModule
+    CdkMenuModule,
   ],
 })
 export class AnalyticsModule {}

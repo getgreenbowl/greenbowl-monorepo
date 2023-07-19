@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { SgbButtonComponent } from '../ui/button';
-import { SgbIconComponent } from '../ui/icon';
+import { SgbButtonComponent } from './button';
+import { SgbIconComponent } from './icon';
 import { Location } from '@angular/common';
 
 @Component({

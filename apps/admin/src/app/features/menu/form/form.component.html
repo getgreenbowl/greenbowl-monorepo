@@ -17,11 +17,6 @@
     />
 
     <gb-input
-      label="Description"
-      [control]="menuFormControls.description"
-      [showErrors]="showErrors"
-    />
-    <gb-input
       label="Price"
       type="number"
       [control]="menuFormControls.price"
@@ -64,13 +59,16 @@
           label="Ingredients"
           [control]="menuFormControls.ingredients"
           [showErrors]="showErrors"
-          apiURL="/ingredients"
           class="flex-grow"
+          [multiple]="true"
+          [items]="['asd', 'asdaa', 'asd', 'a', 'asdasd']"
         />
-        <sgb-button variant="secondary" class="mt-5">
+        <sgb-button variant="outline" class="mt-6" size="sm">
           <sgb-icon icon="add" title="Add new ingredient" />
         </sgb-button>
       </div>
     </div>
   </div>
+
+  <gb-textarea label="Description" [control]="menuFormControls.description" />
 </form>

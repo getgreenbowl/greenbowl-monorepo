@@ -17,13 +17,20 @@
 <div class="pt-4">
   <p class="font-bold text-xl mb-3">Recent orders</p>
 
-  <gb-data-grid [data]="mock" [loading]="false" [collectionSize]="mock.length">
+  <gb-data-grid
+    [data]="mock"
+    [loading]="false"
+    [collectionSize]="mock.length"
+    [hideFeatures]="['footer']"
+  >
     <gb-column field="id" alignment="left" />
     <gb-column field="name" alignment="left" />
     <gb-column field="pinCode" title="Pin Code" />
     <gb-column field="value" />
     <gb-column field="recieved" alignment="left">
-      <ng-container> </ng-container>
+      <ng-template #cell let-item>
+        {{ item.recieved | date }}
+      </ng-template>
     </gb-column>
   </gb-data-grid>
 </div>

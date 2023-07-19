@@ -5,7 +5,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import { NgSelectModule } from '@ng-select/ng-select';
+import { NgSelectModule } from './ng-select/ng-select.module';
 import { ApiService } from '../../services/api.service';
 import { GbFormBaseComponent } from './base-form';
 import { NgFor, NgIf } from '@angular/common';
@@ -42,6 +42,7 @@ import { FormControlPipe } from '../../pipe/form-control';
         [items]="items"
         [loading]="loading"
         [formControl]="control | formControl"
+        [multiple]="multiple"
       ></ng-select>
       <gb-hint
         message="This is a required field"
@@ -64,6 +65,7 @@ export class GbSelectComponent extends GbFormBaseComponent implements OnInit {
   @Input() bindLabel = '';
   @Input() items: any[] = [];
   @Input() loading = false;
+  @Input() multiple = false;
 
   ngOnInit(): void {
     if (this.loadOnMount) {

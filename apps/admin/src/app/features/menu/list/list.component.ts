@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
     <gb-column field="carbs" />
     <!-- columns -->
 
-    <gb-action icon="edit" (handleClick)="edit($event)" />
+    <gb-action icon="edit" (handleClick)="edit($event)" tooltip="Edit" />
   </gb-grid-shell> `,
 })
 export class ListComponent {

@@ -1,10 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { GbFormBaseComponent } from './base-form';
-import {
-  AbstractControl,
-  FormsModule,
-  ReactiveFormsModule,
-} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FormControlPipe } from '../../pipe/form-control';
 import { NgClass, NgFor, NgIf } from '@angular/common';
 import { GbHintComponent } from '../hint';

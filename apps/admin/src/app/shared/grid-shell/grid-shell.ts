@@ -6,13 +6,17 @@ import {
   Input,
   Output,
   QueryList,
+  inject,
 } from '@angular/core';
-import { GbActionComponent } from '../gb-data-grid/components/base-table/action';
-import { GbGridColumnsComponent } from '../gb-data-grid/components/base-table/columns';
-import { GbGridToolbarComponent } from '../gb-data-grid/components/toolbar/gb-toolbar';
-import { GbDataGridModule } from '../gb-data-grid/gb-data-grid.module';
+import { GbActionComponent } from '../ui/gb-data-grid/components/base-table/action';
+import { GbGridColumnsComponent } from '../ui/gb-data-grid/components/base-table/columns';
+import { GbGridToolbarComponent } from '../ui/gb-data-grid/components/toolbar/gb-toolbar';
+import { GbDataGridModule } from '../ui/gb-data-grid/gb-data-grid.module';
 import { ApiService } from '../services/api.service';
 import { GbNotification } from '../ui/notification/notification.service';
+import { Overlay } from '@angular/cdk/overlay';
+import { ComponentPortal } from '@angular/cdk/portal';
+import { GbGridFiltersComponent } from './filters/filters';
 
 @Component({
   selector: 'gb-grid-shell',
@@ -38,7 +42,7 @@ import { GbNotification } from '../ui/notification/notification.service';
       [name]="tool.name"
       (handleClick)="tool.handleClick.emit($event)"
     />
-    <gb-toolbar icon="filter_alt" name="Filter" />
+    <gb-toolbar icon="filter_alt" name="Filter" (handleClick)="openFilters()" />
     <gb-toolbar icon="filter_alt_off" name="Clear Filter" />
     <!-- Toolbar -->
 
@@ -87,6 +91,8 @@ import { GbNotification } from '../ui/notification/notification.service';
 export class GbGridShellComponent {
   constructor(private api: ApiService, private notif: GbNotification) {}
 
+  overlay = inject(Overlay);
+
   @Input() apiURL = '';
   @Input() gridTitle = '';
   @Input() loadOnMount = true;
@@ -107,6 +113,20 @@ export class GbGridShellComponent {
 
   gridEvents(events: any) {
     this._getData(events);
+  }
+
+  openFilters() {
+    const overlayRef = this.overlay.create({
+      positionStrategy: this.overlay.position().global().right().top(),
+      hasBackdrop: true,
+    });
+
+    overlayRef.attach(new ComponentPortal(GbGridFiltersComponent));
+    overlayRef.backdropClick().subscribe({
+      next: () => {
+        overlayRef.dispose();
+      },
+    });
   }
 
   private _getData(options: any) {

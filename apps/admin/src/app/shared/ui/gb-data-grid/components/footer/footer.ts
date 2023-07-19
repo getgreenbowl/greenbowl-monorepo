@@ -3,7 +3,7 @@ import { PaginationService } from '../../services/pagination.service';
 
 @Component({
   selector: 'table-footer',
-  template: `<div class="rounded-0 p-2 flex justify-between border-x border-b">
+  template: `<div class="rounded-0 py-3 flex justify-between">
     <ng-container *ngIf="paginationService.pagination$ | async as pagination">
       <div class="flex">
         <gb-grid-limit />

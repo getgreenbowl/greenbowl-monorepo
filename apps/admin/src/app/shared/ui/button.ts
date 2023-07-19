@@ -44,7 +44,7 @@ const buttonVariants = cva(
 @Component({
   selector: 'sgb-button',
   standalone: true,
-  // changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [NgIf, SgbIconComponent],
   template: `<button
     [type]="type"
@@ -60,6 +60,7 @@ export class SgbButtonComponent implements OnChanges {
   @Input() type: 'submit' | 'button' = 'submit';
   @Input() disabled = false;
   @Input() variant: VariantProps<typeof buttonVariants>['variant'] = 'default';
+  @Input() size: VariantProps<typeof buttonVariants>['size'] = 'default';
   @Input() loading = false;
 
   protected defaultClass = buttonVariants({ variant: this.variant });
@@ -68,6 +69,14 @@ export class SgbButtonComponent implements OnChanges {
     if (changes['variant']?.currentValue) {
       this.defaultClass = buttonVariants({
         variant: changes['variant'].currentValue,
+        size: this.size,
+      });
+    }
+
+    if (changes['size']?.currentValue) {
+      this.defaultClass = buttonVariants({
+        size: changes['size'].currentValue,
+        variant: this.variant,
       });
     }
 

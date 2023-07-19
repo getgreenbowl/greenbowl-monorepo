@@ -1,6 +1,12 @@
 <div class="antialiased">
   <gb-header></gb-header>
-  <gb-sidebar (changeTheme)="changeTheme($event)" [theme]="theme"></gb-sidebar>
+  <ng-container *ngIf="themeService.theme$ | async as theme">
+    <gb-sidebar
+      (changeTheme)="themeService.changeTheme($event)"
+      [theme]="theme"
+    ></gb-sidebar>
+  </ng-container>
+
   <main
     class="p-4 md:ml-64 pt-16 h-auto bg-background text-card-foreground min-h-screen"
   >

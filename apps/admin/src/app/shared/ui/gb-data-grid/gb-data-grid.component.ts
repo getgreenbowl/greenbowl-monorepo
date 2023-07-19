@@ -11,11 +11,12 @@ import {
   Output,
   QueryList,
   SimpleChanges,
+  inject,
 } from '@angular/core';
 import { GridDataService } from './services/data.service';
 import { GridColumnService } from './services/columns.service';
 import { GbGridColumnsComponent } from './components/base-table/columns';
-import { STATIC_ACTION_HEADER } from './types';
+import { HideFeatures, STATIC_ACTION_HEADER } from './types';
 import { ActionService } from './services/actions.service';
 import { LoadingService } from './services/loading.service';
 import { ToolbarService } from './services/toolbar.service';
@@ -34,23 +35,19 @@ import { SubSink } from 'subsink';
 export class GbDataGridComponent
   implements OnChanges, AfterContentInit, OnInit, OnDestroy
 {
-  constructor(
-    private gridData: GridDataService,
-    private columnService: GridColumnService,
-    private actionService: ActionService,
-    private loader: LoadingService,
-    private toolbarService: ToolbarService,
-    private paginationService: PaginationService,
-    private metaService: MetaDataService
-  ) {}
+  private gridData = inject(GridDataService);
+  private columnService = inject(GridColumnService);
+  private actionService = inject(ActionService);
+  private loader = inject(LoadingService);
+  private toolbarService = inject(ToolbarService);
+  private paginationService = inject(PaginationService);
+  private metaService = inject(MetaDataService);
 
-  /**
-   * data to display
-   */
-  @Input() data: any[] = [];
-  @Input() loading = false;
+  @Input({ required: true }) data: any[] = [];
+  @Input({ required: true }) loading = false;
   @Input() collectionSize = 0;
   @Input() gridTitle = '';
+  @Input() hideFeatures: HideFeatures = [];
 
   @Output() emitEvents = new EventEmitter<any>();
 

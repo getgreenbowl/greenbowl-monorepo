@@ -28,6 +28,7 @@ import { SgbIconComponent } from 'src/app/shared/ui/icon';
       *ngIf="!action"
       (click)="handleClick.emit({cellData, column})"
       [icon]="icon"
+      [title]="tooltip"
       class="cursor-pointer"
     />`,
 })

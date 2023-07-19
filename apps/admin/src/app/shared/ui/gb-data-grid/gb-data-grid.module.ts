@@ -17,7 +17,7 @@ import { MetaDataService } from './services/meta-data.service';
 import { GbActionComponent } from './components/base-table/action';
 import { GridToolbarComponent } from './components/toolbar/toolbar';
 import { GbGridToolbarComponent } from './components/toolbar/gb-toolbar';
-import { SgbBtnGroupModule } from '../ui/button-group/btn-group.module';
+import { SgbBtnGroupModule } from '../button-group/btn-group.module';
 
 @NgModule({
   declarations: [
@@ -43,7 +43,7 @@ import { SgbBtnGroupModule } from '../ui/button-group/btn-group.module';
     LoadingService,
     ToolbarService,
     MetaDataService,
-    PaginationService
+    PaginationService,
   ],
   exports: [GbDataGridComponent],
 })

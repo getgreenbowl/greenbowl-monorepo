@@ -1,9 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { map } from 'rxjs';
 import { GbNotification } from 'src/app/shared/ui/notification/notification.service';
 import { ApiService } from '../../../shared/services/api.service';
-import { TMenu } from '@gb/schema';
 
 @Component({
   selector: 'app-form',
@@ -11,11 +9,9 @@ import { TMenu } from '@gb/schema';
   styleUrls: ['./form.component.scss'],
 })
 export class FormComponent {
-  constructor(
-    private fb: FormBuilder,
-    private api: ApiService,
-    private notif: GbNotification
-  ) {}
+  api = inject(ApiService);
+  notif = inject(GbNotification);
+  fb = inject(FormBuilder);
 
   showErrors = false;
   submitButton: 'submit' | 'loading' | 'added' | 'error' = 'submit';
