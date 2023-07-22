@@ -1,22 +1,25 @@
+import { Overlay } from '@angular/cdk/overlay';
 import { CommonModule } from '@angular/common';
 import {
   Component,
   ContentChildren,
   EventEmitter,
   Input,
+  OnDestroy,
   Output,
   QueryList,
   inject,
 } from '@angular/core';
+import { ApiService } from '../services/api.service';
 import { GbActionComponent } from '../ui/gb-data-grid/components/base-table/action';
 import { GbGridColumnsComponent } from '../ui/gb-data-grid/components/base-table/columns';
 import { GbGridToolbarComponent } from '../ui/gb-data-grid/components/toolbar/gb-toolbar';
 import { GbDataGridModule } from '../ui/gb-data-grid/gb-data-grid.module';
-import { ApiService } from '../services/api.service';
 import { GbNotification } from '../ui/notification/notification.service';
-import { Overlay } from '@angular/cdk/overlay';
-import { ComponentPortal } from '@angular/cdk/portal';
-import { GbGridFiltersComponent } from './filters/filters';
+import { FilterService } from './filters/filter.service';
+import { SubSink } from 'subsink';
+import { take } from 'rxjs';
+import { GbGridFilterComponent } from './filters/components/grid-filter';
 
 @Component({
   selector: 'gb-grid-shell',
@@ -33,7 +36,7 @@ import { GbGridFiltersComponent } from './filters/filters';
     [loading]="loading"
     [collectionSize]="collectionSize"
     [gridTitle]="gridTitle"
-    (emitEvents)="gridEvents($event)"
+    (emitEvents)="captureGridEvents($event)"
   >
     <!-- Toolbar -->
     <gb-toolbar
@@ -42,8 +45,14 @@ import { GbGridFiltersComponent } from './filters/filters';
       [name]="tool.name"
       (handleClick)="tool.handleClick.emit($event)"
     />
-    <gb-toolbar icon="filter_alt" name="Filter" (handleClick)="openFilters()" />
-    <gb-toolbar icon="filter_alt_off" name="Clear Filter" />
+    <ng-container *ngIf="filters?.length">
+      <gb-toolbar
+        icon="filter_alt"
+        name="Filter"
+        (handleClick)="openFilters()"
+      />
+      <gb-toolbar icon="filter_alt_off" name="Clear Filter" />
+    </ng-container>
     <!-- Toolbar -->
 
     <!-- Action -->
@@ -88,10 +97,11 @@ import { GbGridFiltersComponent } from './filters/filters';
     <!-- Columns -->
   </gb-data-grid>`,
 })
-export class GbGridShellComponent {
+export class GbGridShellComponent implements OnDestroy {
   constructor(private api: ApiService, private notif: GbNotification) {}
 
   overlay = inject(Overlay);
+  filterService = inject(FilterService);
 
   @Input() apiURL = '';
   @Input() gridTitle = '';
@@ -107,48 +117,64 @@ export class GbGridShellComponent {
   @ContentChildren(GbGridToolbarComponent)
   toolbar?: QueryList<GbGridToolbarComponent>;
 
+  @ContentChildren(GbGridFilterComponent)
+  filters?: QueryList<GbGridFilterComponent>;
+
   protected loading = false;
   protected collectionSize!: number;
   protected data: any[] = [];
+  private subs = new SubSink();
+  private gridEvents: any = null;
+  private filterValues: any = null;
 
-  gridEvents(events: any) {
-    this._getData(events);
+  ngOnDestroy(): void {
+    this.subs.unsubscribe();
+  }
+
+  captureGridEvents(events: any) {
+    this.gridEvents = events;
+    this._getData();
   }
 
   openFilters() {
-    const overlayRef = this.overlay.create({
-      positionStrategy: this.overlay.position().global().right().top(),
-      hasBackdrop: true,
-    });
+    if (!this.filters) {
+      return;
+    }
+    this.filterService.updateFilters(this.filters);
 
-    overlayRef.attach(new ComponentPortal(GbGridFiltersComponent));
-    overlayRef.backdropClick().subscribe({
-      next: () => {
-        overlayRef.dispose();
-      },
+    const filterPanel = this.filterService.openFilterPanel();
+    filterPanel.instance.search.pipe(take(1)).subscribe((filters) => {
+      this.filterValues = filters;
+      this._getData();
     });
   }
 
-  private _getData(options: any) {
+  private _getData() {
     if (!this.apiURL) {
       return console.error('Please provide a api url');
     }
     this.loading = true;
-    this.api.getList<any>(this.apiURL, options).subscribe({
-      next: ({ data }) => {
-        this.loading = false;
-        this.collectionSize = data['count'];
-        this.data = data.rows;
-      },
-      error: () => {
-        this.loading = false;
-        this.notif.show({
-          text: 'Failed to load list',
-          title: 'Error',
-          id: 'fetch-list',
-          type: 'error',
-        });
-      },
-    });
+    this.subs.sink = this.api
+      .getList<any>(this.apiURL, this.buildFilters())
+      .subscribe({
+        next: ({ data }) => {
+          this.loading = false;
+          this.collectionSize = data['count'];
+          this.data = data.rows;
+        },
+        error: () => {
+          this.loading = false;
+          this.notif.show({
+            text: 'Failed to load list',
+            title: 'Error',
+            id: 'fetch-list',
+            type: 'error',
+          });
+        },
+      });
+  }
+
+  private buildFilters() {
+    return { ...this.gridEvents, filters: JSON.stringify(this.filterValues) };
   }
 }

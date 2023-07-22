@@ -1,0 +1,29 @@
+<nav
+  class="bg-background align-middle fixed left-0 right-0 top-0 z-50"
+  [ngClass]="{ 'border-b': (theme$ | async) === 'dark' }"
+>
+  <div class="flex flex-wrap justify-between items-center">
+    <div class="flex justify-start items-center">
+      <div class="flex py-2 px-3 w-64 bg-sidebar-bg">
+        <div class="flex justify-center items-center">
+          <span
+            class="text-xl font-semibold whitespace-nowrap text-white bg-emerald-900 py-1 px-2 flex items-center justify-center mr-2 rounded"
+            >gb</span
+          >
+          <span
+            class="text-md font-semibold text-white whitespace-nowrap underline"
+            >greenbowl</span
+          >
+        </div>
+      </div>
+    </div>
+    <div
+      class="flex-grow"
+      [ngClass]="{ 'border-b': (theme$ | async) === 'light' }"
+    >
+      <sgb-button variant="ghost">
+        <sgb-icon icon="person" />
+      </sgb-button>
+    </div>
+  </div>
+</nav>

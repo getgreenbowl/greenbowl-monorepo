@@ -38,13 +38,13 @@ export class GbFormBaseComponent {
   @Input() showErrors = false;
 
   get errors() {
-    return this.control.errors;
+    return this.control?.errors;
   }
   /**
    * @Determines if the field is required or not
    */
   get required() {
-    if (this.control.validator) {
+    if (this.control?.validator) {
       const validator = this.control.validator({} as AbstractControl);
       if (validator?.['required']) {
         return validator['required'];

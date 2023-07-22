@@ -1,4 +1,4 @@
-@import 'mixins';
+@import "mixins";
 
 $ng-select-highlight: #007eff !default;
 $ng-select-primary-text: #333 !default;
@@ -248,7 +248,7 @@ $ng-select-input-text: #000000 !default;
 }
 
 .ng-dropdown-panel {
-  background-color: $ng-select-dropdown-bg;
+  // background-color: $ng-select-dropdown-bg;
   box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06);
   left: 0;
   &.ng-select-top {

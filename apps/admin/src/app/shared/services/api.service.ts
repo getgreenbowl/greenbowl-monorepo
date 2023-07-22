@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ListResponse, Response } from '@gb/schema';
+// import { ListResponse, Response } from 'greenbowl-schema';
 
 type QueryParams =
   | HttpParams
@@ -28,17 +28,14 @@ export class ApiService {
     return `http://localhost:3000${endpoint}`;
   }
 
-  get<T>(endpoint: string, queryParams?: QueryParams): Observable<Response<T>> {
-    return this._http.get<Response<T>>(this.makeURL(endpoint), {
+  get<T>(endpoint: string, queryParams?: QueryParams): Observable<any> {
+    return this._http.get<any>(this.makeURL(endpoint), {
       params: queryParams,
     });
   }
 
-  getList<T>(
-    endpoint: string,
-    queryParams?: QueryParams
-  ): Observable<ListResponse<T>> {
-    return this._http.get<ListResponse<T>>(this.makeURL(endpoint), {
+  getList<T>(endpoint: string, queryParams?: QueryParams): Observable<any> {
+    return this._http.get<any>(this.makeURL(endpoint), {
       params: queryParams,
     });
   }

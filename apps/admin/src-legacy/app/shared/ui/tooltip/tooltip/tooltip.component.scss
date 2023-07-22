@@ -1,0 +1,47 @@
+.tooltip {
+  position: fixed;
+  background-color: #3e4242;
+  border-radius: 0.25rem;
+  color: #fff;
+  padding: 0.5rem;
+  font: inherit;
+  margin-top: 0.3rem;
+  transform: translateX(-50%);
+  z-index: 1000;
+  font-size: 0.875rem;
+
+  &::after {
+    content: '';
+    position: absolute;
+    border-style: solid;
+  }
+}
+.tooltip-top::after {
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-color: #202626 transparent transparent transparent;
+}
+.tooltip-bottom::after {
+  bottom: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-color: transparent transparent #202626 transparent;
+}
+// adding left and right classes as well when we will required those positions
+.tooltip-left::after {
+  top: 50%;
+  left: 100%;
+  margin-top: -5px;
+  border-width: 5px;
+  border-color: transparent transparent transparent #202626;
+}
+.tooltip-right::after {
+  top: 50%;
+  right: 100%;
+  margin-top: -5px;
+  border-width: 5px;
+  border-color: transparent #202626 transparent transparent;
+}

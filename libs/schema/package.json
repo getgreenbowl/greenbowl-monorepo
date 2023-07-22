@@ -1,5 +1,5 @@
 {
-  "name": "@nx-gb/schema",
+  "name": "greenbowl-schema",
   "version": "0.0.1",
   "type": "commonjs"
 }

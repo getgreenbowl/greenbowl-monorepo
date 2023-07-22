@@ -22,9 +22,9 @@ const routes: Routes = [
           ),
       },
       {
-        path: 'menu',
+        path: 'items',
         loadChildren: () =>
-          import('./features/menu/menu.module').then((m) => m.MenuModule),
+          import('./features/items/items.module').then((m) => m.ItemsModule),
       },
       {
         path: 'subscription',

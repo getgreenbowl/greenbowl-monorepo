@@ -1,4 +1,5 @@
 import { Component, inject } from '@angular/core';
+import { SidebarService } from 'src/app/shared/services/sidebar.service';
 import { ThemeService } from 'src/app/shared/services/theme.service';
 
 @Component({
@@ -8,4 +9,5 @@ import { ThemeService } from 'src/app/shared/services/theme.service';
 })
 export class MainComponent {
   themeService = inject(ThemeService);
+  sidebarService = inject(SidebarService);
 }

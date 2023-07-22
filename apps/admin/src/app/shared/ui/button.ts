@@ -12,7 +12,7 @@ import { cva, VariantProps } from 'class-variance-authority';
 import { SgbIconComponent } from './icon';
 
 const buttonVariants = cva(
-  'inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none ring-offset-background',
+  'inline-flex items-center justify-center text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none ring-offset-background',
   {
     variants: {
       variant: {
@@ -32,6 +32,12 @@ const buttonVariants = cva(
         sm: 'h-9 px-3 rounded-md',
         lg: 'h-11 px-8 rounded-md',
         icon: 'h-10 w-10',
+      },
+      rounded: {
+        none: 'rounded-0',
+        md: 'rounded-md',
+        sm: 'rounded-sm',
+        lg: 'rounded-lg',
       },
     },
     defaultVariants: {
@@ -61,15 +67,17 @@ export class SgbButtonComponent implements OnChanges {
   @Input() disabled = false;
   @Input() variant: VariantProps<typeof buttonVariants>['variant'] = 'default';
   @Input() size: VariantProps<typeof buttonVariants>['size'] = 'default';
+  @Input() rounded: VariantProps<typeof buttonVariants>['rounded'] = 'md';
   @Input() loading = false;
 
-  protected defaultClass = buttonVariants({ variant: this.variant });
+  protected defaultClass = buttonVariants();
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['variant']?.currentValue) {
       this.defaultClass = buttonVariants({
         variant: changes['variant'].currentValue,
         size: this.size,
+        rounded: this.rounded,
       });
     }
 
@@ -77,6 +85,15 @@ export class SgbButtonComponent implements OnChanges {
       this.defaultClass = buttonVariants({
         size: changes['size'].currentValue,
         variant: this.variant,
+        rounded: this.rounded,
+      });
+    }
+
+    if (changes['rounded']?.currentValue) {
+      this.defaultClass = buttonVariants({
+        rounded: changes['rounded'].currentValue,
+        variant: this.variant,
+        size: this.size,
       });
     }
 

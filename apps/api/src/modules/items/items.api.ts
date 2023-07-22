@@ -8,7 +8,8 @@ import { ItemImages } from './models/images.model';
 import { ItemIngredients } from './models/item-ingredients.model';
 import { Item } from './models/item.model';
 import { validate } from '../../core/middlewares/validation.middleware';
-import { v_item } from '@gb/schema';
+import { v_item, v_param_id } from 'greenbowl-schema';
+import Session from '../../core/middlewares/jwt.middleware';
 
 const ItemRouter = Router();
 
@@ -20,7 +21,7 @@ ItemRouter.post(
     try {
       const payload = req.body;
       const item = await Item.create(payload, { transaction: t });
-      if (payload.ingredients.length) {
+      if (payload?.ingredients?.length) {
         const ingredients = payload.ingredients.map((ingredientID: any) => ({
           itemID: item.id,
           ingredientID,
@@ -46,7 +47,7 @@ ItemRouter.post(
   )
   .post(
     '/update/:id',
-    validate({ body: v_item }),
+    validate({ body: v_item.omit({ id: true }) }),
     ah(async (req, res) => {
       const [update] = await Item.update(req.body, {
         where: { id: req.params.id },
@@ -60,6 +61,15 @@ ItemRouter.post(
     ah(async (req, res) => {
       const items = await Item.findAndCountAll(req.modelOptions);
       success(res, items, 'All items');
+    })
+  )
+  .get(
+    '/:id',
+    // Session.secure,
+    validate({ params: v_param_id }),
+    ah(async (req, res) => {
+      const item = await Item.findByPk(req.params.id);
+      success(res, item, 'Item by id');
     })
   );
 

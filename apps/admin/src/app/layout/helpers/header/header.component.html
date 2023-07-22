@@ -1,10 +1,18 @@
-<nav
-  class="bg-background align-middle fixed left-0 right-0 top-0 z-50"
-  [ngClass]="{ 'border-b': (theme$ | async) === 'dark' }"
->
-  <div class="flex flex-wrap justify-between items-center">
-    <div class="flex justify-start items-center">
-      <div class="flex py-2 px-3 w-64 bg-sidebar-bg">
+<ng-container *ngIf="theme$ | async as theme">
+  <nav
+    class="bg-background align-middle fixed left-0 right-0 top-0 z-50"
+    [ngClass]="{
+      'border-b': theme === 'dark' || (theme === 'light' && !sidebarOpen),
+    }"
+  >
+    <div class="flex justify-between items-center">
+      <div
+        class="flex w-60 py-1 px-2 bg-sidebar-bg justify-between items-center"
+        [ngClass]="{
+          'bg-sidebar-bg': sidebarOpen,
+          'bg-background': !sidebarOpen
+        }"
+      >
         <div class="flex justify-center items-center">
           <span
             class="text-xl font-semibold whitespace-nowrap text-white bg-emerald-900 py-1 px-2 flex items-center justify-center mr-2 rounded"
@@ -12,18 +20,38 @@
           >
           <span
             class="text-md font-semibold text-white whitespace-nowrap underline"
+            [ngClass]="{
+              'text-white': sidebarOpen,
+              'text-foreground': !sidebarOpen
+            }"
             >greenbowl</span
           >
         </div>
+        <sgb-icon
+          (click)="sidebarService.toggleSidebar()"
+          icon="dock_to_right"
+          size="lg"
+          class="cursor-pointer"
+          [iconClass]="{
+            'text-white': sidebarOpen,
+            'text-foreground': !sidebarOpen
+          }"
+        />
+      </div>
+      <div
+        class="flex-grow"
+        [ngClass]="{
+          'border-b': (theme$ | async) === 'light' && sidebarOpen
+        }"
+      >
+        <div class="flex justify-end">
+          <gb-dropdown>
+            <sgb-button variant="ghost" class="justify-end mr-2" size="icon">
+              <sgb-icon icon="person" />
+            </sgb-button>
+          </gb-dropdown>
+        </div>
       </div>
     </div>
-    <div
-      class="flex-grow"
-      [ngClass]="{ 'border-b': (theme$ | async) === 'light' }"
-    >
-      <sgb-button variant="ghost">
-        <sgb-icon icon="person" />
-      </sgb-button>
-    </div>
-  </div>
-</nav>
+  </nav>
+</ng-container>

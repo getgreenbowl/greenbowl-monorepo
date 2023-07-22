@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Output, Input } from '@angular/core';
-import { MENU } from './menu-data';
+import { Menu } from './menu-data';
 
 @Component({
   selector: 'gb-sidebar',
@@ -10,5 +10,5 @@ export class SidebarComponent {
   @Output() changeTheme = new EventEmitter();
   @Input() theme = 'light';
 
-  menu = MENU;
+  menu = Menu;
 }

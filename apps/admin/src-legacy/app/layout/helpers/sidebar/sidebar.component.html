@@ -1,0 +1,55 @@
+<aside
+  class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full border-r md:translate-x-0 bg-sidebar-bg border-gray-700"
+  aria-label="Sidenav"
+  id="drawer-navigation"
+>
+  <div
+    class="overflow-y-auto pt-16 py-5 px-3 h-full bg-sidebar-bg flex flex-col justify-between"
+  >
+    <div>
+
+      <ul class="space-y-2">
+        <li *ngFor="let m of menu">
+          <a
+            [routerLink]="m.link"
+            routerLinkActive="bg-gray-800"
+            [routerLinkActiveOptions]="{ exact: true }"
+            class="flex items-center p-2 text-base font-medium rounded-lg text-white hover:bg-gray-800 group"
+          >
+            <sgb-icon [icon]="m.icon" />
+            <span class="ml-3">{{ m.name }}</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+    <ul class="space-y-2">
+      <li *ngIf="theme === 'light'">
+        <a
+          (click)="changeTheme.emit('dark')"
+          class="flex items-center p-2 text-base font-medium rounded-lg text-white hover:bg-gray-700 group cursor-pointer"
+        >
+          <sgb-icon icon="dark_mode" />
+          <span class="ml-3">Dark</span>
+        </a>
+      </li>
+      <li *ngIf="theme === 'dark'">
+        <a
+          (click)="changeTheme.emit('light')"
+          class="flex items-center p-2 text-base font-medium rounded-lg text-white hover:bg-gray-700 group cursor-pointer"
+        >
+          <sgb-icon icon="light_mode" />
+          <span class="ml-3">Light</span>
+        </a>
+      </li>
+      <li>
+        <a
+          routerLink="/auth"
+          class="flex items-center p-2 text-base font-medium rounded-lg text-white hover:bg-gray-700 group"
+        >
+          <sgb-icon icon="logout" />
+          <span class="ml-3">Logout</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</aside>

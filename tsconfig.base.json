@@ -15,8 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@gb/schema": ["libs/schema/src/index.ts"],
-      "greenbowl-schema": ["libs/schema/src/index.ts"],
+      "greenbowl-schema": ["libs/gb-schema/src/index.ts"],
       "jwt": ["libs/jwt/src/index.ts"],
       "src/*": ["apps/admin/src/*"]
     }

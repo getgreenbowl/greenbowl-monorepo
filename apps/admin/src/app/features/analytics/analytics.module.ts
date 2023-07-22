@@ -9,7 +9,6 @@ import { GbGridColumnsComponent } from 'src/app/shared/ui/gb-data-grid/component
 import { GbDataGridModule } from 'src/app/shared/ui/gb-data-grid/gb-data-grid.module';
 import { GbActionComponent } from 'src/app/shared/ui/gb-data-grid/components/base-table/action';
 import { GbDropdownComponent } from 'src/app/shared/ui/dropdown';
-import { CdkMenuModule } from '@angular/cdk/menu';
 
 @NgModule({
   declarations: [DataChartsComponent],
@@ -22,7 +21,6 @@ import { CdkMenuModule } from '@angular/cdk/menu';
     GbDataGridModule,
     GbActionComponent,
     GbDropdownComponent,
-    CdkMenuModule,
   ],
 })
 export class AnalyticsModule {}

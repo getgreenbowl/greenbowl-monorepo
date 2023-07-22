@@ -68,9 +68,6 @@
         (focus)="onInputFocus($event)"
         (blur)="onInputBlur($event)"
         (change)="$event.stopPropagation()"
-        [attr.aria-activedescendant]="
-          isOpen ? itemsList?.markedItem?.htmlId : null
-        "
         aria-autocomplete="list"
         [attr.aria-controls]="isOpen ? dropdownId : null"
       />
@@ -101,7 +98,7 @@
 
 <ng-dropdown-panel
   *ngIf="isOpen"
-  class="ng-dropdown-panel !border"
+  class="ng-dropdown-panel !border !bg-background"
   [virtualScroll]="virtualScroll"
   [bufferAmount]="bufferAmount"
   [appendTo]="appendTo"
@@ -219,3 +216,8 @@
     </ng-template>
   </ng-container>
 </ng-dropdown-panel>
+
+<!--
+[attr.aria-activedescendant]="
+isOpen ? itemsList.markedItem?.htmlId : null
+" -->
