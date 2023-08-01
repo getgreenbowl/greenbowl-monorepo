@@ -62,7 +62,12 @@
           [multiple]="true"
           [items]="['asd', 'asdaa', 'asd', 'a', 'asdasd']"
         />
-        <sgb-button variant="outline" class="mt-6" size="sm">
+        <sgb-button
+          variant="outline"
+          class="mt-6"
+          size="sm"
+          (handleClick)="openDialog()"
+        >
           <sgb-icon icon="add" title="Add new ingredient" />
         </sgb-button>
       </div>
@@ -71,3 +76,25 @@
 
   <gb-textarea label="Description" [control]="itemsFormControls.description" />
 </gb-form>
+
+<ng-template #addMenu>
+  <gb-dialog-content>
+    <gb-dialog-header>
+      <gb-dialog-title>Add Menu</gb-dialog-title>
+      <gb-dialog-description
+        >You can add new menu from here</gb-dialog-description
+      >
+    </gb-dialog-header>
+    <div>
+      <gb-input
+        label="Menu name"
+        [control]="itemsFormControls.name"
+        [showErrors]="showErrors"
+      />
+    </div>
+
+    <gb-dialog-footer>
+      <sgb-button size="sm" (handleClick)="close()">Save</sgb-button>
+    </gb-dialog-footer>
+  </gb-dialog-content>
+</ng-template>

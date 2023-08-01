@@ -71,6 +71,13 @@ ItemRouter.post(
       const item = await Item.findByPk(req.params.id);
       success(res, item, 'Item by id');
     })
+  )
+  .get(
+    '/simple-list',
+    ah(async (req, res) => {
+      const items = await Item.findAll({ where: { isActive: true } });
+      success(res, items, 'active items');
+    })
   );
 
 export default ItemRouter;

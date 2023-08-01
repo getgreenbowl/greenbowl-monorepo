@@ -19,6 +19,7 @@ import { AddItemsComponent } from './form/add-item';
 import { EditItemsComponent } from './form/edit-item';
 import { GbFormComponent } from 'src/app/shared/ui/form/gb-form';
 import { GbGridFilterComponent } from 'src/app/shared/grid-shell/filters/components/grid-filter';
+import { GbDialogModule } from 'src/app/shared/ui/dialog/dialog.module';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { GbGridFilterComponent } from 'src/app/shared/grid-shell/filters/compone
     GbTextareaComponent,
     GbFormComponent,
     GbGridFilterComponent,
+    GbDialogModule,
   ],
 })
 export class ItemsModule {}
