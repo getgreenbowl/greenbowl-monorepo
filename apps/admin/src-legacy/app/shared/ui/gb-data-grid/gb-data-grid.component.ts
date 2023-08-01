@@ -43,8 +43,8 @@ export class GbDataGridComponent
   private paginationService = inject(PaginationService);
   private metaService = inject(MetaDataService);
 
-  @Input({ required: true }) data: any[] = [];
-  @Input({ required: true }) loading = false;
+  @Input() data: any[] = [];
+  @Input() loading = false;
   @Input() collectionSize = 0;
   @Input() gridTitle = '';
   @Input() hideFeatures: HideFeatures = [];

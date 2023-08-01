@@ -18,6 +18,10 @@ import { GbActionComponent } from './components/base-table/action';
 import { GridToolbarComponent } from './components/toolbar/toolbar';
 import { GbGridToolbarComponent } from './components/toolbar/gb-toolbar';
 import { SgbBtnGroupModule } from '../button-group/btn-group.module';
+import { GbDropdownModule } from '../dropdown/dropdown.module';
+import { SgbButtonComponent } from '../button';
+import { SgbIconComponent } from '../icon';
+import { GbBadgeComponent } from '../badge';
 
 @NgModule({
   declarations: [
@@ -35,6 +39,10 @@ import { SgbBtnGroupModule } from '../button-group/btn-group.module';
     GbActionComponent,
     GbGridToolbarComponent,
     SgbBtnGroupModule,
+    GbDropdownModule,
+    SgbButtonComponent,
+    SgbIconComponent,
+    GbBadgeComponent,
   ],
   providers: [
     GridDataService,

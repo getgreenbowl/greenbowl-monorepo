@@ -6,20 +6,23 @@ import {
   EventEmitter,
   Input,
   OnDestroy,
+  OnInit,
   Output,
   QueryList,
   inject,
 } from '@angular/core';
+import { SubSink } from 'subsink';
 import { ApiService } from '../services/api.service';
 import { GbActionComponent } from '../ui/gb-data-grid/components/base-table/action';
 import { GbGridColumnsComponent } from '../ui/gb-data-grid/components/base-table/columns';
 import { GbGridToolbarComponent } from '../ui/gb-data-grid/components/toolbar/gb-toolbar';
 import { GbDataGridModule } from '../ui/gb-data-grid/gb-data-grid.module';
 import { GbNotification } from '../ui/notification/notification.service';
-import { FilterService } from './filters/filter.service';
-import { SubSink } from 'subsink';
-import { take } from 'rxjs';
+import { GbFilterPillsComponent } from './filters/components/filter-pills';
 import { GbGridFilterComponent } from './filters/components/grid-filter';
+import { FilterService } from './filters/filter.service';
+import { FilterData } from './filters/types';
+import { safeStringify } from '../utils/safe-json';
 
 @Component({
   selector: 'gb-grid-shell',
@@ -30,6 +33,7 @@ import { GbGridFilterComponent } from './filters/components/grid-filter';
     GbGridColumnsComponent,
     GbActionComponent,
     GbGridToolbarComponent,
+    GbFilterPillsComponent,
   ],
   template: ` <gb-data-grid
     [data]="data"
@@ -51,7 +55,12 @@ import { GbGridFilterComponent } from './filters/components/grid-filter';
         name="Filter"
         (handleClick)="openFilters()"
       />
-      <gb-toolbar icon="filter_alt_off" name="Clear Filter" />
+      <!-- TODO : add a way to reset all grid options. -->
+      <gb-toolbar
+        icon="restart_alt"
+        name="Reset grid"
+        (handleClick)="filterService.clearFilterData()"
+      />
     </ng-container>
     <!-- Toolbar -->
 
@@ -95,9 +104,11 @@ import { GbGridFilterComponent } from './filters/components/grid-filter';
       </ng-container>
     </gb-column>
     <!-- Columns -->
+
+    <gb-filter-pills toolbarFooter />
   </gb-data-grid>`,
 })
-export class GbGridShellComponent implements OnDestroy {
+export class GbGridShellComponent implements OnDestroy, OnInit {
   constructor(private api: ApiService, private notif: GbNotification) {}
 
   overlay = inject(Overlay);
@@ -120,15 +131,25 @@ export class GbGridShellComponent implements OnDestroy {
   @ContentChildren(GbGridFilterComponent)
   filters?: QueryList<GbGridFilterComponent>;
 
+  filterValues: FilterData[] = [];
+
   protected loading = false;
   protected collectionSize!: number;
   protected data: any[] = [];
   private subs = new SubSink();
+  private requests = new SubSink();
   private gridEvents: any = null;
-  private filterValues: any = null;
 
   ngOnDestroy(): void {
     this.subs.unsubscribe();
+    this.requests.unsubscribe();
+  }
+
+  ngOnInit(): void {
+    this.filterService.filterData$.subscribe((filterData) => {
+      this.filterValues = filterData;
+      this._getData();
+    });
   }
 
   captureGridEvents(events: any) {
@@ -142,11 +163,7 @@ export class GbGridShellComponent implements OnDestroy {
     }
     this.filterService.updateFilters(this.filters);
 
-    const filterPanel = this.filterService.openFilterPanel();
-    filterPanel.instance.search.pipe(take(1)).subscribe((filters) => {
-      this.filterValues = filters;
-      this._getData();
-    });
+    this.filterService.openFilterPanel();
   }
 
   private _getData() {
@@ -154,7 +171,8 @@ export class GbGridShellComponent implements OnDestroy {
       return console.error('Please provide a api url');
     }
     this.loading = true;
-    this.subs.sink = this.api
+    this.requests.unsubscribe();
+    this.requests.sink = this.api
       .getList<any>(this.apiURL, this.buildFilters())
       .subscribe({
         next: ({ data }) => {
@@ -175,6 +193,12 @@ export class GbGridShellComponent implements OnDestroy {
   }
 
   private buildFilters() {
-    return { ...this.gridEvents, filters: JSON.stringify(this.filterValues) };
+    const { page, limit, sort } = this.gridEvents;
+    return {
+      page,
+      limit,
+      sort: safeStringify(sort || {}),
+      filters: safeStringify(this.filterValues),
+    };
   }
 }

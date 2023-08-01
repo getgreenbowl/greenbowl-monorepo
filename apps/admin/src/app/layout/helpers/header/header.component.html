@@ -46,9 +46,29 @@
       >
         <div class="flex justify-end">
           <gb-dropdown>
-            <sgb-button variant="ghost" class="justify-end mr-2" size="icon">
+            <sgb-button
+              variant="ghost"
+              class="justify-end mr-2"
+              size="icon"
+              trigger
+            >
               <sgb-icon icon="person" />
             </sgb-button>
+            <gb-dropdown-item
+              text="Light"
+              icon="light_mode"
+              (handleClick)="themeService.changeTheme('light')"
+            />
+            <gb-dropdown-item
+              text="Dark"
+              icon="dark_mode"
+              (handleClick)="themeService.changeTheme('dark')"
+            />
+            <gb-dropdown-item
+              text="Logout"
+              icon="logout"
+              (handleClick)="logout()"
+            />
           </gb-dropdown>
         </div>
       </div>

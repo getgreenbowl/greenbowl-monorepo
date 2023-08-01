@@ -1,0 +1,78 @@
+<gb-form [form]="itemsForm">
+  <div class="grid grid-cols-3 gap-4">
+    <gb-select
+      label="Menu"
+      [control]="itemsFormControls.menuID"
+      [showErrors]="showErrors"
+      apiURL="/menu"
+      bindLabel="name"
+      bindValue="id"
+    >
+    </gb-select>
+    <gb-input
+      label="Name"
+      [control]="itemsFormControls.name"
+      [showErrors]="showErrors"
+    />
+
+    <gb-input
+      label="Price"
+      type="number"
+      [control]="itemsFormControls.price"
+      [showErrors]="showErrors"
+      [hints]="['Prices are in rupees']"
+    />
+    <gb-input
+      label="Protien"
+      type="number"
+      [control]="itemsFormControls.protien"
+      [showErrors]="showErrors"
+    />
+    <gb-input
+      label="Fat"
+      type="number"
+      [control]="itemsFormControls.fat"
+      [showErrors]="showErrors"
+    />
+    <gb-input
+      label="Energy"
+      type="number"
+      [control]="itemsFormControls.energy"
+      [showErrors]="showErrors"
+    ></gb-input>
+    <gb-input
+      label="Carbs"
+      type="number"
+      [control]="itemsFormControls.carbs"
+      [showErrors]="showErrors"
+    ></gb-input>
+    <gb-input
+      label="Calories"
+      type="number"
+      [control]="itemsFormControls.calories"
+      [showErrors]="showErrors"
+    />
+    <div class="flex gap-2">
+      <gb-select
+        label="Ingredients"
+        [control]="itemsFormControls.ingredients"
+        [showErrors]="showErrors"
+        class="flex-grow"
+        [multiple]="true"
+        [items]="['asd', 'asdaa', 'asd', 'a', 'asdasd']"
+      />
+      <sgb-button variant="outline" class="mt-6" size="sm">
+        <sgb-icon icon="add" title="Add new ingredient" />
+      </sgb-button>
+    </div>
+    <gb-input
+      label="Images"
+      type="file"
+      [multiple]="true"
+      [control]="itemsFormControls.files"
+      [showErrors]="showErrors"
+    />
+  </div>
+
+  <gb-textarea label="Description" [control]="itemsFormControls.description" />
+</gb-form>

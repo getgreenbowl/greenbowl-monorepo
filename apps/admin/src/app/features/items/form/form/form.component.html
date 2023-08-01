@@ -52,26 +52,21 @@
       [control]="itemsFormControls.calories"
       [showErrors]="showErrors"
     />
-    <div class="flex gap-2">
-      <gb-select
-        label="Ingredients"
-        [control]="itemsFormControls.ingredients"
-        [showErrors]="showErrors"
-        class="flex-grow"
-        [multiple]="true"
-        [items]="['asd', 'asdaa', 'asd', 'a', 'asdasd']"
-      />
-      <sgb-button variant="outline" class="mt-6" size="sm">
-        <sgb-icon icon="add" title="Add new ingredient" />
-      </sgb-button>
+    <div>
+      <div class="flex gap-2">
+        <gb-select
+          label="Ingredients"
+          [control]="itemsFormControls.ingredients"
+          [showErrors]="showErrors"
+          class="flex-grow"
+          [multiple]="true"
+          [items]="['asd', 'asdaa', 'asd', 'a', 'asdasd']"
+        />
+        <sgb-button variant="outline" class="mt-6" size="sm">
+          <sgb-icon icon="add" title="Add new ingredient" />
+        </sgb-button>
+      </div>
     </div>
-    <gb-input
-      label="Images"
-      type="file"
-      [multiple]="true"
-      [control]="itemsFormControls.files"
-      [showErrors]="showErrors"
-    />
   </div>
 
   <gb-textarea label="Description" [control]="itemsFormControls.description" />

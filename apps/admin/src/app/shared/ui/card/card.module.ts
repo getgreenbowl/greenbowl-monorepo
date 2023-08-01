@@ -1,5 +1,11 @@
 import { NgModule } from '@angular/core';
-import { SgbCardContentDirective, SgbCardDirective, SgbCardFooterDirective, SgbCardHeaderDirective, SgbCardTitleDirective } from './card.directive';
+import {
+  SgbCardContentDirective,
+  SgbCardDirective,
+  SgbCardFooterDirective,
+  SgbCardHeaderDirective,
+  SgbCardTitleDirective,
+} from './card.directive';
 
 @NgModule({
   declarations: [
@@ -7,15 +13,14 @@ import { SgbCardContentDirective, SgbCardDirective, SgbCardFooterDirective, SgbC
     SgbCardDirective,
     SgbCardHeaderDirective,
     SgbCardFooterDirective,
-    SgbCardTitleDirective
+    SgbCardTitleDirective,
   ],
   exports: [
     SgbCardContentDirective,
     SgbCardDirective,
     SgbCardHeaderDirective,
     SgbCardFooterDirective,
-    SgbCardTitleDirective
+    SgbCardTitleDirective,
   ],
 })
-
-export class CardModule {}
+export class GbCardModule {}

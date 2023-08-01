@@ -1,7 +1,8 @@
-import { Order } from "sequelize";
+import { Order, WhereOptions } from 'sequelize';
 
 export interface ModelOptionBuild {
-  limit:number,
-  offset: number,
-  order: Order
+  limit: number;
+  offset: number;
+  order: Order;
+  where: WhereOptions;
 }

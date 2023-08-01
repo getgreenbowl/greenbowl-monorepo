@@ -1,21 +1,27 @@
-import { Sequelize, Options, Model, ModelStatic } from "sequelize";
-import configs from "../../config/config";
-import { APP_SETTINGS } from "../app-settings";
-import fancyLogger from "../logger/fancy-logger";
-import { filterRefKeys } from "../utils/filter-ref-models.util";
-import yargs from "yargs";
-import debug from "debug";
-// import { _Object } from "dshelpers";
-const logError = debug("app:error");
+import { Sequelize, Options, Model, ModelStatic } from 'sequelize';
+import configs from '../../config/config';
+import { APP_SETTINGS } from '../app-settings';
+import fancyLogger from '../logger/fancy-logger';
+import { filterRefKeys } from '../utils/filter-ref-models.util';
+import yargs from 'yargs';
+import debug from 'debug';
+import SQLite from 'sqlite3';
 
-const env = APP_SETTINGS.NODE_ENV || "development";
+// import { _Object } from "dshelpers";
+const logError = debug('app:error');
+
+const env = APP_SETTINGS.NODE_ENV || 'development';
 const config = (configs as { [key: string]: Options })[env];
 
 export class DbConnection {
   static models: Record<string, ModelStatic<Model<object, object>>>;
 
   static db: Sequelize = new Sequelize({
-    ...config,
+    dialect: 'sqlite',
+    storage: './database.db',
+    dialectOptions: {
+      mode: SQLite.OPEN_READWRITE | SQLite.OPEN_CREATE | SQLite.OPEN_FULLMUTEX,
+    },
     pool: { max: 5, idle: 30 },
     logging: false,
   });
@@ -29,7 +35,6 @@ export class DbConnection {
   }
 
   static associate() {
-
     const modelKeys = Object.keys(this.db.models);
     for (const m of modelKeys) {
       const child = this.db.models[m];
@@ -47,11 +52,13 @@ export class DbConnection {
   }
 
   static authenticate() {
-    fancyLogger.start("db", "connecting db...");
+    fancyLogger.start('db', 'connecting db...');
     this.db
       .authenticate()
       .then(async () => {
         fancyLogger.logForDB();
+        // this.sync();
+
         const args = await yargs.argv;
         if (args.sync) {
           this.sync();
@@ -62,7 +69,7 @@ export class DbConnection {
         }
       })
       .catch((err) => {
-        fancyLogger.error("db", err);
+        fancyLogger.error('db', err);
       });
   }
 
@@ -84,7 +91,7 @@ export class DbConnection {
   }
 
   static sync() {
-    fancyLogger.start("dbsync", `syncing db ${APP_SETTINGS.DB_NAME}...`);
+    fancyLogger.start('dbsync', `syncing db ${APP_SETTINGS.DB_NAME}...`);
     this.db
       .sync()
       .then(() => {
@@ -94,11 +101,11 @@ export class DbConnection {
         // eslint-disable-next-line no-console
         console.log(err);
 
-        fancyLogger.error("dbsync", `Error Connecting db ${err}`);
+        fancyLogger.error('dbsync', `Error Connecting db ${err}`);
       })
       .finally(() => {
         this.db.close();
-        process.kill(process.pid, "SIGINT");
+        process.kill(process.pid, 'SIGINT');
       });
   }
 }

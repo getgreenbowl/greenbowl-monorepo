@@ -10,7 +10,6 @@ import { ApiService } from 'src/app/shared/services/api.service';
 import { GbNotification } from 'src/app/shared/ui/notification/notification.service';
 import { FormGroup } from '@angular/forms';
 import { SubSink } from 'subsink';
-import { GbNotificationRef } from 'src/app/shared/ui/notification/notification-ref';
 
 @Component({
   selector: 'add-items',
@@ -41,6 +40,7 @@ export class AddItemsComponent implements AfterViewInit, OnDestroy {
 
   handleSubmit() {
     if (this.itemsForm.invalid) {
+      this.itemsFormComponent.showErrors = true;
       return;
     }
     this.addRequests.unsubscribe();

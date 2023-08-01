@@ -33,19 +33,12 @@ const routes: Routes = [
             (m) => m.SubscriptionModule
           ),
       },
-      {
-        path: 'app-users',
-        loadChildren: () =>
-          import('./features/app-users/app-users.module').then(
-            (m) => m.AppUsersModule
-          ),
-      },
     ],
   },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { useHash: true })],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}

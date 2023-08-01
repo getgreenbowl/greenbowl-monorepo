@@ -9,7 +9,6 @@ export class ItemsFormComponent {
   private fb = inject(FormBuilder);
 
   showErrors = false;
-
   itemsForm = this.fb.group({
     menuID: [null, Validators.required],
     name: ['', Validators.required],
@@ -20,7 +19,6 @@ export class ItemsFormComponent {
     energy: [null, Validators.required],
     carbs: [null, Validators.required],
     calories: [null, Validators.required],
-    files: ['', Validators.required],
     ingredients: [[]],
   });
   get itemsFormControls() {

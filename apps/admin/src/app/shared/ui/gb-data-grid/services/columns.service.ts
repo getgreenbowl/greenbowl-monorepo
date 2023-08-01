@@ -4,15 +4,86 @@ import { GbGridColumnsComponent } from '../components/base-table/columns';
 
 @Injectable()
 export class GridColumnService {
-  private _columns = new BehaviorSubject<QueryList<GbGridColumnsComponent>|null>(null);
+  private _columns =
+    new BehaviorSubject<QueryList<GbGridColumnsComponent> | null>(null);
+
+  private sort = new BehaviorSubject<Partial<{
+    Asc: string;
+    Desc: string;
+  }> | null>(null);
 
   columns$ = this._columns.asObservable().pipe(shareReplay());
   fields$ = this.columns$.pipe(
     map((columns) => columns?.map((item) => item.field))
   );
   totalColumns$ = this.columns$.pipe(map((columns) => columns?.length));
+  sort$ = this.sort.asObservable();
 
   updateColumns(columns: QueryList<GbGridColumnsComponent>) {
     this._columns.next(columns);
+  }
+
+  moveRight(index: number, columns: QueryList<GbGridColumnsComponent>) {
+    const rawColumns = columns.toArray();
+    const actions = rawColumns.pop();
+    if (index === rawColumns.length - 1) {
+      return;
+    }
+    [rawColumns[index], rawColumns[index + 1]] = [
+      rawColumns[index + 1],
+      rawColumns[index],
+    ];
+    if (actions) {
+      rawColumns.push(actions);
+    }
+    columns.reset(rawColumns);
+    this._columns.next(columns);
+  }
+
+  moveLeft(index: number, columns: QueryList<GbGridColumnsComponent>) {
+    const rawColumns = columns.toArray();
+    if (index === 0) {
+      return;
+    }
+    const actions = rawColumns.pop();
+
+    [rawColumns[index], rawColumns[index - 1]] = [
+      rawColumns[index - 1],
+      rawColumns[index],
+    ];
+    if (actions) {
+      rawColumns.push(actions);
+    }
+    columns.reset(rawColumns);
+    this._columns.next(columns);
+  }
+
+  sortAsc(field: string) {
+    this.sort.next({ Asc: field });
+  }
+
+  sortDesc(field: string) {
+    this.sort.next({ Desc: field });
+  }
+
+  unsort() {
+    if (!this.sort.value) {
+      return;
+    }
+    this.sort.next(null);
+  }
+
+  sortIcon$(field: string) {
+    return this.sort$.pipe(
+      map((value) => {
+        if (value?.Asc === field) {
+          return 'arrow_upward';
+        }
+        if (value?.Desc === field) {
+          return 'arrow_downward';
+        }
+        return 'unfold_more';
+      })
+    );
   }
 }

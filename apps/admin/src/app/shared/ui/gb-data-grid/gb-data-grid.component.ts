@@ -98,8 +98,14 @@ export class GbDataGridComponent
     this.subs.sink = combineLatest([
       this.paginationService.page$,
       this.paginationService.selectedLimit$,
-    ]).subscribe(([page, limit]) => {
-      this.emitEvents.emit({ page, limit });
+      this.columnService.sort$,
+    ]).subscribe({
+      next: ([page, limit, sort]) => {
+        this.emitEvents.emit({ page, limit, sort });
+      },
+      error: (err) => {
+        console.log(err, 'error');
+      },
     });
   }
 

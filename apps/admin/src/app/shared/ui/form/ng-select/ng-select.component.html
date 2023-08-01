@@ -120,7 +120,7 @@
 >
   <ng-container>
     <div
-      class="ng-option !bg-background !text-foreground hover:!bg-muted/95"
+      class="ng-option !bg-background !text-foreground hover:!bg-muted/95 !py-1 px-2"
       [attr.role]="item.children ? 'group' : 'option'"
       (click)="toggleItem(item)"
       (mouseover)="onItemHover(item)"
@@ -136,7 +136,7 @@
     >
       <ng-template #defaultOptionTemplate>
         <span
-          class="ng-option-label"
+          class="ng-option-label text-sm"
           [ngItemLabel]="item.label || ''"
           [escape]="escapeHTML"
         ></span>
@@ -183,7 +183,9 @@
 
   <ng-container *ngIf="showNoItemsFound()">
     <ng-template #defaultNotFoundTemplate>
-      <div class="ng-option ng-option-disabled">{{ notFoundText }}</div>
+      <div class="ng-option ng-option-disabled !bg-background">
+        {{ notFoundText }}
+      </div>
     </ng-template>
 
     <ng-template
@@ -206,7 +208,9 @@
 
   <ng-container *ngIf="loading && itemsList.filteredItems.length === 0">
     <ng-template #defaultLoadingTextTemplate>
-      <div class="ng-option ng-option-disabled">{{ loadingText }}</div>
+      <div class="ng-option ng-option-disabled !bg-background !text-foreground">
+        {{ loadingText }}
+      </div>
     </ng-template>
 
     <ng-template
@@ -216,8 +220,3 @@
     </ng-template>
   </ng-container>
 </ng-dropdown-panel>
-
-<!--
-[attr.aria-activedescendant]="
-isOpen ? itemsList.markedItem?.htmlId : null
-" -->

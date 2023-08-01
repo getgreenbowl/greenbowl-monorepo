@@ -6,6 +6,7 @@ export class LocalStorageService {
   keys = {
     token: 'gb',
     mode: 'mode',
+    archiveMenu: 'archive-menu',
   } as const;
 
   get(key: keyof typeof this.keys) {

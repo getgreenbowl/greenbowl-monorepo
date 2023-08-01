@@ -1,4 +1,4 @@
-export const MENU = [
+export const Menu = [
   {
     name: 'Analytics',
     link: '/',
@@ -6,8 +6,8 @@ export const MENU = [
     icon: 'show_chart',
   },
   {
-    name: 'Menu management',
-    link: '/menu',
+    name: 'Menu',
+    link: '/items',
     children: [],
     icon: 'menu_book',
   },

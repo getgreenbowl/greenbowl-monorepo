@@ -21,7 +21,7 @@ import { GbHintComponent } from '../hint';
     <label
       *ngIf="label"
       [for]="_id"
-      class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+      class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 ml-1 capitalize"
     >
       {{ label }}
       <span class="text-red-600" *ngIf="required">*</span>
@@ -35,6 +35,7 @@ import { GbHintComponent } from '../hint';
       [formControl]="control | formControl"
       [maxlength]="maxlength"
       [minlength]="minlength"
+      [attr.multiple]="multiple"
     />
     <gb-hint
       message="This is a required field"
@@ -50,4 +51,5 @@ export class GbInputComponent extends GbFormBaseComponent {
   @Input() minlength = 0;
   @Input() type = 'text';
   @Input() inputClass = '';
+  @Input() multiple = false; // use this in case of file type
 }

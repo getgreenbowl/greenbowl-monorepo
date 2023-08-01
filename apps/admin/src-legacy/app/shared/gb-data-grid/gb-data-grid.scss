@@ -1,0 +1,10 @@
+@use '/src/styles/colors.scss' as c;
+
+.gb-table-container {
+  height: 75vh;
+  overflow: auto
+}
+
+.gb-table-footer {
+  border-top: 1px solid red !important;
+}

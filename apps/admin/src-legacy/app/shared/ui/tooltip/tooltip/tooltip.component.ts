@@ -3,18 +3,17 @@ import { Component, Input } from '@angular/core';
 @Component({
   selector: 'app-tooltip',
   template: `<div
-  class="tooltip"
-  [class]="class"
-  [ngStyle]="{ 'max-width': maxWidth + 'px', 'min-width': minWidth + 'px' }"
->
-  {{ sgbTooltip }}
-</div>
-`,
+    class="tooltip"
+    [class]="class"
+    [ngStyle]="{ 'max-width': maxWidth + 'px', 'min-width': minWidth + 'px' }"
+  >
+    {{ sgbTooltip }}
+  </div> `,
   styleUrls: ['./tooltip.component.scss'],
 })
 export class TooltipComponent {
   /**
-   * tooltip value that is be visible in tooltip menu.
+   * tooltip value that is be visible in tooltip items.
    */
   sgbTooltip = '';
   /**

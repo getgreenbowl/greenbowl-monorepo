@@ -16,90 +16,141 @@ import { ActionService } from '../../services/actions.service';
         [dataSource]="gridData.data$"
         class="w-full caption-bottom text-sm border-collapse"
       >
-        <ng-container
-          [cdkColumnDef]="column.field"
-          [stickyEnd]="column.field === isAction"
-          *ngFor="let column of columnService.columns$ | async"
-        >
-          <!-- HEADER -->
-          <ng-container *ngIf="column.field !== isAction; else actionHeader">
-            <th
-              cdk-header-cell
-              *cdkHeaderCellDef
-              [ngClass]="{
-                'text-left': column.alignment === 'left',
-                'text-center': column.alignment === 'center',
-                'text-right': column.alignment === 'right',
-              }"
-              class="h-10 text-sm px-4 font-medium capitalize tracking-md text-muted-foreground bg-background"
-            >
-              <ng-container *ngIf="!column.head; else columnHeadOutlet">
-                {{ column.title || column.field }}
-              </ng-container>
-              <ng-template #columnHeadOutlet>
-                <ng-container *ngIf="column.head">
-                  <ng-container
-                    *ngTemplateOutlet="
-                      column.head;
-                      context: { $implicit: column }
-                    "
-                  ></ng-container>
-                </ng-container>
-              </ng-template>
-            </th>
-          </ng-container>
-          <!-- HEADER -->
-
-          <!-- DATA CELL -->
-          <ng-container *ngIf="column.field !== isAction; else gridActions">
-            <td
-              cdk-cell
-              *cdkCellDef="let element"
-              [ngClass]="{
-                'text-left': column.alignment === 'left',
-                'text-center': column.alignment === 'center',
-                'text-right': column.alignment === 'right',
-              }"
-              class="p-4"
-            >
-              <ng-container *ngIf="!column.cell; else cellOutlet">
-                {{ element[column.field] }}
-              </ng-container>
-
-              <ng-template #cellOutlet>
-                <ng-container *ngIf="column.cell">
-                  <ng-container
-                    *ngTemplateOutlet="
-                      column.cell;
-                      context: { $implicit: element, column }
-                    "
-                  ></ng-container>
-                </ng-container>
-              </ng-template>
-            </td>
-          </ng-container>
-          <!-- DATA CELL -->
-
-          <!-- ACTIONS -->
-          <ng-template #actionHeader
-            ><th cdk-header-cell *cdkHeaderCellDef class="bg-800">
-              &nbsp;
-            </th></ng-template
+        <ng-container *ngIf="columnService.columns$ | async as columns">
+          <ng-container
+            *ngFor="let column of columns; let columnIndex = index"
+            [cdkColumnDef]="column.field"
+            [stickyEnd]="column.field === isAction"
           >
-          <ng-template #gridActions>
-            <td cdk-cell *cdkCellDef="let element">
-              <gb-action
-                *ngFor="let action of actionService.actions$ | async"
-                [icon]="action.icon"
-                [tooltip]="action.tooltip"
-                [cellData]="element"
-                [column]="column"
-                (handleClick)="action.handleClick.emit($event)"
-                [action]="action.action"
-              />
-            </td>
-          </ng-template>
-          <!-- ACTIONS -->
+            <!-- HEADER -->
+            <ng-container *ngIf="column.field !== isAction; else actionHeader">
+              <th
+                cdk-header-cell
+                *cdkHeaderCellDef
+                [ngClass]="{
+                'text-left': column.alignment === 'left',
+                'text-center': column.alignment === 'center',
+                'text-right': column.alignment === 'right',
+              }"
+                class="h-10 text-sm px-4 font-medium capitalize tracking-md text-muted-foreground bg-background"
+              >
+                <ng-container *ngIf="!column.head; else columnHeadOutlet">
+                  <gb-dropdown spacing="compact">
+                    <sgb-button
+                      trigger
+                      variant="ghost"
+                      size="sm"
+                      class="items-center"
+                    >
+                      <span class="flex items-center gap-1">
+                        {{ column.title || column.field }}
+                        <sgb-icon
+                          [icon]="
+                            (columnService.sortIcon$(column.field) | async) ||
+                            ''
+                          "
+                          size="sm"
+                          class="mt-1"
+                        />
+                      </span>
+                    </sgb-button>
+                    <gb-dropdown-item
+                      text="ASC"
+                      icon="arrow_upward"
+                      (handleClick)="columnService.sortAsc(column.field)"
+                    />
+                    <gb-dropdown-item
+                      text="DESC"
+                      icon="arrow_downward"
+                      (handleClick)="columnService.sortDesc(column.field)"
+                    />
+                    <gb-dropdown-item
+                      text="Unsort"
+                      icon="unfold_more"
+                      (handleClick)="columnService.unsort()"
+                    />
+                    <gb-dropdown-item [seperator]="true" />
+                    <gb-dropdown-item
+                      text="Move right"
+                      icon="chevron_right"
+                      (handleClick)="
+                        columnService.moveRight(columnIndex, columns)
+                      "
+                    />
+                    <gb-dropdown-item
+                      (handleClick)="
+                        columnService.moveLeft(columnIndex, columns)
+                      "
+                      text="Move left"
+                      icon="chevron_left"
+                    />
+                  </gb-dropdown>
+                </ng-container>
+                <ng-template #columnHeadOutlet>
+                  <ng-container *ngIf="column.head">
+                    <ng-container
+                      *ngTemplateOutlet="
+                        column.head;
+                        context: { $implicit: column }
+                      "
+                    ></ng-container>
+                  </ng-container>
+                </ng-template>
+              </th>
+            </ng-container>
+            <!-- HEADER -->
+
+            <!-- DATA CELL -->
+            <ng-container *ngIf="column.field !== isAction; else gridActions">
+              <td
+                cdk-cell
+                *cdkCellDef="let element"
+                [ngClass]="{
+                'text-left': column.alignment === 'left',
+                'text-center': column.alignment === 'center',
+                'text-right': column.alignment === 'right',
+              }"
+                class="p-4"
+              >
+                <ng-container *ngIf="!column.cell; else cellOutlet">
+                  {{ element[column.field] }}
+                </ng-container>
+
+                <ng-template #cellOutlet>
+                  <ng-container *ngIf="column.cell">
+                    <ng-container
+                      *ngTemplateOutlet="
+                        column.cell;
+                        context: { $implicit: element, column }
+                      "
+                    ></ng-container>
+                  </ng-container>
+                </ng-template>
+              </td>
+            </ng-container>
+            <!-- DATA CELL -->
+
+            <!-- ACTIONS -->
+            <ng-template #actionHeader
+              ><th cdk-header-cell *cdkHeaderCellDef class="bg-800">
+                &nbsp;
+              </th></ng-template
+            >
+            <ng-template #gridActions>
+              <td cdk-cell *cdkCellDef="let element">
+                <gb-action
+                  *ngFor="let action of actionService.actions$ | async"
+                  [icon]="action.icon"
+                  [tooltip]="action.tooltip"
+                  [cellData]="element"
+                  [column]="column"
+                  (handleClick)="action.handleClick.emit($event)"
+                  [action]="action.action"
+                />
+              </td>
+            </ng-template>
+            <!-- ACTIONS -->
+          </ng-container>
         </ng-container>
 
         <tr

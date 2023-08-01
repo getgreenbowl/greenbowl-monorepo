@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-// import { ListResponse, Response } from 'greenbowl-schema';
+import { ListResponse, Response } from 'greenbowl-schema';
+import { environment } from 'src/environments/environment.development';
 
 type QueryParams =
   | HttpParams
@@ -25,32 +26,38 @@ export class ApiService {
   constructor(private _http: HttpClient) {}
 
   private makeURL(endpoint: string) {
-    return `http://localhost:3000${endpoint}`;
+    return `${environment.api}${endpoint}`;
   }
 
-  get<T>(endpoint: string, queryParams?: QueryParams): Observable<any> {
-    return this._http.get<any>(this.makeURL(endpoint), {
+  get<T>(endpoint: string, queryParams?: QueryParams): Observable<Response<T>> {
+    return this._http.get<Response<T>>(this.makeURL(endpoint), {
       params: queryParams,
     });
   }
 
-  getList<T>(endpoint: string, queryParams?: QueryParams): Observable<any> {
-    return this._http.get<any>(this.makeURL(endpoint), {
+  getList<T>(
+    endpoint: string,
+    queryParams?: QueryParams
+  ): Observable<ListResponse<T>> {
+    return this._http.get<ListResponse<T>>(this.makeURL(endpoint), {
       params: queryParams,
     });
   }
 
-  delete<T>(endpoint: string, queryParams?: QueryParams): Observable<T> {
-    return this._http.delete<T>(this.makeURL(endpoint), {
+  delete<T>(
+    endpoint: string,
+    queryParams?: QueryParams
+  ): Observable<Response<T>> {
+    return this._http.delete<Response<T>>(this.makeURL(endpoint), {
       params: queryParams,
     });
   }
 
-  post<T>(endpoint: string, body: unknown): Observable<T> {
-    return this._http.post<T>(this.makeURL(endpoint), body);
+  post<T>(endpoint: string, body: unknown): Observable<Response<T>> {
+    return this._http.post<Response<T>>(this.makeURL(endpoint), body);
   }
 
-  put<T>(endpoint: string, body: unknown): Observable<T> {
-    return this._http.put<T>(this.makeURL(endpoint), body);
+  put<T>(endpoint: string, body: unknown): Observable<Response<T>> {
+    return this._http.put<Response<T>>(this.makeURL(endpoint), body);
   }
 }

@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
     <gb-column field="protien" />
     <gb-column field="price" />
     <gb-column field="carbs" />
+    <gb-column field="status" />
     <!-- columns -->
 
     <!-- Filters -->
@@ -19,6 +20,8 @@ import { Router } from '@angular/router';
     <gb-grid-filter field="protien" type="number" />
     <gb-grid-filter field="price" type="number" />
     <gb-grid-filter field="carbs" type="number" />
+    <gb-grid-filter field="createdAt" type="date" label="Created At" />
+    <gb-grid-filter field="status" type="select" [items]="statusOptions" />
     <!-- Filters -->
 
     <!-- Action -->
@@ -29,11 +32,13 @@ import { Router } from '@angular/router';
 export class ListComponent {
   constructor(private router: Router) {}
 
+  statusOptions = ['Active', 'InActive'];
+
   addItem() {
     this.router.navigate(['/items/add']);
   }
 
   edit(e: any) {
-    this.router.navigate([`/items/edit/${e.cellData.id}`]);
+    console.log(e, 'this is e');
   }
 }

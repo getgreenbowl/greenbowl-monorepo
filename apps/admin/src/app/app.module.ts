@@ -12,7 +12,7 @@ import { CdkTreeModule } from '@angular/cdk/tree';
 import { SgbButtonComponent } from './shared/ui/button';
 import { SgbIconComponent } from './shared/ui/icon';
 import { GbNotificationModule } from './shared/ui/notification/notification.module';
-import { GbDropdownComponent } from './shared/ui/dropdown';
+import { GbDropdownModule } from './shared/ui/dropdown/dropdown.module';
 
 @NgModule({
   declarations: [
@@ -29,7 +29,7 @@ import { GbDropdownComponent } from './shared/ui/dropdown';
     CdkTreeModule,
     SgbButtonComponent,
     SgbIconComponent,
-    GbDropdownComponent,
+    GbDropdownModule,
     GbNotificationModule.forRoot(),
   ],
   providers: [HttpClient],

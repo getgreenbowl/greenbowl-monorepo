@@ -12,6 +12,7 @@ import { NgFor, NgIf } from '@angular/common';
 import { GbHintComponent } from '../hint';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FormControlPipe } from '../../pipe/form-control';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'gb-select',
@@ -43,6 +44,9 @@ import { FormControlPipe } from '../../pipe/form-control';
         [loading]="loading"
         [formControl]="control | formControl"
         [multiple]="multiple"
+        [clearable]="clearable"
+        [searchable]="searchable"
+        [typeahead]="typeahead"
       ></ng-select>
       <gb-hint
         message="This is a required field"
@@ -66,6 +70,9 @@ export class GbSelectComponent extends GbFormBaseComponent implements OnInit {
   @Input() items: any[] = [];
   @Input() loading = false;
   @Input() multiple = false;
+  @Input() clearable = false;
+  @Input() searchable = true;
+  @Input() typeahead!: Subject<string>;
 
   ngOnInit(): void {
     if (this.loadOnMount) {

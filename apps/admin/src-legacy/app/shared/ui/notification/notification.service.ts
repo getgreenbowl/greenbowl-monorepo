@@ -51,6 +51,13 @@ export class GbNotification {
     return notificationRef;
   }
 
+  closeAll() {
+    for (const value of this.currentlyRendered.values()) {
+      value.notificationRef.close();
+    }
+    this.currentlyRendered.clear();
+  }
+
   removeID(id: any) {
     this.currentlyRendered.delete(id);
   }
