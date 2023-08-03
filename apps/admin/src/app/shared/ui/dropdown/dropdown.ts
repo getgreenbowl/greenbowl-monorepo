@@ -45,10 +45,7 @@ export class GbDropdownItemComponent {
 @Component({
   selector: 'gb-dropdown',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `<span
-      [cdkMenuTriggerFor]="dropdownPanel"
-      class="example-standalone-trigger"
-    >
+  template: `<span [cdkMenuTriggerFor]="dropdownPanel">
       <ng-content select="[trigger]"></ng-content>
     </span>
 
@@ -60,7 +57,7 @@ export class GbDropdownItemComponent {
       >
         <ng-container *ngFor="let dropdownItem of dropdownItems">
           <div
-            class=" my-1 h-px border border-muted/95 w-full"
+            class=" my-1 h-px border w-full"
             *ngIf="dropdownItem.seperator"
           ></div>
           <gb-dropdown-item

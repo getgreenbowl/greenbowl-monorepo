@@ -31,12 +31,29 @@ export class EditItemsComponent implements OnInit {
   getItem() {
     this.api.get<TItem>(`/items/${this.itemID}`).subscribe({
       next: (response) => {
-        this.itemsComponent.itemsForm.patchValue(response.data);
+        const ingredients = response.data.ingredients?.map(
+          (item) => item.ingredientID
+        );
+        this.itemsComponent.itemsForm.patchValue({
+          ...response.data,
+          ingredients,
+        });
       },
     });
   }
 
   handleSubmit() {
+    this.api
+      .post(`/items/update/${this.itemID}`, this.itemsComponent.itemsForm.value)
+      .subscribe({
+        next: () => {
+          this.notif.show({
+            text: 'Item updated',
+            id: 'update-item',
+            type: 'success',
+          });
+        },
+      });
     //
   }
 }

@@ -2,7 +2,7 @@ import type { TItem } from 'greenbowl-schema';
 import { DataTypes, InferAttributes, Model } from 'sequelize';
 import { DbConnection } from '../../../core/db/db';
 import { Menu } from '../../menu/models/menu.model';
-
+import { Cache } from '../../../core/cache/cache-model';
 interface Item extends Model<InferAttributes<Item>>, TItem {}
 
 export const Item = DbConnection.db.define<Item>(

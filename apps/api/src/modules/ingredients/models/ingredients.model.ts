@@ -3,9 +3,9 @@ import {
   InferAttributes,
   InferCreationAttributes,
   Model,
-} from "sequelize";
-import DbConnection from "../../../core/db/db";
-import { TIngredients } from "greenbowl-schema";
+} from 'sequelize';
+import DbConnection from '../../../core/db/db';
+import { TIngredients } from 'greenbowl-schema';
 
 interface Ingredients
   extends Model<
@@ -14,19 +14,23 @@ interface Ingredients
     >,
     TIngredients {}
 
-export const Ingredients = DbConnection.db.define("Ingredients", {
-  id: {
-    type: DataTypes.INTEGER,
-    primaryKey: true,
-    autoIncrement: true,
-    unique: true,
+export const Ingredients = DbConnection.db.define(
+  'Ingredients',
+  {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+      unique: true,
+    },
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    isActive: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: true,
+    },
   },
-  name: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  isActive: {
-    type: DataTypes.BOOLEAN,
-    defaultValue: false,
-  },
-}, {timestamps: true});
+  { timestamps: true }
+);

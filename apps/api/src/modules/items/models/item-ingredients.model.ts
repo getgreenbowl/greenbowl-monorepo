@@ -1,15 +1,15 @@
-import { DataTypes, InferAttributes, Model } from "sequelize";
-import Db, { DbConnection } from "../../../core/db/db";
-import { Ingredients } from "../../ingredients/models/ingredients.model";
-import { Item } from "./item.model";
-import { TItemIngredients } from "greenbowl-schema";
+import { DataTypes, InferAttributes, Model } from 'sequelize';
+import { DbConnection } from '../../../core/db/db';
+import { Ingredients } from '../../ingredients/models/ingredients.model';
+import { Item } from './item.model';
+import { TItemIngredients } from 'greenbowl-schema';
 
 interface ItemIngredients
   extends TItemIngredients,
     Model<InferAttributes<ItemIngredients>> {}
 
 export const ItemIngredients = DbConnection.db.define<ItemIngredients>(
-  "ItemIngredients",
+  'ItemIngredients',
   {
     id: {
       type: DataTypes.INTEGER,
@@ -22,6 +22,8 @@ export const ItemIngredients = DbConnection.db.define<ItemIngredients>(
       allowNull: false,
       references: {
         model: Item,
+        // @ts-ignore
+        as: 'ingredients',
       },
     },
     ingredientID: {
@@ -33,7 +35,7 @@ export const ItemIngredients = DbConnection.db.define<ItemIngredients>(
     },
   },
   {
-    indexes: [{ fields: ["itemID", "ingredientID"], using: "BTREE" }],
-    freezeTableName: true
+    indexes: [{ fields: ['itemID', 'ingredientID'], using: 'BTREE' }],
+    freezeTableName: true,
   }
 );
