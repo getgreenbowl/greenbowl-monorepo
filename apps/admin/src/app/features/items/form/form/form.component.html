@@ -16,7 +16,7 @@
         variant="outline"
         class="mt-6"
         size="sm"
-        (handleClick)="openDialog()"
+        (handleClick)="openDialog(addMenu)"
       >
         <sgb-icon icon="add" title="Add new ingredient" />
       </sgb-button>
@@ -72,9 +72,17 @@
           [showErrors]="showErrors"
           class="flex-grow"
           [multiple]="true"
-          [items]="['asd', 'asdaa', 'asd', 'a', 'asdasd']"
+          apiURL="/ingredient"
+          bindLabel="name"
+          bindValue="id"
+          #ingredients
         />
-        <sgb-button variant="outline" class="mt-6" size="sm">
+        <sgb-button
+          variant="outline"
+          class="mt-6"
+          size="sm"
+          (handleClick)="openDialog(addIngredient)"
+        >
           <sgb-icon icon="add" title="Add new ingredient" />
         </sgb-button>
       </div>
@@ -105,6 +113,33 @@
         size="sm"
         (handleClick)="handleMenuSubmit()"
         [disabled]="menuName.invalid"
+        >Save</sgb-button
+      >
+    </gb-dialog-footer>
+  </gb-dialog-content>
+</ng-template>
+
+<ng-template #addIngredient>
+  <gb-dialog-content>
+    <gb-dialog-header>
+      <gb-dialog-title>Add Ingredient</gb-dialog-title>
+      <gb-dialog-description
+        >You can add new ingredient from here</gb-dialog-description
+      >
+    </gb-dialog-header>
+    <div>
+      <gb-input
+        label="Ingredient"
+        [control]="ingredientName"
+        [showErrors]="showErrors"
+      />
+    </div>
+
+    <gb-dialog-footer>
+      <sgb-button
+        size="sm"
+        (handleClick)="handleIngredientSubmit()"
+        [disabled]="ingredientName.invalid"
         >Save</sgb-button
       >
     </gb-dialog-footer>

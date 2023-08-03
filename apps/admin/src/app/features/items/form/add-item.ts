@@ -61,13 +61,6 @@ export class AddItemsComponent implements AfterViewInit, OnDestroy {
             type: 'success',
           });
         },
-        error: () => {
-          this.notif.updateToast({
-            text: 'Something went wrong !',
-            type: 'error',
-            id: 'add-item',
-          });
-        },
       });
   }
 }

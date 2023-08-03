@@ -39,11 +39,11 @@ export class DbConnection {
     for (const m of modelKeys) {
       const child = this.db.models[m];
       const refs = filterRefKeys(child.getAttributes());
-      for (let r of refs) {
+      for (const r of refs) {
         const parent = this.db.models[r.references.model];
         let options: any = { foreignKey: r.references.key || r.field };
         if (r.references.as) {
-          options = {};
+          options = { ...options, as: r.references.as };
         }
         parent.hasMany(child, options);
         child.belongsTo(parent, options);
@@ -79,7 +79,7 @@ export class DbConnection {
         return false;
       }
       const p = [];
-      for (let m of lc_models) {
+      for (const m of lc_models) {
         p.push(m.sync());
       }
       await Promise.all(p);

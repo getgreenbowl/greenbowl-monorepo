@@ -1,16 +1,66 @@
 <h3 class="font-bold text-3xl">Dashboard</h3>
 <div class="grid grid-cols-3 gap-4 py-4">
-  <div sgb-card *ngFor="let i of [1, 2, 3]">
+  <div sgb-card>
     <div
       sgb-card-header
       class="flex-row items-center justify-between space-y-1 py-4 px-6"
     >
-      <div sgb-card-title>Total Revenue</div>
-      <sgb-icon icon="person" />
+      <div sgb-card-title>Revenue</div>
+      <gb-select
+        [items]="['last 7 days', 'last 30 days', 'last month', 'last 3 months']"
+        [searchable]="false"
+        [control]="timefilter"
+      />
     </div>
     <div sgb-card-content>
-      <p class="text-2xl font-bold">$45,231.89</p>
-      <p class="text-xs text-muted-foreground">+20.1% from last month</p>
+      <span class="flex">
+        <sgb-icon icon="currency_rupee" class="mt-1" />
+        <p class="text-2xl font-bold">45,231.89</p>
+      </span>
+      <span class="flex gap-1 items-center cursor-pointer">
+        <p class="text-xs text-muted-foreground">View reports</p>
+        <sgb-icon icon="arrow_right" class="mt-1" />
+      </span>
+    </div>
+  </div>
+  <div sgb-card>
+    <div
+      sgb-card-header
+      class="flex-row items-center justify-between space-y-1 py-4 px-6"
+    >
+      <div sgb-card-title>New Customers</div>
+      <gb-select
+        [items]="['last 7 days', 'last 30 days', 'last month', 'last 3 months']"
+        [searchable]="false"
+        [control]="timefilter"
+      />
+    </div>
+    <div sgb-card-content>
+      <p class="text-2xl font-bold">250</p>
+      <span class="flex gap-1 items-center cursor-pointer">
+        <p class="text-xs text-muted-foreground">View reports</p>
+        <sgb-icon icon="arrow_right" class="mt-1" />
+      </span>
+    </div>
+  </div>
+  <div sgb-card>
+    <div
+      sgb-card-header
+      class="flex-row items-center justify-between space-y-1 py-4 px-6"
+    >
+      <div sgb-card-title>Orders</div>
+      <gb-select
+        [items]="['last 7 days', 'last 30 days', 'last month', 'last 3 months']"
+        [searchable]="false"
+        [control]="timefilter"
+      />
+    </div>
+    <div sgb-card-content>
+      <p class="text-2xl font-bold">20</p>
+      <span class="flex gap-1 items-center cursor-pointer">
+        <p class="text-xs text-muted-foreground">View reports</p>
+        <sgb-icon icon="arrow_right" class="mt-1" />
+      </span>
     </div>
   </div>
 </div>

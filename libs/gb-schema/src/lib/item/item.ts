@@ -1,9 +1,9 @@
-import { z } from "zod";
+import { z } from 'zod';
 
 export const v_item = z.object({
   id: z.number(),
   name: z.string(),
-  price: z.number(),
+  price: z.coerce.number(),
   description: z.string(),
   menuID: z.number(),
   protien: z.number(),
@@ -12,20 +12,31 @@ export const v_item = z.object({
   carbs: z.number(),
   calories: z.number(),
   isActive: z.boolean(),
+  ingredients: z
+    .array(
+      z.object({
+        id: z.number(),
+        itemID: z.number(),
+        ingredientID: z.number(),
+        createdAt: z.string(),
+        updatedAt: z.string(),
+      })
+    )
+    .optional(),
 });
-  
+
 export const v_item_ingredients = z.object({
-    id: z.number(),
-    itemID: z.number(),
-    ingredientID: z.number(),
-})
+  id: z.number(),
+  itemID: z.number(),
+  ingredientID: z.number(),
+});
 
 export const v_item_images = z.object({
-    id: z.number(),
-    img: z.string(),
-    main: z.boolean(),
-    itemID: z.number(),
-})
+  id: z.number(),
+  img: z.string(),
+  main: z.boolean(),
+  itemID: z.number(),
+});
 
 export type TItem = z.infer<typeof v_item>;
 export type TItemIngredients = z.infer<typeof v_item_ingredients>;

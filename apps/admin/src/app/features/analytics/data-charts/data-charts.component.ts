@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import * as echarts from 'echarts';
 
 @Component({
@@ -15,6 +16,8 @@ export class DataChartsComponent implements OnInit {
     recieved: new Date(),
   };
   mock = new Array(10).fill(this.mockItem);
+
+  timefilter = new FormControl('last 7 days');
 
   ngOnInit(): void {
     this.renderBarChart();
