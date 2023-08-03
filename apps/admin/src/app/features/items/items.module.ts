@@ -20,6 +20,7 @@ import { EditItemsComponent } from './form/edit-item';
 import { GbFormComponent } from 'src/app/shared/ui/form/gb-form';
 import { GbGridFilterComponent } from 'src/app/shared/grid-shell/filters/components/grid-filter';
 import { GbDialogModule } from 'src/app/shared/ui/dialog/dialog.module';
+import { GbBadgeComponent } from 'src/app/shared/ui/badge';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { GbDialogModule } from 'src/app/shared/ui/dialog/dialog.module';
     GbFormComponent,
     GbGridFilterComponent,
     GbDialogModule,
+    GbBadgeComponent,
   ],
 })
 export class ItemsModule {}

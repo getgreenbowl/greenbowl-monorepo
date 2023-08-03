@@ -93,7 +93,7 @@ export class GbSelectComponent extends GbFormBaseComponent implements OnInit {
     this._detectChanges();
   }
 
-  private getItems() {
+  getItems() {
     if (!this.apiURL) {
       return;
     }

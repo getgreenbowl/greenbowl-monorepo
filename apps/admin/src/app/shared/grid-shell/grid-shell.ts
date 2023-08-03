@@ -180,15 +180,6 @@ export class GbGridShellComponent implements OnDestroy, OnInit {
           this.collectionSize = data['count'];
           this.data = data.rows;
         },
-        error: () => {
-          this.loading = false;
-          this.notif.show({
-            text: 'Failed to load list',
-            title: 'Error',
-            id: 'fetch-list',
-            type: 'error',
-          });
-        },
       });
   }
 

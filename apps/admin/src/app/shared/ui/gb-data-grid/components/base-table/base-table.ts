@@ -32,7 +32,7 @@ import { ActionService } from '../../services/actions.service';
                 'text-center': column.alignment === 'center',
                 'text-right': column.alignment === 'right',
               }"
-                class="h-10 text-sm px-4 font-medium capitalize tracking-md text-muted-foreground bg-background"
+                class="h-10 text-sm font-medium   bg-background"
               >
                 <ng-container *ngIf="!column.head; else columnHeadOutlet">
                   <gb-dropdown spacing="compact">
@@ -42,7 +42,9 @@ import { ActionService } from '../../services/actions.service';
                       size="sm"
                       class="items-center"
                     >
-                      <span class="flex items-center gap-1">
+                      <span
+                        class="flex items-center gap-1 capitalize tracking-normal"
+                      >
                         {{ column.title || column.field }}
                         <sgb-icon
                           [icon]="

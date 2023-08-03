@@ -12,7 +12,14 @@ import { Router } from '@angular/router';
     <gb-column field="protien" />
     <gb-column field="price" />
     <gb-column field="carbs" />
-    <gb-column field="status" />
+    <gb-column title="Status" field="isActive">
+      <ng-template #cell let-item>
+        <gb-badge
+          [text]="item.isActive ? 'Active' : 'InActive'"
+          [variant]="item.isActive ? 'secondary' : 'destructive'"
+        />
+      </ng-template>
+    </gb-column>
     <!-- columns -->
 
     <!-- Filters -->
@@ -39,6 +46,6 @@ export class ListComponent {
   }
 
   edit(e: any) {
-    console.log(e, 'this is e');
+    this.router.navigate(['/items/edit/' + e.cellData.id]);
   }
 }

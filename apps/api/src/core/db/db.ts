@@ -57,7 +57,7 @@ export class DbConnection {
       .authenticate()
       .then(async () => {
         fancyLogger.logForDB();
-        // this.sync();
+        this.sync();
 
         const args = await yargs.argv;
         if (args.sync) {
@@ -104,8 +104,8 @@ export class DbConnection {
         fancyLogger.error('dbsync', `Error Connecting db ${err}`);
       })
       .finally(() => {
-        this.db.close();
-        process.kill(process.pid, 'SIGINT');
+        // this.db.close();
+        // process.kill(process.pid, 'SIGINT');
       });
   }
 }

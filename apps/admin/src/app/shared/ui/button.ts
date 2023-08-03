@@ -44,6 +44,7 @@ const buttonVariants = cva(
     defaultVariants: {
       variant: 'default',
       size: 'default',
+      rounded: 'sm',
     },
   }
 );
@@ -71,33 +72,15 @@ export class SgbButtonComponent implements OnChanges {
   @Input() rounded: VariantProps<typeof buttonVariants>['rounded'] = 'md';
   @Input() loading = false;
 
-  protected defaultClass = buttonVariants();
+  get defaultClass() {
+    return buttonVariants({
+      variant: this.variant,
+      size: this.size,
+      rounded: this.rounded,
+    });
+  }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes['variant']?.currentValue) {
-      this.defaultClass = buttonVariants({
-        variant: changes['variant'].currentValue,
-        size: this.size,
-        rounded: this.rounded,
-      });
-    }
-
-    if (changes['size']?.currentValue) {
-      this.defaultClass = buttonVariants({
-        size: changes['size'].currentValue,
-        variant: this.variant,
-        rounded: this.rounded,
-      });
-    }
-
-    if (changes['rounded']?.currentValue) {
-      this.defaultClass = buttonVariants({
-        rounded: changes['rounded'].currentValue,
-        variant: this.variant,
-        size: this.size,
-      });
-    }
-
     if (
       changes['loading']?.currentValue ||
       changes['loading']?.currentValue === false

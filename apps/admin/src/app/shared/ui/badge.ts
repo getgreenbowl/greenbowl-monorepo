@@ -1,15 +1,9 @@
-import {
-  Component,
-  OnChanges,
-  Input,
-  SimpleChanges,
-  ChangeDetectionStrategy,
-} from '@angular/core';
-import { cva, VariantProps } from 'class-variance-authority';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { VariantProps, cva } from 'class-variance-authority';
 import { mergetw } from '../utils/tw-merge';
 
 const badgeVariants = cva(
-  'inline-flex items-center border rounded-full px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2',
+  'inline-flex items-center border rounded-sm px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2',
   {
     variants: {
       variant: {

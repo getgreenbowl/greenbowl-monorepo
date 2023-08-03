@@ -10,6 +10,7 @@ import { Item } from './models/item.model';
 import { validate } from '../../core/middlewares/validation.middleware';
 import { v_item, v_param_id } from 'greenbowl-schema';
 import Session from '../../core/middlewares/jwt.middleware';
+import { Cacher } from '../../core/middlewares/cache.middleware';
 
 const ItemRouter = Router();
 
@@ -57,6 +58,7 @@ ItemRouter.post(
   )
   .get(
     '/',
+    Cacher.cache('items-paginated-list'),
     ModelOptions.build(),
     ah(async (req, res) => {
       const items = await Item.findAndCountAll(req.modelOptions);
@@ -74,6 +76,7 @@ ItemRouter.post(
   )
   .get(
     '/simple-list',
+    Cacher.cache('items-simple-list'),
     ah(async (req, res) => {
       const items = await Item.findAll({ where: { isActive: true } });
       success(res, items, 'active items');

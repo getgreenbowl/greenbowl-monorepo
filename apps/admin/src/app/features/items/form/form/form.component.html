@@ -1,14 +1,26 @@
 <gb-form [form]="itemsForm">
   <div class="grid grid-cols-3 gap-4">
-    <gb-select
-      label="Menu"
-      [control]="itemsFormControls.menuID"
-      [showErrors]="showErrors"
-      apiURL="/menu"
-      bindLabel="name"
-      bindValue="id"
-    >
-    </gb-select>
+    <div class="flex gap-2">
+      <gb-select
+        label="Menu"
+        [control]="itemsFormControls.menuID"
+        [showErrors]="showErrors"
+        apiURL="/menu"
+        bindLabel="name"
+        bindValue="id"
+        class="flex-grow"
+        #menuSelect
+      >
+      </gb-select>
+      <sgb-button
+        variant="outline"
+        class="mt-6"
+        size="sm"
+        (handleClick)="openDialog()"
+      >
+        <sgb-icon icon="add" title="Add new ingredient" />
+      </sgb-button>
+    </div>
     <gb-input
       label="Name"
       [control]="itemsFormControls.name"
@@ -62,12 +74,7 @@
           [multiple]="true"
           [items]="['asd', 'asdaa', 'asd', 'a', 'asdasd']"
         />
-        <sgb-button
-          variant="outline"
-          class="mt-6"
-          size="sm"
-          (handleClick)="openDialog()"
-        >
+        <sgb-button variant="outline" class="mt-6" size="sm">
           <sgb-icon icon="add" title="Add new ingredient" />
         </sgb-button>
       </div>
@@ -88,13 +95,18 @@
     <div>
       <gb-input
         label="Menu name"
-        [control]="itemsFormControls.name"
+        [control]="menuName"
         [showErrors]="showErrors"
       />
     </div>
 
     <gb-dialog-footer>
-      <sgb-button size="sm" (handleClick)="close()">Save</sgb-button>
+      <sgb-button
+        size="sm"
+        (handleClick)="handleMenuSubmit()"
+        [disabled]="menuName.invalid"
+        >Save</sgb-button
+      >
     </gb-dialog-footer>
   </gb-dialog-content>
 </ng-template>

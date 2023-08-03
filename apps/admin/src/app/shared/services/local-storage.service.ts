@@ -26,4 +26,14 @@ export class LocalStorageService {
       return null;
     }
   }
+
+  remove(key: keyof typeof this.keys) {
+    try {
+      window.localStorage.removeItem(this.keys[key]);
+      return true;
+    } catch (error) {
+      console.log(`Local Storage Service KEY: ${key}`, error);
+      return null;
+    }
+  }
 }
