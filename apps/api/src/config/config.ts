@@ -2,7 +2,7 @@ import { APP_SETTINGS } from '../core/app-settings';
 
 export default {
   development: {
-    dialect: 'sqlite',
+    dialect: 'mysql',
     database: APP_SETTINGS.DB_NAME,
     username: APP_SETTINGS.DB_USERNAME,
     password: APP_SETTINGS.DB_PASSWORD,

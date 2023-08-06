@@ -12,6 +12,7 @@ import { ItemIngredients } from './models/item-ingredients.model';
 import { Item } from './models/item.model';
 import { Cache } from '../../core/cache/cache-model';
 import { z } from 'zod';
+import { Ingredients } from '../ingredients/models/ingredients.model';
 
 const ItemRouter = Router();
 
@@ -100,6 +101,13 @@ ItemRouter.post(
     })
   )
   .get(
+    '/simple-list',
+    ah(async (req, res) => {
+      const items = await Item.findAll();
+      success(res, items, 'active items');
+    })
+  )
+  .get(
     '/:id',
     // Session.secure,
     validate({ params: v_param_id }),
@@ -111,11 +119,22 @@ ItemRouter.post(
     })
   )
   .get(
-    '/simple-list',
-    Cacher.cache('items-simple-list'),
+    '/details/:id',
+    // Session.secure,
+    validate({ params: v_param_id }),
     ah(async (req, res) => {
-      const items = await Item.findAll({ where: { isActive: true } });
-      success(res, items, 'active items');
+      const item = await Item.findByPk(req.params.id, {
+        include: [
+          {
+            model: ItemIngredients,
+            as: 'ingredients',
+            include: [{ model: Ingredients }],
+          },
+        ],
+      });
+      console.log(item, 'check me');
+
+      success(res, item, 'Item by id');
     })
   );
 
