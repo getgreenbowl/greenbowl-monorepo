@@ -5,13 +5,16 @@ export const v_item = z.object({
   name: z.string(),
   price: z.coerce.number(),
   description: z.string(),
-  menuID: z.number(),
-  protien: z.number(),
-  fat: z.number(),
-  energy: z.number(),
-  carbs: z.number(),
-  calories: z.number(),
+  menuID: z.coerce.number(),
+  protien: z.coerce.number(),
+  fat: z.coerce.number(),
+  energy: z.coerce.number(),
+  carbs: z.coerce.number(),
+  calories: z.coerce.number(),
   isActive: z.boolean(),
+});
+
+export const v_item_with_ingredients = v_item.extend({
   ingredients: z
     .array(
       z.object({
@@ -41,3 +44,4 @@ export const v_item_images = z.object({
 export type TItem = z.infer<typeof v_item>;
 export type TItemIngredients = z.infer<typeof v_item_ingredients>;
 export type TItemImages = z.infer<typeof v_item_images>;
+export type TItemWithIngredients = z.infer<typeof v_item_with_ingredients>;

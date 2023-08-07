@@ -1,28 +1,28 @@
-import express from "express";
-import { APP_SETTINGS } from "./core/app-settings";
-import swaggerUi from "swagger-ui-express";
-import swaggerDocs from "./swagger";
-import { responseHandler } from "proses-response";
-import errorHandler from "./core/middlewares/error-handler.middleware";
-import modules from "./modules/index";
-import cors from "cors";
-import path from "path";
+import express from 'express';
+import { APP_SETTINGS } from './core/app-settings';
+import swaggerUi from 'swagger-ui-express';
+import swaggerDocs from './swagger';
+import { responseHandler } from 'proses-response';
+import errorHandler from './core/middlewares/error-handler.middleware';
+import modules from './modules/index';
+import cors from 'cors';
+import path from 'path';
 
 const app = express();
 
 app
   // swagger docs
   .use(
-    "/api-docs/",
+    '/api-docs/',
     swaggerUi.serve,
     swaggerUi.setup(swaggerDocs, {
       swaggerOptions: {
-        docExpansions: "none",
+        docExpansions: 'none',
         persistAuthorization: true,
       },
     })
   )
-  .use("/static", express.static(path.join(__dirname, "../src/public")))
+  .use('/static', express.static(path.join(__dirname, '../src/public')))
   .use(express.json())
   .use(express.urlencoded({ extended: true }))
   .use(cors());
@@ -31,17 +31,14 @@ app
 configureResponse();
 
 //expose app settings
-app.use("/_settings", (req, res) => {
-  let { ENCRYPT } = APP_SETTINGS;
-  res
-    .status(200)
-    .json({ ENCRYPT, API_VERSION: process.env.npm_package_version });
+app.use('/_settings', (req, res) => {
+  res.status(200).json({});
 });
 
 //init all the modules
 (modules as any)(app);
 
-app.use("/", (_, res) => {
+app.use('/', (_, res) => {
   res.send(`<html><title>Tashan</title>
   <body style="
     display: flex;
@@ -60,5 +57,5 @@ app.use(errorHandler);
 export default app;
 
 function configureResponse() {
-  responseHandler.registerDialect("mysql");
+  responseHandler.registerDialect('mysql');
 }

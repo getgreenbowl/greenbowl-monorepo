@@ -3,7 +3,7 @@ import { ApiService } from 'src/app/shared/services/api.service';
 import { GbNotification } from 'src/app/shared/ui/notification/notification.service';
 import { ItemsFormComponent } from './form/form.component';
 import { ActivatedRoute } from '@angular/router';
-import { TItem } from 'greenbowl-schema';
+import { TItem, TItemWithIngredients } from 'greenbowl-schema';
 
 @Component({
   selector: 'edit-items',
@@ -29,7 +29,7 @@ export class EditItemsComponent implements OnInit {
   }
 
   getItem() {
-    this.api.get<TItem>(`/items/${this.itemID}`).subscribe({
+    this.api.get<TItemWithIngredients>(`/items/${this.itemID}`).subscribe({
       next: (response) => {
         const ingredients = response.data.ingredients?.map(
           (item) => item.ingredientID

@@ -328,54 +328,9 @@ $ng-select-input-text: #000000 !default;
       font-weight: 500;
       color: $ng-select-dropdown-optgroup-text;
       cursor: pointer;
-      &.ng-option-disabled {
-        cursor: default;
-      }
-      &.ng-option-marked {
-        background-color: $ng-select-marked;
-      }
-      &.ng-option-selected,
-      &.ng-option-selected.ng-option-marked {
-        color: $ng-select-dropdown-optgroup-marked;
-        background-color: $ng-select-selected;
-        font-weight: 600;
-      }
     }
-    .ng-option {
-      background-color: $ng-select-dropdown-option-bg;
-      color: $ng-select-dropdown-option-text;
-      padding: 8px 10px;
-      &.ng-option-selected,
-      &.ng-option-selected.ng-option-marked {
-        color: $ng-select-selected-text;
-        background-color: $ng-select-selected;
-        .ng-option-label {
-          font-weight: 600;
-        }
-      }
-      &.ng-option-marked {
-        background-color: $ng-select-marked;
-        color: $ng-select-marked-text;
-      }
-      &.ng-option-disabled {
-        color: $ng-select-dropdown-option-disabled;
-      }
-      &.ng-option-child {
-        padding-left: 22px;
-        @include rtl {
-          padding-right: 22px;
-          padding-left: 0;
-        }
-      }
-      .ng-tag-label {
-        font-size: 80%;
-        font-weight: 400;
-        padding-right: 5px;
-        @include rtl {
-          padding-left: 5px;
-          padding-right: 0;
-        }
-      }
+    .ng-option-selected {
+      @apply bg-accent;
     }
   }
 

@@ -1,64 +1,65 @@
-import { TUser } from "greenbowl-schema";
-import {
-  DataTypes, Optional
-} from "sequelize";
-import DbConnection from "../../../core/db/db";
-import { hashPassword } from "../../../core/utils/password-hash";
-import { G_Model } from "../../../types/shared";
+import { TUser } from 'greenbowl-schema';
+import { DataTypes, Optional } from 'sequelize';
+import DbConnection from '../../../core/db/db';
+import { hashPassword } from '../../../core/utils/password-hash';
+import { G_Model } from '../../../types/shared';
 
 type UserCreationAttributes = Optional<TUser, 'id' | 'active'>;
 interface User extends G_Model<User>, UserCreationAttributes {}
 
-export const User = DbConnection.db.define<User, UserCreationAttributes>('User',{
-  id: {
-    type: DataTypes.INTEGER,
-    primaryKey: true,
-    autoIncrement: true,
-    unique: true
-  },
-  email: {
-    type: DataTypes.STRING,
-    allowNull: true,
-  },
-  mobile: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  name: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  password: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    set(this: User, value: string) {      
-      let hash = hashPassword(value);
-      this.setDataValue('password', hash);
+export const User = DbConnection.db.define<User, UserCreationAttributes>(
+  'User',
+  {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+      unique: true,
+    },
+    email: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    mobile: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      set(this: User, value: string) {
+        const hash = hashPassword(value);
+        this.setDataValue('password', hash);
+      },
+    },
+    otp: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      comment: '4 digit random otp',
+    },
+    otpVerified: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+      comment: 'True if otp is verified',
+    },
+    createdAt: {
+      type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW,
+    },
+    active: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: true,
     },
   },
-  otp: {
-    type: DataTypes.INTEGER,
-    allowNull: true,
-    comment: "4 digit random otp",
-  },
-  otpVerified: {
-    type: DataTypes.BOOLEAN,
-    defaultValue: false,
-    comment: "True if otp is verified",
-  },
-  createdAt: {
-    type: DataTypes.DATE,
-    defaultValue: DataTypes.NOW,
-  },
-  active: {
-    type: DataTypes.BOOLEAN,
-    defaultValue: true,
-  },
-},
-{
-  timestamps: false,
-  indexes: [{ fields: ["email", "mobile"], using: "BTREE" }]
-})
+  {
+    timestamps: false,
+    indexes: [{ fields: ['email', 'mobile'], using: 'BTREE' }],
+  }
+);
 
 // export class User extends Model<
 //   InferAttributes<User>,
@@ -166,74 +167,74 @@ export const User = DbConnection.db.define<User, UserCreationAttributes>('User',
 
 //   static initModel(sequelize: Sequelize): typeof User {
 //     User.init(
-      // {
-      //   id: {
-      //     type: DataTypes.INTEGER,
-      //     primaryKey: true,
-      //     autoIncrement: true,
-      //     unique: true,
-      //   },
-      //   email: {
-      //     type: DataTypes.STRING,
-      //     allowNull: true,
-      //   },
-      //   mobile: {
-      //     type: DataTypes.STRING,
-      //     allowNull: false,
-      //   },
-      //   name: {
-      //     type: DataTypes.STRING,
-      //     allowNull: false,
-      //   },
-      //   password: {
-      //     type: DataTypes.STRING,
-      //     allowNull: false,
-      //     set(this: User, value: string) {
-      //       let hash = hashPassword(value);
-      //       this.setDataValue("password", hash);
-      //     },
-      //   },
-      //   otp: {
-      //     type: DataTypes.INTEGER,
-      //     allowNull: true,
-      //     comment: "4 digit random otp",
-      //   },
-      //   otpVerified: {
-      //     type: DataTypes.BOOLEAN,
-      //     defaultValue: false,
-      //     comment: "True if otp is verified",
-      //   },
-      //   passwordChangedOn: {
-      //     type: DataTypes.STRING,
-      //     allowNull: true,
-      //   },
-      //   createdAt: {
-      //     type: DataTypes.DATE,
-      //     defaultValue: DataTypes.NOW,
-      //   },
-      //   zipcode: {
-      //     type: DataTypes.INTEGER,
-      //     allowNull: true
-      //   },
-      //   address: {
-      //     type: DataTypes.STRING,
-      //     allowNull: true
-      //   },
-      //   active: {
-      //     type: DataTypes.BOOLEAN,
-      //     defaultValue: true,
-      //   },
-      // },
-      // {
-      //   sequelize,
-      //   timestamps: false,
-      //   indexes: [{ fields: ["email", "mobile"], using: "BTREE" }],
-      //   scopes: {
-      //     userOS: {
-      //       include: [{ model: UserOS, attributes: ["os"] }],
-      //     }
-      //   },
-      // }
+// {
+//   id: {
+//     type: DataTypes.INTEGER,
+//     primaryKey: true,
+//     autoIncrement: true,
+//     unique: true,
+//   },
+//   email: {
+//     type: DataTypes.STRING,
+//     allowNull: true,
+//   },
+//   mobile: {
+//     type: DataTypes.STRING,
+//     allowNull: false,
+//   },
+//   name: {
+//     type: DataTypes.STRING,
+//     allowNull: false,
+//   },
+//   password: {
+//     type: DataTypes.STRING,
+//     allowNull: false,
+//     set(this: User, value: string) {
+//       let hash = hashPassword(value);
+//       this.setDataValue("password", hash);
+//     },
+//   },
+//   otp: {
+//     type: DataTypes.INTEGER,
+//     allowNull: true,
+//     comment: "4 digit random otp",
+//   },
+//   otpVerified: {
+//     type: DataTypes.BOOLEAN,
+//     defaultValue: false,
+//     comment: "True if otp is verified",
+//   },
+//   passwordChangedOn: {
+//     type: DataTypes.STRING,
+//     allowNull: true,
+//   },
+//   createdAt: {
+//     type: DataTypes.DATE,
+//     defaultValue: DataTypes.NOW,
+//   },
+//   zipcode: {
+//     type: DataTypes.INTEGER,
+//     allowNull: true
+//   },
+//   address: {
+//     type: DataTypes.STRING,
+//     allowNull: true
+//   },
+//   active: {
+//     type: DataTypes.BOOLEAN,
+//     defaultValue: true,
+//   },
+// },
+// {
+//   sequelize,
+//   timestamps: false,
+//   indexes: [{ fields: ["email", "mobile"], using: "BTREE" }],
+//   scopes: {
+//     userOS: {
+//       include: [{ model: UserOS, attributes: ["os"] }],
+//     }
+//   },
+// }
 //     );
 
 //     return User;

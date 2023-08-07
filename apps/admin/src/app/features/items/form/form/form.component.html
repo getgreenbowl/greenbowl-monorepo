@@ -64,6 +64,7 @@
       [control]="itemsFormControls.calories"
       [showErrors]="showErrors"
     />
+
     <div>
       <div class="flex gap-2">
         <gb-select
@@ -87,6 +88,11 @@
         </sgb-button>
       </div>
     </div>
+    <gb-checkbox
+      label="Active"
+      [control]="itemsFormControls.isActive"
+      [showErrors]="showErrors"
+    />
   </div>
 
   <gb-textarea label="Description" [control]="itemsFormControls.description" />

@@ -5,7 +5,7 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { SubSink } from 'subsink';
 import { SgbButtonComponent } from '../../ui/button';
 import { GbSelectComponent } from '../../ui/form/gb-select';
-import { GbInputComponent } from '../../ui/form/input';
+import { GbInputComponent } from '../../ui/form/gb-input';
 import { FilterService } from './filter.service';
 import { FilterData, FilterType } from './types';
 
@@ -41,6 +41,7 @@ export class GbFilterPanelComponent implements OnInit, OnDestroy {
     text: ['equals', 'contains', 'not equal'],
     number: ['equals', 'greater than', 'less than', 'between'],
   };
+  private readonly invalidValues = [null, 'undefined', NaN];
 
   get controls() {
     return this.filterForm?.controls;
@@ -105,7 +106,7 @@ export class GbFilterPanelComponent implements OnInit, OnDestroy {
         let formValue = this.filterForm.value[filter.field];
         const conditionValue = this.conditionForm.value[filter.field];
 
-        if (!formValue) {
+        if (this.invalidValues.includes(formValue)) {
           return null;
         }
 

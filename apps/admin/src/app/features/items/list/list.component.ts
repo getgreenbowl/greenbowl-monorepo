@@ -28,7 +28,14 @@ import { Router } from '@angular/router';
     <gb-grid-filter field="price" type="number" />
     <gb-grid-filter field="carbs" type="number" />
     <gb-grid-filter field="createdAt" type="date" label="Created At" />
-    <gb-grid-filter field="status" type="select" [items]="statusOptions" />
+    <gb-grid-filter
+      field="isActive"
+      label="Status"
+      type="select"
+      [items]="statusOptions"
+      bindValue="value"
+      bindLabel="label"
+    />
     <!-- Filters -->
 
     <!-- Action -->
@@ -39,7 +46,16 @@ import { Router } from '@angular/router';
 export class ListComponent {
   constructor(private router: Router) {}
 
-  statusOptions = ['Active', 'InActive'];
+  statusOptions = [
+    {
+      label: 'Active',
+      value: true,
+    },
+    {
+      label: 'In active',
+      value: false,
+    },
+  ];
 
   addItem() {
     this.router.navigate(['/items/add']);

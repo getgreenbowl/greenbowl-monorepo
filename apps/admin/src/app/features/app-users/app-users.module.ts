@@ -7,6 +7,7 @@ import { GbGridShellComponent } from 'src/app/shared/grid-shell/grid-shell';
 import { GbGridColumnsComponent } from 'src/app/shared/ui/gb-data-grid/components/base-table/columns';
 import { GbActionComponent } from 'src/app/shared/ui/gb-data-grid/components/base-table/action';
 import { GbGridToolbarComponent } from 'src/app/shared/ui/gb-data-grid/components/toolbar/gb-toolbar';
+import { GbBadgeComponent } from 'src/app/shared/ui/badge';
 
 @NgModule({
   declarations: [AppUserListComponent],
@@ -17,6 +18,7 @@ import { GbGridToolbarComponent } from 'src/app/shared/ui/gb-data-grid/component
     GbGridColumnsComponent,
     GbActionComponent,
     GbGridToolbarComponent,
+    GbBadgeComponent,
   ],
 })
 export class AppUsersModule {}

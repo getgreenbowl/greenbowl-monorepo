@@ -30,7 +30,7 @@ import { Location } from '@angular/common';
 export class PageHeaderComponent {
   constructor(private location: Location) {}
 
-  @Input() header = '';
+  @Input({ required: true }) header = '';
   @Input() loading = false;
 
   @Output() cancel = new EventEmitter();

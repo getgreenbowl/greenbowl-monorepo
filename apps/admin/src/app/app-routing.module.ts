@@ -33,6 +33,13 @@ const routes: Routes = [
             (m) => m.SubscriptionModule
           ),
       },
+      {
+        path: 'app-users',
+        loadChildren: () =>
+          import('./features/app-users/app-users.module').then(
+            (m) => m.AppUsersModule
+          ),
+      },
     ],
   },
 ];

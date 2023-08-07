@@ -28,3 +28,6 @@ export * from './lib/grid-events';
 export * from './lib/id-param';
 export type { GridEvents } from './lib/grid-events';
 export type { ListResponse, Response } from './lib/shared/shared';
+
+export * from './lib/user/user-address';
+export type { TUserAddress } from './lib/user/user-address';

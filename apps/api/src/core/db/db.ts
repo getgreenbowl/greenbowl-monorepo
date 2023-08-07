@@ -13,6 +13,10 @@ const logError = debug('app:error');
 const env = APP_SETTINGS.NODE_ENV || 'development';
 const config = (configs as { [key: string]: Options })[env];
 
+const replaceModelNames = {
+  Users: 'User',
+};
+
 export class DbConnection {
   static models: Record<string, ModelStatic<Model<object, object>>>;
 
@@ -40,7 +44,11 @@ export class DbConnection {
       const child = this.db.models[m];
       const refs = filterRefKeys(child.getAttributes());
       for (const r of refs) {
-        const parent = this.db.models[r.references.model];
+        let modelName = r.references.model;
+        if (r.references.model in replaceModelNames) {
+          modelName = replaceModelNames[r.references.model];
+        }
+        const parent = this.db.models[modelName];
         let options: any = { foreignKey: r.references.key || r.field };
         if (r.references.as) {
           options = { ...options, as: r.references.as };
