@@ -1,16 +1,18 @@
 import { Router } from 'express';
-import { success } from 'proses-response';
+import { v_item, v_param_id } from 'greenbowl-schema';
+import { serverError, success } from 'proses-response';
 import { Transaction } from 'sequelize';
 import DbConnection from '../../core/db/db';
+import { Cacher } from '../../core/middlewares/cache.middleware';
+import { validate } from '../../core/middlewares/validation.middleware';
 import ah from '../../core/utils/async-handler.util';
 import { ModelOptions } from '../../libs/list-filter';
 import { ItemImages } from './models/images.model';
 import { ItemIngredients } from './models/item-ingredients.model';
 import { Item } from './models/item.model';
-import { validate } from '../../core/middlewares/validation.middleware';
-import { v_item, v_param_id } from 'greenbowl-schema';
-import Session from '../../core/middlewares/jwt.middleware';
-import { Cacher } from '../../core/middlewares/cache.middleware';
+import { Cache } from '../../core/cache/cache-model';
+import { z } from 'zod';
+import { Ingredients } from '../ingredients/models/ingredients.model';
 
 const ItemRouter = Router();
 
@@ -30,6 +32,8 @@ ItemRouter.post(
         await ItemIngredients.bulkCreate(ingredients, { transaction: t });
       }
       await t.commit();
+      clearItemRelatedCache();
+
       success(res, item, 'New item added in menu');
     } catch (error) {
       await t.rollback();
@@ -48,12 +52,43 @@ ItemRouter.post(
   )
   .post(
     '/update/:id',
-    validate({ body: v_item.omit({ id: true }) }),
+    validate({
+      body: v_item
+        .omit({ id: true, ingredients: true })
+        .extend({ ingredients: z.array(z.number()) }),
+    }),
     ah(async (req, res) => {
-      const [update] = await Item.update(req.body, {
-        where: { id: req.params.id },
-      });
-      success(res, update, 'Item updated');
+      const t: Transaction = await DbConnection.db.transaction();
+
+      try {
+        const { ingredients, ...payload } = req.body;
+        const [update] = await Item.update(payload, {
+          where: { id: req.params.id },
+          transaction: t,
+        });
+
+        await ItemIngredients.destroy({
+          where: { itemID: req.params.id },
+          transaction: t,
+        });
+
+        if (ingredients?.length) {
+          const ingredientPayload = ingredients.map((ingredientID: any) => ({
+            itemID: req.params.id,
+            ingredientID,
+          }));
+          await ItemIngredients.bulkCreate(ingredientPayload, {
+            transaction: t,
+          });
+        }
+
+        clearItemRelatedCache();
+        t.commit();
+        success(res, update, 'Item updated');
+      } catch (error) {
+        t.rollback();
+        serverError(res, error);
+      }
     })
   )
   .get(
@@ -66,21 +101,45 @@ ItemRouter.post(
     })
   )
   .get(
+    '/simple-list',
+    ah(async (req, res) => {
+      const items = await Item.findAll();
+      success(res, items, 'active items');
+    })
+  )
+  .get(
     '/:id',
     // Session.secure,
     validate({ params: v_param_id }),
     ah(async (req, res) => {
-      const item = await Item.findByPk(req.params.id);
+      const item = await Item.findByPk(req.params.id, {
+        include: [{ model: ItemIngredients, as: 'ingredients' }],
+      });
       success(res, item, 'Item by id');
     })
   )
   .get(
-    '/simple-list',
-    Cacher.cache('items-simple-list'),
+    '/details/:id',
+    // Session.secure,
+    validate({ params: v_param_id }),
     ah(async (req, res) => {
-      const items = await Item.findAll({ where: { isActive: true } });
-      success(res, items, 'active items');
+      const item = await Item.findByPk(req.params.id, {
+        include: [
+          {
+            model: ItemIngredients,
+            as: 'ingredients',
+            include: [{ model: Ingredients }],
+          },
+        ],
+      });
+      console.log(item, 'check me');
+
+      success(res, item, 'Item by id');
     })
   );
 
 export default ItemRouter;
+
+function clearItemRelatedCache() {
+  Cache.clearCacheByGroup('items-paginated-list');
+}

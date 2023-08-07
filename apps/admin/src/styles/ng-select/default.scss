@@ -1,4 +1,4 @@
-@import "mixins";
+@import 'mixins';
 
 $ng-select-highlight: #007eff !default;
 $ng-select-primary-text: #333 !default;
@@ -101,7 +101,7 @@ $ng-select-input-text: #000000 !default;
     }
     .ng-value-container {
       align-items: center;
-      padding-left: $ng-select-value-padding-left;
+      // padding-left: $ng-select-value-padding-left;
       @include rtl {
         padding-right: $ng-select-value-padding-left;
         padding-left: 0;
