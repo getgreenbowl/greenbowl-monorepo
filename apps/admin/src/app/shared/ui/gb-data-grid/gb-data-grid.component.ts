@@ -16,7 +16,11 @@ import {
 import { GridDataService } from './services/data.service';
 import { GridColumnService } from './services/columns.service';
 import { GbGridColumnsComponent } from './components/base-table/columns';
-import { HideFeatures, STATIC_ACTION_HEADER } from './types';
+import {
+  HideFeatures,
+  STATIC_ACTION_HEADER,
+  STATIC_SELECTABLE_HEADER,
+} from './types';
 import { ActionService } from './services/actions.service';
 import { LoadingService } from './services/loading.service';
 import { ToolbarService } from './services/toolbar.service';
@@ -48,6 +52,7 @@ export class GbDataGridComponent
   @Input() collectionSize = 0;
   @Input() gridTitle = '';
   @Input() hideFeatures: HideFeatures = [];
+  @Input() selectable = true;
 
   @Output() emitEvents = new EventEmitter<any>();
 
@@ -94,6 +99,14 @@ export class GbDataGridComponent
     }
   }
 
+  //   I arrived to the following solution, a bit similar to what Cartant proposed but using pairwise instead on scan, that seems more elegant. Pairwise operator keeps previously emitted value in buffer and supplies previous value together with newly emitted value to the next operator as an array, therefore you can easily check if the values have changed and pass the results further. In my example I simplified it to just 2 Observables for clarity.
+
+  // combineLatest([obs1$, obs2$]).pipe(
+  //     pairwise(),
+  //     map(([oldValues, newValues]) => oldValues.map((value, i) => value !== newValues[i])),
+  //     ).subscribe(([obs1$HasChanged, obs2$HasChanged]) => {
+  // )
+
   ngOnInit(): void {
     this.subs.sink = combineLatest([
       this.paginationService.page$,
@@ -119,6 +132,11 @@ export class GbDataGridComponent
     if (this.actions?.length) {
       _columns.push(STATIC_ACTION_HEADER);
     }
+
+    if (this.selectable) {
+      _columns.unshift(STATIC_SELECTABLE_HEADER);
+    }
+
     col.reset(_columns);
     this.columnService.updateColumns(col);
   }

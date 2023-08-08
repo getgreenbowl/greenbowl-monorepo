@@ -25,10 +25,11 @@ export class GridColumnService {
 
   moveRight(index: number, columns: QueryList<GbGridColumnsComponent>) {
     const rawColumns = columns.toArray();
-    const actions = rawColumns.pop();
+
     if (index === rawColumns.length - 1) {
       return;
     }
+    const actions = rawColumns.pop();
     [rawColumns[index], rawColumns[index + 1]] = [
       rawColumns[index + 1],
       rawColumns[index],

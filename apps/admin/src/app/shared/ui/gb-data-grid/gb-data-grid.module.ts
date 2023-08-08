@@ -3,7 +3,6 @@ import { GridDataService } from './services/data.service';
 import { CdkTableModule } from '@angular/cdk/table';
 import { CommonModule } from '@angular/common';
 import { GbDataGridComponent } from './gb-data-grid.component';
-import { BaseDataTableComponent } from './components/base-table/base-table';
 import { GridColumnService } from './services/columns.service';
 import { GbGridColumnsComponent } from './components/base-table/columns';
 import { ActionService } from './services/actions.service';
@@ -22,6 +21,7 @@ import { GbDropdownModule } from '../dropdown/dropdown.module';
 import { SgbButtonComponent } from '../button';
 import { SgbIconComponent } from '../icon';
 import { GbBadgeComponent } from '../badge';
+import { BaseDataTableComponent } from './components/base-table/core/table';
 
 @NgModule({
   declarations: [

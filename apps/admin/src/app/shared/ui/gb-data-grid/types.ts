@@ -21,6 +21,12 @@ export const STATIC_ACTION_HEADER = {
   alignment: 'center',
 } as const;
 
+export const STATIC_SELECTABLE_HEADER = {
+  title: 'A',
+  field: 'selectable',
+  alignment: 'center',
+} as const;
+
 export interface Emitter {
   emit: (value: any) => void;
   updateEmitter: (emitter: EventEmitter<any>) => void;
