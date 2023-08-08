@@ -1,5 +1,13 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, combineLatest, map, of, shareReplay } from 'rxjs';
+import {
+  BehaviorSubject,
+  combineLatest,
+  forkJoin,
+  map,
+  of,
+  shareReplay,
+  skip,
+} from 'rxjs';
 import { toggleInArray } from 'src/app/shared/data-grid/utils';
 
 @Injectable()
@@ -32,14 +40,14 @@ export class GridDataService {
     this.excluded$,
     this.included$,
   ]).pipe(
-    map(([selectAll, exculded, included]) => {
+    skip(2),
+    map(([selectAll, excluded, included]) => {
       return {
         selectAll,
-        exculded,
+        excluded,
         included,
       };
-    }),
-    shareReplay(1)
+    })
   );
 
   dataChecked(id: number) {
