@@ -28,7 +28,7 @@ import { PaginationService } from './services/pagination.service';
 import { MetaDataService } from './services/meta-data.service';
 import { GbActionComponent } from './components/base-table/action';
 import { GbGridToolbarComponent } from './components/toolbar/gb-toolbar';
-import { combineLatest } from 'rxjs';
+import { combineLatest, map, pairwise } from 'rxjs';
 import { SubSink } from 'subsink';
 
 @Component({
@@ -112,14 +112,45 @@ export class GbDataGridComponent
       this.paginationService.page$,
       this.paginationService.selectedLimit$,
       this.columnService.sort$,
-    ]).subscribe({
-      next: ([page, limit, sort]) => {
-        this.emitEvents.emit({ page, limit, sort });
-      },
-      error: (err) => {
-        console.log(err, 'error');
-      },
-    });
+      this.gridData.selectionInfo$,
+    ])
+      .pipe(
+        pairwise(),
+        map(([oldValues, newValues]) => {
+          const labels = ['page', 'limit', 'sort', 'selectionInfo'];
+          const [page, limit, sort, selectionInfo] = newValues;
+          const [_page, _limit, _sort, _selectionInfo] = oldValues;
+          const lastChangedIndex = newValues.findIndex(
+            (value, i) => value !== oldValues[i]
+          );
+
+          return {
+            currentValues: {
+              page,
+              limit,
+              sort,
+              selectionInfo,
+            },
+            previousValues: {
+              _page,
+              _limit,
+              _sort,
+              _selectionInfo,
+            },
+            lastChanged: labels[lastChangedIndex],
+          };
+        })
+      )
+      .subscribe({
+        next: (data) => {
+          console.log(data, 'check me');
+
+          this.emitEvents.emit(data);
+        },
+        error: (err) => {
+          console.log(err, 'error');
+        },
+      });
   }
 
   ngOnDestroy(): void {

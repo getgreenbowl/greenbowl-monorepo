@@ -1,0 +1,40 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 7
+    },
+    "auditLog": "/Users/vishalacharya/Documents/bare-starter-master/apps/api/logs/.68d6404776d7ce658599d0eb47dabfde4550c69c-audit.json",
+    "files": [
+        {
+            "date": 1684558611401,
+            "name": "/Users/vishalacharya/Documents/bare-starter-master/apps/api/logs/email.log-2023-05-20.log",
+            "hash": "eb014ffc8673946cebce1c712a301a8081e0d040d180b3e8e0b97839f5600263"
+        },
+        {
+            "date": 1684611720861,
+            "name": "/Users/vishalacharya/Documents/bare-starter-master/apps/api/logs/email.log-2023-05-21.log",
+            "hash": "60ff9f9706452a58c9cdec9625ac893e290f6a7b581539bea932993532583094"
+        },
+        {
+            "date": 1684865243538,
+            "name": "/Users/vishalacharya/Documents/bare-starter-master/apps/api/logs/email.log-2023-05-23.log",
+            "hash": "91620c281176f9117b4f9dc4360ac061fd13f8a4aca98397cca356392ca8e359"
+        },
+        {
+            "date": 1684868641567,
+            "name": "/Users/vishalacharya/Documents/bare-starter-master/apps/api/logs/email.log-2023-05-24.log",
+            "hash": "b516215e113f6b24a0859a52670ca2e41a4892628e8604e1e0b0990fdbbdb3fe"
+        },
+        {
+            "date": 1685036201089,
+            "name": "/Users/vishalacharya/Documents/bare-starter-master/apps/api/logs/email.log-2023-05-25.log",
+            "hash": "b4489ac5931b72816f8f33d5b9f3f9d4146a5fc7e073e429c5a628bdc8fcc486"
+        },
+        {
+            "date": 1685039679965,
+            "name": "/Users/vishalacharya/Documents/bare-starter-master/apps/api/logs/email.log-2023-05-26.log",
+            "hash": "debd0d38e1b376140782d667990bd6e1f014f7d0d13d65eb041c36b660f01828"
+        }
+    ],
+    "hashType": "sha256"
+}

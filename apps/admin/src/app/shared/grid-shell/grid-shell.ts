@@ -146,7 +146,7 @@ export class GbGridShellComponent implements OnDestroy, OnInit {
   }
 
   ngOnInit(): void {
-    this.filterService.filterData$.subscribe((filterData) => {
+    this.subs.sink = this.filterService.filterData$.subscribe((filterData) => {
       this.filterValues = filterData;
       this._getData();
     });

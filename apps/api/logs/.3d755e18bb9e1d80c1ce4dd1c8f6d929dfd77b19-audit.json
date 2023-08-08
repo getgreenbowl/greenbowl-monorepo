@@ -1,0 +1,25 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 7
+    },
+    "auditLog": "/Users/vishalacharya/Documents/gb/gb-monorepo/apps/api/logs/.3d755e18bb9e1d80c1ce4dd1c8f6d929dfd77b19-audit.json",
+    "files": [
+        {
+            "date": 1688666358654,
+            "name": "/Users/vishalacharya/Documents/gb/gb-monorepo/apps/api/logs/error.log-2023-07-06.log",
+            "hash": "684a0efa7ba2df54b75ee46703da8af35d3fb6e1aeb73080dd8396585e6122d5"
+        },
+        {
+            "date": 1688812180447,
+            "name": "/Users/vishalacharya/Documents/gb/gb-monorepo/apps/api/logs/error.log-2023-07-08.log",
+            "hash": "887e05cdbf88438ad285e6f919dde686868698278f4b90dd9af84130005d19ac"
+        },
+        {
+            "date": 1689166357633,
+            "name": "/Users/vishalacharya/Documents/gb/gb-monorepo/apps/api/logs/error.log-2023-07-12.log",
+            "hash": "b68e696bdb180cbe883427a75aeac5f76aaecdb732aba1d2a404ad0165ee65b0"
+        }
+    ],
+    "hashType": "sha256"
+}

@@ -1,0 +1,16 @@
+{
+  message: '{"name":"SequelizeDatabaseError","parent":{"code":"ER_NO_SUCH_TABLE","errno":1146,"sqlState":"42S02","sqlMessage":"Table \'greenbowl.menu\' doesn\'t exist","sql":"SELECT `id`, `name`, `isActive`, `createdAt`, `updatedAt` FROM `Menu` AS `Menu`;"},"original":{"code":"ER_NO_SUCH_TABLE","errno":1146,"sqlState":"42S02","sqlMessage":"Table \'greenbowl.menu\' doesn\'t exist","sql":"SELECT `id`, `name`, `isActive`, `createdAt`, `updatedAt` FROM `Menu` AS `Menu`;"},"sql":"SELECT `id`, `name`, `isActive`, `createdAt`, `updatedAt` FROM `Menu` AS `Menu`;","parameters":{}}',
+  level: 'error'
+}
+{
+  message: '{"name":"SequelizeDatabaseError","parent":{"code":"ER_NO_SUCH_TABLE","errno":1146,"sqlState":"42S02","sqlMessage":"Table \'greenbowl.menu\' doesn\'t exist","sql":"SELECT `id`, `name`, `isActive`, `createdAt`, `updatedAt` FROM `Menu` AS `Menu`;"},"original":{"code":"ER_NO_SUCH_TABLE","errno":1146,"sqlState":"42S02","sqlMessage":"Table \'greenbowl.menu\' doesn\'t exist","sql":"SELECT `id`, `name`, `isActive`, `createdAt`, `updatedAt` FROM `Menu` AS `Menu`;"},"sql":"SELECT `id`, `name`, `isActive`, `createdAt`, `updatedAt` FROM `Menu` AS `Menu`;","parameters":{}}',
+  level: 'error'
+}
+{
+  message: '{"name":"SequelizeDatabaseError","parent":{"code":"ER_NO_SUCH_TABLE","errno":1146,"sqlState":"42S02","sqlMessage":"Table \'greenbowl.menu\' doesn\'t exist","sql":"SELECT `id`, `name`, `isActive`, `createdAt`, `updatedAt` FROM `Menu` AS `Menu`;"},"original":{"code":"ER_NO_SUCH_TABLE","errno":1146,"sqlState":"42S02","sqlMessage":"Table \'greenbowl.menu\' doesn\'t exist","sql":"SELECT `id`, `name`, `isActive`, `createdAt`, `updatedAt` FROM `Menu` AS `Menu`;"},"sql":"SELECT `id`, `name`, `isActive`, `createdAt`, `updatedAt` FROM `Menu` AS `Menu`;","parameters":{}}',
+  level: 'error'
+}
+{
+  message: '{"name":"SequelizeDatabaseError","parent":{"code":"ER_NO_SUCH_TABLE","errno":1146,"sqlState":"42S02","sqlMessage":"Table \'greenbowl.menu\' doesn\'t exist","sql":"SELECT `id`, `name`, `isActive`, `createdAt`, `updatedAt` FROM `Menu` AS `Menu`;"},"original":{"code":"ER_NO_SUCH_TABLE","errno":1146,"sqlState":"42S02","sqlMessage":"Table \'greenbowl.menu\' doesn\'t exist","sql":"SELECT `id`, `name`, `isActive`, `createdAt`, `updatedAt` FROM `Menu` AS `Menu`;"},"sql":"SELECT `id`, `name`, `isActive`, `createdAt`, `updatedAt` FROM `Menu` AS `Menu`;","parameters":{}}',
+  level: 'error'
+}

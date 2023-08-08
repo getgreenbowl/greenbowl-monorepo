@@ -27,6 +27,20 @@ export class GridDataService {
       return d.length === i.length;
     })
   );
+  selectionInfo$ = combineLatest([
+    this.allSelected$,
+    this.excluded$,
+    this.included$,
+  ]).pipe(
+    map(([selectAll, exculded, included]) => {
+      return {
+        selectAll,
+        exculded,
+        included,
+      };
+    }),
+    shareReplay(1)
+  );
 
   dataChecked(id: number) {
     return combineLatest([
