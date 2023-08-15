@@ -28,8 +28,8 @@ import { PaginationService } from './services/pagination.service';
 import { MetaDataService } from './services/meta-data.service';
 import { GbActionComponent } from './components/base-table/action';
 import { GbGridToolbarComponent } from './components/toolbar/gb-toolbar';
-import { combineLatest, map, pairwise } from 'rxjs';
 import { SubSink } from 'subsink';
+import { EmitterService } from './services/internal/event-emitter.service';
 
 @Component({
   selector: 'gb-data-grid',
@@ -46,6 +46,7 @@ export class GbDataGridComponent
   private toolbarService = inject(ToolbarService);
   private paginationService = inject(PaginationService);
   private metaService = inject(MetaDataService);
+  private emitterService = inject(EmitterService);
 
   @Input() data: any[] = [];
   @Input() loading = false;
@@ -108,49 +109,17 @@ export class GbDataGridComponent
   // )
 
   ngOnInit(): void {
-    this.subs.sink = combineLatest([
-      this.paginationService.page$,
-      this.paginationService.selectedLimit$,
-      this.columnService.sort$,
-      this.gridData.selectionInfo$,
-    ])
-      .pipe(
-        pairwise(),
-        map(([oldValues, newValues]) => {
-          const labels = ['page', 'limit', 'sort', 'selectionInfo'];
-          const [page, limit, sort, selectionInfo] = newValues;
-          const [_page, _limit, _sort, _selectionInfo] = oldValues;
-          const lastChangedIndex = newValues.findIndex(
-            (value, i) => value !== oldValues[i]
-          );
-
-          return {
-            currentValues: {
-              page,
-              limit,
-              sort,
-              selectionInfo,
-            },
-            previousValues: {
-              _page,
-              _limit,
-              _sort,
-              _selectionInfo,
-            },
-            lastChanged: labels[lastChangedIndex],
-          };
-        })
-      )
-      .subscribe({
-        next: (data) => {
-          console.log(data, 'check me');
-
-          this.emitEvents.emit(data);
-        },
-        error: (err) => {
-          console.log(err, 'error');
-        },
-      });
+    this.subs.sink = this.emitterService.registeredEmitters$.subscribe(
+      (emitters) => {
+        for (const key in emitters) {
+          const emitter = emitters[key];
+          this.subs.sink = emitter.subscribe({
+            next: (val) => this.emitEvents.emit({ value: val, key }),
+          });
+        }
+      }
+    );
+    // this.emitEvents.emit({ limit: 10, page: 1, sort: '' });
   }
 
   ngOnDestroy(): void {

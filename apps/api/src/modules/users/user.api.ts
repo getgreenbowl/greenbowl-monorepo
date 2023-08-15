@@ -9,6 +9,7 @@ import { v_user } from 'greenbowl-schema';
 import { ModelOptions } from '../../libs/list-filter';
 import { Cacher } from '../../core/middlewares/cache.middleware';
 import { Cache } from '../../core/cache/cache-model';
+import { SubscriptionJourney } from '../subscription/models/subscription-journey.model';
 
 const UserRouter = Router();
 
@@ -37,18 +38,22 @@ UserRouter.post(
       return other(res, 'No user found');
     }
 
-    if (user.active === false) {
-      return other(res, 'No user found');
-    }
-
     //wrong password
     if (!checkPassword(req.body.password, user.password)) {
       return other(res, 'Invalid password');
     }
 
-    const payload = _formatPlainUser(user);
+    const subscriptionJourney = await SubscriptionJourney.findOne({
+      where: { userID: user.id },
+    });
+
+    const { password, ...payload } = user;
     const token = Session.generateToken(payload);
-    success(res, { token, user: payload }, 'login successfully');
+    success(
+      res,
+      { token, user: payload, subscriptionJourney },
+      'login successfully'
+    );
   })
 );
 

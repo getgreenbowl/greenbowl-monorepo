@@ -1,6 +1,4 @@
 import { Router } from 'express';
-import Session from '../../core/middlewares/jwt.middleware';
-import UserRouter from './user.api';
 import ah from '../../core/utils/async-handler.util';
 import { validate } from '../../core/middlewares/validation.middleware';
 import { v_param_id, v_user_address } from 'greenbowl-schema';
@@ -8,8 +6,6 @@ import { UserAddress } from './models/user-address.model';
 import { success } from 'proses-response';
 
 const UserAddressRouter = Router();
-
-UserRouter.use(Session.secure);
 
 UserAddressRouter.route('/')
   .post(

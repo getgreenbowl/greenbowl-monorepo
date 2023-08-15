@@ -15,6 +15,7 @@ const config = (configs as { [key: string]: Options })[env];
 
 const replaceModelNames = {
   Users: 'User',
+  UserAddresses: 'UserAddress',
 };
 
 export class DbConnection {

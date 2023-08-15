@@ -1,10 +1,14 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, combineLatest, map, shareReplay } from 'rxjs';
+import { EmitterService } from './internal/event-emitter.service';
 
-Injectable({
-  providedIn: 'root',
-});
+@Injectable()
 export class PaginationService {
+  constructor(private emitterService: EmitterService) {
+    this.emitterService.register(this.selectedLimit$, 'limit');
+    this.emitterService.register(this.page$, 'page');
+  }
+
   private _selectedLimit = new BehaviorSubject(10);
   private _currentPage = new BehaviorSubject(1);
   private _collectionSize = new BehaviorSubject(0);

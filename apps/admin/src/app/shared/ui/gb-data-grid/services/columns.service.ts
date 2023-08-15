@@ -1,9 +1,15 @@
 import { Injectable, QueryList } from '@angular/core';
 import { BehaviorSubject, map, shareReplay } from 'rxjs';
 import { GbGridColumnsComponent } from '../components/base-table/columns';
+import { EmitterService } from './internal/event-emitter.service';
 
 @Injectable()
 export class GridColumnService {
+  constructor(private emitterService: EmitterService) {
+    this.emitterService.register(this.sort$, 'sort');
+    this.emitterService.register(this.columns$, 'column');
+  }
+
   private _columns =
     new BehaviorSubject<QueryList<GbGridColumnsComponent> | null>(null);
 

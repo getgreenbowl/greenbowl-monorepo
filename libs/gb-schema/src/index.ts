@@ -31,3 +31,9 @@ export type { ListResponse, Response } from './lib/shared/shared';
 
 export * from './lib/user/user-address';
 export type { TUserAddress } from './lib/user/user-address';
+
+export * from './lib/subscription';
+export type { TSubscription } from './lib/subscription';
+
+export * from './lib/user/user-item';
+export type { TUserItem } from './lib/user/user-item';

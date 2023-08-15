@@ -139,6 +139,7 @@ export class GbGridShellComponent implements OnDestroy, OnInit {
   private subs = new SubSink();
   private requests = new SubSink();
   private gridEvents: any = null;
+  private allowApiCall = ['limit', 'page', 'sort'];
 
   ngOnDestroy(): void {
     this.subs.unsubscribe();
@@ -152,9 +153,11 @@ export class GbGridShellComponent implements OnDestroy, OnInit {
     });
   }
 
-  captureGridEvents(events: any) {
-    this.gridEvents = events;
-    this._getData();
+  captureGridEvents(events: { key: string; value: any }) {
+    this.gridEvents = { ...this.gridEvents, [events.key]: events.value };
+    if (this.allowApiCall.includes(events.key) && events.value) {
+      this._getData();
+    }
   }
 
   openFilters() {

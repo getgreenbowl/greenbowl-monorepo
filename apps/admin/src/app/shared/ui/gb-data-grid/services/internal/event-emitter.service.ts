@@ -1,18 +1,24 @@
-import { BehaviorSubject } from 'rxjs';
-import { Emitter } from '../../types';
-import { EventEmitter } from '@angular/core';
+import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable, combineLatest } from 'rxjs';
 
-export class EmitterService implements Emitter {
-  private _emitter = new BehaviorSubject<EventEmitter<any> | null>(null);
+@Injectable({
+  providedIn: 'root',
+})
+export class EmitterService {
+  private registeredEmitters = new BehaviorSubject<
+    Record<string, Observable<any>>
+  >({});
+  registeredEmitters$ = this.registeredEmitters.asObservable();
 
-  emit(value: any) {
-    const emitter = this._emitter.getValue();
-    if (emitter) {
-      emitter.emit(value);
-    }
+  register(observable: Observable<any>, key: string) {
+    this.registeredEmitters.next({
+      ...this.registeredEmitters.value,
+      [key]: observable,
+    });
   }
 
-  updateEmitter(emitter: EventEmitter<any>) {
-    this._emitter.next(emitter);
+  getEmitterValues() {
+    const values = Object.values(this.registeredEmitters.value);
+    return combineLatest(values);
   }
 }
