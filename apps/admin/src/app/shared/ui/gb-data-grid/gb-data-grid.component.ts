@@ -46,7 +46,6 @@ export class GbDataGridComponent
   private toolbarService = inject(ToolbarService);
   private paginationService = inject(PaginationService);
   private metaService = inject(MetaDataService);
-  private emitterService = inject(EmitterService);
 
   @Input() data: any[] = [];
   @Input() loading = false;
@@ -56,6 +55,10 @@ export class GbDataGridComponent
   @Input() selectable = true;
 
   @Output() emitEvents = new EventEmitter<any>();
+  @Output() sortChange = new EventEmitter();
+  @Output() selectionChange = new EventEmitter();
+  @Output() pageChange = new EventEmitter();
+  @Output() limitChange = new EventEmitter();
 
   private subs = new SubSink();
 
@@ -100,26 +103,19 @@ export class GbDataGridComponent
     }
   }
 
-  //   I arrived to the following solution, a bit similar to what Cartant proposed but using pairwise instead on scan, that seems more elegant. Pairwise operator keeps previously emitted value in buffer and supplies previous value together with newly emitted value to the next operator as an array, therefore you can easily check if the values have changed and pass the results further. In my example I simplified it to just 2 Observables for clarity.
-
-  // combineLatest([obs1$, obs2$]).pipe(
-  //     pairwise(),
-  //     map(([oldValues, newValues]) => oldValues.map((value, i) => value !== newValues[i])),
-  //     ).subscribe(([obs1$HasChanged, obs2$HasChanged]) => {
-  // )
-
   ngOnInit(): void {
-    this.subs.sink = this.emitterService.registeredEmitters$.subscribe(
-      (emitters) => {
-        for (const key in emitters) {
-          const emitter = emitters[key];
-          this.subs.sink = emitter.subscribe({
-            next: (val) => this.emitEvents.emit({ value: val, key }),
-          });
-        }
-      }
+    this.subs.sink = this.paginationService.page$.subscribe((page) =>
+      this.pageChange.emit(page)
     );
-    // this.emitEvents.emit({ limit: 10, page: 1, sort: '' });
+    this.subs.sink = this.paginationService.selectedLimit$.subscribe((limit) =>
+      this.limitChange.emit(limit)
+    );
+    this.subs.sink = this.columnService.sort$.subscribe((sort) =>
+      this.sortChange.emit(sort)
+    );
+    this.subs.sink = this.gridData.selectionInfo$.subscribe((selection) =>
+      this.selectionChange.emit(selection)
+    );
   }
 
   ngOnDestroy(): void {

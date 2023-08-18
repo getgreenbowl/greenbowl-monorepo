@@ -1,7 +1,7 @@
 import * as dotenv from 'dotenv';
 dotenv.config();
-import { unauthorized } from "proses-response";
-import * as jwt from "jsonwebtoken";
+import { unauthorized } from 'proses-response';
+import * as jwt from 'jsonwebtoken';
 
 interface config {
   interceptor?: any;
@@ -9,28 +9,28 @@ interface config {
 }
 
 export class Jwtinstance {
-  secret: string = process.env['secret'] || "zxcasdqwemnblkjpoi";
-  expiry: string = process.env['expiry'] || "12h";
+  secret: string = process.env['secret'] || 'zxcasdqwemnblkjpoi';
+  expiry: string = process.env['expiry'] || '12h';
   currentUser: any;
-  private _interCeptor!: any|undefined;
-  private _customErrorHandler!: any|undefined;
+  private _interCeptor!: any | undefined;
+  private _customErrorHandler!: any | undefined;
 
-  constructor({interceptor, customErrorHandler}: config) {
-      this._customErrorHandler = customErrorHandler;
-      this._interCeptor = interceptor;
+  constructor({ interceptor, customErrorHandler }: config) {
+    this._customErrorHandler = customErrorHandler;
+    this._interCeptor = interceptor;
   }
 
   generateToken = (payload: any): string => {
     return jwt.sign(payload, this.secret);
     // return jwt.sign(payload, this.secret, { expiresIn: this.expiry });
-  }
+  };
 
   tokenMiddleWare = (req: any, res: any, next: any) => {
     try {
-      const token = req.header("x-identity-token")
+      const token = req.header('Authorization');
 
       if (!token) {
-        return unauthorized(res, "Invalid token");
+        return unauthorized(res, 'Invalid token');
       }
 
       const decoded: any = jwt.verify(token, this.secret);
@@ -44,17 +44,17 @@ export class Jwtinstance {
       if (this._customErrorHandler) {
         this._customErrorHandler(error);
       } else {
-        unauthorized(res, "token expired");
+        unauthorized(res, 'token expired');
       }
     }
-  }
+  };
 
   decodeToken = (token: any): any => {
     try {
-     const decode = jwt.verify(token, this.secret);
+      const decode = jwt.verify(token, this.secret);
       return decode;
     } catch (error) {
       return false;
     }
-  }
+  };
 }

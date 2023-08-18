@@ -16,7 +16,7 @@ AdminUserRouter.post(
   ah(async (req, res) => {
     const { email, password } = v_adminlogin.parse(req.body);
 
-    const user = await AdminUser.findOne({ where: { email, active: 1 } });
+    const user = await AdminUser.findOne({ where: { email } });
 
     if (!user) {
       throw unauthorized(res, 'Invalid User');
