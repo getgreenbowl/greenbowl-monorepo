@@ -4,6 +4,7 @@ import { validate } from '../../core/middlewares/validation.middleware';
 import { v_param_id, v_user_address } from 'greenbowl-schema';
 import { UserAddress } from './models/user-address.model';
 import { success } from 'proses-response';
+import Session from '../../core/middlewares/jwt.middleware';
 
 const UserAddressRouter = Router();
 

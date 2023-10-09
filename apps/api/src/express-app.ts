@@ -1,5 +1,4 @@
 import express from 'express';
-import { APP_SETTINGS } from './core/app-settings';
 import swaggerUi from 'swagger-ui-express';
 import swaggerDocs from './swagger';
 import { responseHandler } from 'proses-response';

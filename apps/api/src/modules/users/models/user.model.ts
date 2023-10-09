@@ -46,6 +46,10 @@ export const User = DbConnection.db.define<User, UserCreationAttributes>(
       defaultValue: false,
       comment: 'True if otp is verified',
     },
+    weight: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
     createdAt: {
       type: DataTypes.DATE,
       defaultValue: DataTypes.NOW,

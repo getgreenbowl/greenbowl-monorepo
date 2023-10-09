@@ -20,6 +20,7 @@ export class ItemsFormComponent {
 
   showErrors = false;
   dialogRef!: DialogRef<any>;
+  file: any;
 
   menuName = new FormControl('', Validators.required);
   ingredientName = new FormControl('', Validators.required);
@@ -82,5 +83,9 @@ export class ItemsFormComponent {
           });
         },
       });
+  }
+
+  handleFileChange(e: any) {
+    this.file = e.target.files[0];
   }
 }

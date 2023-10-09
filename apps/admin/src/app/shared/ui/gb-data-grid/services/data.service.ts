@@ -1,14 +1,9 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, combineLatest, map, shareReplay, skip } from 'rxjs';
 import { toggleInArray } from 'src/app/shared/data-grid/utils';
-import { EmitterService } from './internal/event-emitter.service';
 
 @Injectable()
 export class GridDataService {
-  constructor(private emitterService: EmitterService) {
-    this.emitterService.register(this.selectionInfo$, 'selection');
-  }
-
   private _data = new BehaviorSubject<any[]>([]);
   private _totalCount = new BehaviorSubject<number>(0);
   private allSelected = new BehaviorSubject(false);

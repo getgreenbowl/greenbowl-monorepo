@@ -28,11 +28,19 @@ export const UserItems = DbConnection.db.define<UserItems>('UserItems', {
       model: Item,
     },
   },
+  mealType: {
+    type: DataTypes.ENUM({ values: ['lunch', 'dinner'] }),
+    defaultValue: 'lunch',
+  },
   serveDate: {
     type: DataTypes.STRING,
     allowNull: false,
   },
   skip: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: false,
+  },
+  delivered: {
     type: DataTypes.BOOLEAN,
     defaultValue: false,
   },

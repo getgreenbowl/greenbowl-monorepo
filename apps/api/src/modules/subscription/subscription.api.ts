@@ -7,8 +7,10 @@ import { success } from 'proses-response';
 import { SubscriptionJourney } from './models/subscription-journey.model';
 import { UserItems } from '../users/models/user-items.model';
 import { Item } from '../items/models/item.model';
-import { add } from 'date-fns';
+import { add, format } from 'date-fns';
 import DbConnection from '../../core/db/db';
+import Session from '../../core/middlewares/jwt.middleware';
+import { User } from '../users/models/user.model';
 
 const SubscriptionRouter = Router();
 
@@ -19,7 +21,9 @@ const getNArray = (n: number) => {
 SubscriptionRouter.post(
   '/new',
   validate({
-    body: v_subscription.omit({ id: true, userID: true, active: true }),
+    body: v_subscription
+      .omit({ id: true, userID: true, active: true })
+      .partial(),
   }),
   ah(async (req, res) => {
     const t = await DbConnection.db.transaction();
@@ -37,20 +41,42 @@ SubscriptionRouter.post(
         where: { isActive: true },
         attributes: ['id'],
         raw: true,
-        limit: 30,
       });
       const itemsLength = items.length;
-      const userItems = getNArray(limit).map((_, index: number) => {
-        const random = Math.floor(Math.random() * itemsLength);
-        const item = items[random];
-        return {
-          itemID: item.id,
-          userID: req.user.id,
-          serveDate: add(new Date(), { days: index + 1 }),
-        };
-      });
+      let lunchItems = [];
+      let dinnerItems = [];
+      if (payload.lunch) {
+        lunchItems = getNArray(limit).map((_, index: number) => {
+          const random = Math.floor(Math.random() * itemsLength);
+          const item = items[random];
+          const serveDate = add(new Date(), { days: index + 1 });
+          return {
+            itemID: item.id,
+            userID: req.user.id,
+            serveDate: format(serveDate, 'dd-MM-yyyy'),
+            mealType: 'lunch',
+          };
+        });
+      }
 
-      await UserItems.bulkCreate(userItems, { transaction: t });
+      if (payload.dinner) {
+        dinnerItems = getNArray(limit).map((_, index: number) => {
+          const random = Math.floor(Math.random() * itemsLength);
+          const item = items[random];
+          const serveDate = add(new Date(), { days: index + 1 });
+
+          return {
+            itemID: item.id,
+            userID: req.user.id,
+            serveDate: format(serveDate, 'dd-MM-yyyy'),
+            mealType: 'dinner',
+          };
+        });
+      }
+
+      await UserItems.bulkCreate([...lunchItems, ...dinnerItems], {
+        transaction: t,
+      });
       await t.commit();
       success(res, subscription, 'You are subscribed');
     } catch (error) {
@@ -58,36 +84,16 @@ SubscriptionRouter.post(
       throw new Error(error);
     }
   })
-)
-  .post(
-    '/update-journey',
-    validate({
-      body: v_subscription.omit({ id: true, userID: true, active: true }),
-    }),
-    ah(async (req, res) => {
-      const payload = { ...req.body, userID: req.user.id };
-      const [_, created] = await SubscriptionJourney.findOrCreate({
-        where: { userID: req.user.id },
-        defaults: payload,
-      });
+).get(
+  '/',
+  ah(async (req, res) => {
+    const subscription = await Subscription.findOne({
+      where: { userID: req.user.id },
+      include: { model: User, attributes: ['weight', 'id'] },
+    });
 
-      if (!created) {
-        await SubscriptionJourney.update(payload, {
-          where: { userID: req.user.id },
-        });
-      }
-
-      success(res, null, 'subscription journey updated');
-    })
-  )
-  .get(
-    '/get-journey',
-    ah(async (req, res) => {
-      const journey = await SubscriptionJourney.findOne({
-        where: { userID: req.user.id },
-      });
-      success(res, journey, 'User journey');
-    })
-  );
+    success(res, subscription, 'user items');
+  })
+);
 
 export default SubscriptionRouter;

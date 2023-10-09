@@ -40,7 +40,7 @@ import { safeStringify } from '../utils/safe-json';
     [loading]="loading"
     [collectionSize]="collectionSize"
     [gridTitle]="gridTitle"
-    (emitEvents)="captureGridEvents($event)"
+    (sortChange)="handleSort($event)"
   >
     <!-- Toolbar -->
     <gb-toolbar
@@ -138,7 +138,7 @@ export class GbGridShellComponent implements OnDestroy, OnInit {
   protected data: any[] = [];
   private subs = new SubSink();
   private requests = new SubSink();
-  private gridEvents: any = null;
+  private gridEvents = { limit: 20, sort: null, page: 1 };
   private allowApiCall = ['limit', 'page', 'sort'];
 
   ngOnDestroy(): void {
@@ -151,6 +151,7 @@ export class GbGridShellComponent implements OnDestroy, OnInit {
       this.filterValues = filterData;
       this._getData();
     });
+    this._getData();
   }
 
   captureGridEvents(events: { key: string; value: any }) {
@@ -158,6 +159,11 @@ export class GbGridShellComponent implements OnDestroy, OnInit {
     if (this.allowApiCall.includes(events.key) && events.value) {
       this._getData();
     }
+  }
+
+  handleSort(sort: any) {
+    this.gridEvents = { ...this.gridEvents, sort };
+    this._getData();
   }
 
   openFilters() {

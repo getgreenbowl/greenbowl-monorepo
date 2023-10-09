@@ -37,3 +37,6 @@ export type { TSubscription } from './lib/subscription';
 
 export * from './lib/user/user-item';
 export type { TUserItem } from './lib/user/user-item';
+
+export * from './lib/user/user-weight';
+export type { TUserWeight } from './lib/user/user-weight';

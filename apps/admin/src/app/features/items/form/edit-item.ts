@@ -4,6 +4,7 @@ import { GbNotification } from 'src/app/shared/ui/notification/notification.serv
 import { ItemsFormComponent } from './form/form.component';
 import { ActivatedRoute } from '@angular/router';
 import { TItem, TItemWithIngredients } from 'greenbowl-schema';
+import { SupabaseService } from 'src/app/shared/services/supabase.service';
 
 @Component({
   selector: 'edit-items',
@@ -20,8 +21,10 @@ export class EditItemsComponent implements OnInit {
   api = inject(ApiService);
   notif = inject(GbNotification);
   route = inject(ActivatedRoute);
+  supabase = inject(SupabaseService);
 
   itemID!: string;
+  existingFiles: any[] = [];
 
   ngOnInit(): void {
     this.itemID = this.route.snapshot.params['id'];
@@ -43,8 +46,17 @@ export class EditItemsComponent implements OnInit {
   }
 
   handleSubmit() {
+    const file = this.itemsComponent.file;
+    if (file.name) {
+      this.supabase.uploadFile(file.name);
+      this.existingFiles.push(file.name);
+    }
+
     this.api
-      .post(`/items/update/${this.itemID}`, this.itemsComponent.itemsForm.value)
+      .post(`/items/update/${this.itemID}`, {
+        ...this.itemsComponent.itemsForm.value,
+        itemImages: this.existingFiles,
+      })
       .subscribe({
         next: () => {
           this.notif.show({

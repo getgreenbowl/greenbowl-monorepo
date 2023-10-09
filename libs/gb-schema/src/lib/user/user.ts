@@ -13,6 +13,7 @@ export const v_user = z.object({
   otp: z.number().optional(),
   otpVerified: z.number().optional(),
   active: z.boolean(errorMessages),
+  weight: z.number(errorMessages),
 });
 
 export type TUser = z.infer<typeof v_user>;

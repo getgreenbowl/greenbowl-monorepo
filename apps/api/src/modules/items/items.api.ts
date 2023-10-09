@@ -53,21 +53,27 @@ ItemRouter.post(
   .post(
     '/update/:id',
     validate({
-      body: v_item
-        .omit({ id: true, ingredients: true })
-        .extend({ ingredients: z.array(z.number()) }),
+      body: v_item.omit({ id: true, ingredients: true }).extend({
+        ingredients: z.array(z.number()),
+        itemImages: z.array(z.string()).optional(),
+      }),
     }),
     ah(async (req, res) => {
       const t: Transaction = await DbConnection.db.transaction();
 
       try {
-        const { ingredients, ...payload } = req.body;
+        const { ingredients, itemImages, ...payload } = req.body;
         const [update] = await Item.update(payload, {
           where: { id: req.params.id },
           transaction: t,
         });
 
         await ItemIngredients.destroy({
+          where: { itemID: req.params.id },
+          transaction: t,
+        });
+
+        await ItemImages.destroy({
           where: { itemID: req.params.id },
           transaction: t,
         });
@@ -80,6 +86,13 @@ ItemRouter.post(
           await ItemIngredients.bulkCreate(ingredientPayload, {
             transaction: t,
           });
+        }
+
+        if (itemImages?.length) {
+          const itemImagesPayload = itemImages.map((img) => {
+            return { itemID: req.params.id, img };
+          });
+          await ItemImages.bulkCreate(itemImagesPayload, { transaction: t });
         }
 
         clearItemRelatedCache();
@@ -132,8 +145,6 @@ ItemRouter.post(
           },
         ],
       });
-      console.log(item, 'check me');
-
       success(res, item, 'Item by id');
     })
   );

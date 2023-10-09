@@ -34,9 +34,6 @@ export class DbConnection {
   static init() {
     this.authenticate();
     this.associate();
-    // for (const model of models) {
-    //   console.log(model)
-    // }
   }
 
   static associate() {

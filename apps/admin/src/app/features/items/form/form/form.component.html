@@ -96,6 +96,7 @@
   </div>
 
   <gb-textarea label="Description" [control]="itemsFormControls.description" />
+  <input type="file" (change)="handleFileChange($event)" />
 </gb-form>
 
 <ng-template #addMenu>

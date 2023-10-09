@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, combineLatest, map, shareReplay } from 'rxjs';
-import { EmitterService } from './internal/event-emitter.service';
+import {
+  BehaviorSubject,
+  Subject,
+  combineLatest,
+  map,
+  shareReplay,
+} from 'rxjs';
 
 @Injectable()
 export class PaginationService {
-  constructor(private emitterService: EmitterService) {
-    this.emitterService.register(this.selectedLimit$, 'limit');
-    this.emitterService.register(this.page$, 'page');
-  }
-
   private _selectedLimit = new BehaviorSubject(10);
-  private _currentPage = new BehaviorSubject(1);
+  private _currentPage = new Subject<number>();
   private _collectionSize = new BehaviorSubject(0);
 
   selectedLimit$ = this._selectedLimit.asObservable().pipe(shareReplay());
