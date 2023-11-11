@@ -5,15 +5,16 @@ import { validate } from '../../core/middlewares/validation.middleware';
 import { other, success } from 'proses-response';
 import { checkPassword } from '../../core/utils/password-hash';
 import Session from '../../core/middlewares/jwt.middleware';
-import { v_user } from 'greenbowl-schema';
+import { v_param_id, v_user } from 'greenbowl-schema';
 import { ModelOptions } from '../../libs/list-filter';
 import { Cacher } from '../../core/middlewares/cache.middleware';
 import { Cache } from '../../core/cache/cache-model';
-import { SubscriptionJourney } from '../subscription/models/subscription-journey.model';
 import { UserItems } from './models/user-items.model';
 import { getDay, parseISO } from 'date-fns';
 import { Item } from '../items/models/item.model';
 import { Subscription } from '../subscription/models/subscription.model';
+import { UserWeight } from './models/user-weight.model';
+import DbConnection from '../../core/db/db';
 
 const UserRouter = Router();
 
@@ -114,11 +115,37 @@ UserRouter.put(
   Session.secure,
   validate({ body: v_user.pick({ weight: true }) }),
   ah(async (req, res) => {
-    const [result] = await User.update(
-      { weight: req.body.weight },
-      { where: { id: req.user.id } }
+    const t = await DbConnection.db.transaction();
+    try {
+      const [result] = await User.update(
+        { weight: req.body.weight },
+        { where: { id: req.user.id }, transaction: t }
+      );
+      await UserWeight.create(
+        {
+          weight: req.body.weight,
+          userID: req.user.id,
+        },
+        { transaction: t }
+      );
+      await t.commit();
+      success(res, result, 'weight updated');
+    } catch (error) {
+      await t.rollback();
+    }
+  })
+);
+
+UserRouter.post(
+  '/skip-meal/:id',
+  Session.secure,
+  validate({ params: v_param_id }),
+  ah(async (req, res) => {
+    const [updated] = await UserItems.update(
+      { skip: true },
+      { where: { id: req.params.id } }
     );
-    success(res, result, 'weight updated');
+    success(res, updated, 'Meal skipped');
   })
 );
 

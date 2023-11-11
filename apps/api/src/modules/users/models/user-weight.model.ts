@@ -8,7 +8,7 @@ interface UserWeight
   extends G_Model<UserWeight>,
     UserWeightCreationAttributes {}
 
-export const User = DbConnection.db.define<
+export const UserWeight = DbConnection.db.define<
   UserWeight,
   UserWeightCreationAttributes
 >(
