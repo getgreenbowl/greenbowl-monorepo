@@ -22,6 +22,7 @@ import { SgbButtonComponent } from '../button';
 import { SgbIconComponent } from '../icon';
 import { GbBadgeComponent } from '../badge';
 import { BaseDataTableComponent } from './components/base-table/core/table';
+import { GbTooltipDirective } from '../tooltip/tooltip.directive';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { BaseDataTableComponent } from './components/base-table/core/table';
     SgbButtonComponent,
     SgbIconComponent,
     GbBadgeComponent,
+    GbTooltipDirective,
   ],
   providers: [
     GridDataService,

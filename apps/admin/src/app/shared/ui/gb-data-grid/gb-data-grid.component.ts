@@ -29,7 +29,6 @@ import { MetaDataService } from './services/meta-data.service';
 import { GbActionComponent } from './components/base-table/action';
 import { GbGridToolbarComponent } from './components/toolbar/gb-toolbar';
 import { SubSink } from 'subsink';
-import { EmitterService } from './services/internal/event-emitter.service';
 
 @Component({
   selector: 'gb-data-grid',

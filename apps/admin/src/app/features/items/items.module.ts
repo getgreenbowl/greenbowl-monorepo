@@ -22,6 +22,7 @@ import { GbGridFilterComponent } from 'src/app/shared/grid-shell/filters/compone
 import { GbDialogModule } from 'src/app/shared/ui/dialog/dialog.module';
 import { GbBadgeComponent } from 'src/app/shared/ui/badge';
 import { GbCheckboxComponent } from 'src/app/shared/ui/form/gb-checkbox';
+import { GbTooltipDirective } from 'src/app/shared/ui/tooltip/tooltip.directive';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { GbCheckboxComponent } from 'src/app/shared/ui/form/gb-checkbox';
     GbDialogModule,
     GbBadgeComponent,
     GbCheckboxComponent,
+    GbTooltipDirective,
   ],
 })
 export class ItemsModule {}

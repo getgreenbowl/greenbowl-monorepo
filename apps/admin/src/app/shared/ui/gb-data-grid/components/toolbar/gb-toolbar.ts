@@ -1,18 +1,25 @@
-import {Component, Input, ContentChild, Output, EventEmitter, ChangeDetectionStrategy, TemplateRef} from "@angular/core"
+import {
+  Component,
+  Input,
+  ContentChild,
+  Output,
+  EventEmitter,
+  ChangeDetectionStrategy,
+  TemplateRef,
+} from '@angular/core';
 
 @Component({
   selector: 'gb-toolbar',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: ''
+  template: '',
 })
-
 export class GbGridToolbarComponent {
-  @Input() icon = ''
-  @Input() name?:string= ''
-  @Input() _tool?: TemplateRef<GbGridToolbarComponent>
+  @Input() icon = '';
+  @Input() name?: string = '';
+  @Input() _tool?: TemplateRef<GbGridToolbarComponent>;
 
   @Output() handleClick = new EventEmitter();
 
-  @ContentChild('tool') tool?: TemplateRef<GbGridToolbarComponent>
+  @ContentChild('tool') tool?: TemplateRef<GbGridToolbarComponent>;
 }
