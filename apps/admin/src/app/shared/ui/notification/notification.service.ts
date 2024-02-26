@@ -24,6 +24,26 @@ export class GbNotification {
     private notificationConfig: GbNotificationConfig
   ) {}
 
+  error(data: GbNotificationData) {
+    this.show({ ...data, type: 'error' });
+  }
+
+  warning(data: GbNotificationData) {
+    this.show({ ...data, type: 'warning' });
+  }
+
+  info(data: GbNotificationData) {
+    this.show({ ...data, type: 'info' });
+  }
+
+  success(data: GbNotificationData) {
+    this.show({ ...data, type: 'success' });
+  }
+
+  loading(data: GbNotificationData) {
+    this.show({ ...data, type: 'loading' });
+  }
+
   show(data: GbNotificationData) {
     if (data.id && this.currentlyRendered.has(data.id)) {
       return;
@@ -62,28 +82,6 @@ export class GbNotification {
     this.currentlyRendered.delete(id);
   }
 
-  getPositionStrategy() {
-    return this.overlay
-      .position()
-      .global()
-      .bottom(`${(this.currentlyRendered.size || 1 - 1) * 60 + 20}px`)
-      .right(this.notificationConfig.position?.right + 'px');
-  }
-
-  getInjector(data: GbNotificationData, notificationRef: GbNotificationRef) {
-    const tokens = new WeakMap();
-
-    tokens.set(GbNotificationData, data);
-    tokens.set(GbNotificationRef, notificationRef);
-
-    return Injector.create({
-      providers: [
-        { provide: GbNotificationData, useValue: data },
-        { provide: GbNotificationRef, useValue: notificationRef },
-      ],
-    });
-  }
-
   updateToast(data: GbNotificationData) {
     if (!data.id) {
       return;
@@ -116,5 +114,30 @@ export class GbNotification {
     overlayRef.attach(notificationPortal);
 
     return notificationRef;
+  }
+
+  private getPositionStrategy() {
+    return this.overlay
+      .position()
+      .global()
+      .bottom(`${(this.currentlyRendered.size || 1 - 1) * 60 + 20}px`)
+      .right(this.notificationConfig.position?.right + 'px');
+  }
+
+  private getInjector(
+    data: GbNotificationData,
+    notificationRef: GbNotificationRef
+  ) {
+    const tokens = new WeakMap();
+
+    tokens.set(GbNotificationData, data);
+    tokens.set(GbNotificationRef, notificationRef);
+
+    return Injector.create({
+      providers: [
+        { provide: GbNotificationData, useValue: data },
+        { provide: GbNotificationRef, useValue: notificationRef },
+      ],
+    });
   }
 }

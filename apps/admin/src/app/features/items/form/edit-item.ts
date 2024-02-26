@@ -47,7 +47,7 @@ export class EditItemsComponent implements OnInit {
 
   handleSubmit() {
     const file = this.itemsComponent.file;
-    if (file.name) {
+    if (file?.name) {
       this.supabase.uploadFile(file.name);
       this.existingFiles.push(file.name);
     }
@@ -59,10 +59,9 @@ export class EditItemsComponent implements OnInit {
       })
       .subscribe({
         next: () => {
-          this.notif.show({
+          this.notif.success({
             text: 'Item updated',
             id: 'update-item',
-            type: 'success',
           });
         },
       });

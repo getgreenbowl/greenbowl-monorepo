@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-list',
   template: `
-    <p gbTooltip="check">check</p>
     <gb-grid-shell gridTitle="Menu" apiURL="/items">
       <gb-toolbar icon="add" name="Add" (handleClick)="addItem()" />
       <!-- columns -->

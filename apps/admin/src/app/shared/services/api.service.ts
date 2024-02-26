@@ -32,6 +32,8 @@ export class ApiService {
   constructor(private _http: HttpClient) {}
 
   private makeURL(endpoint: string) {
+    console.log();
+
     return `${environment.api}${endpoint}`;
   }
 

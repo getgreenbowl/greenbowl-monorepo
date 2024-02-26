@@ -12,7 +12,7 @@ export class TokenInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler) {
     // Get the auth token from the service.
-    const authToken = this.ls.get('token');
+    const authToken = this.ls.get('token') || '';
 
     // Clone the request and replace the original headers with
     // cloned headers, updated with the authorization.

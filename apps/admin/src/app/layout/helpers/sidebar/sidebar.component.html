@@ -16,28 +16,31 @@
         </p>
       </div> -->
       <ul class="space-y-1">
-        <li *ngFor="let m of sidebarService.mainMenu$ | async">
+        <li
+          *ngFor="let m of sidebarService.mainMenu$ | async"
+          class="group flex items-center justify-between"
+        >
           <a
             [routerLink]="m.link"
             routerLinkActive="bg-gray-800"
             [routerLinkActiveOptions]="{ exact: true }"
-            class="flex items-center px-2 py-1 text-base font-medium rounded-lg text-white hover:bg-gray-800 group justify-between"
+            class="px-2 py-1 text-base font-medium rounded-lg text-white hover:bg-gray-800 w-full"
           >
             <span class="flex items-center">
               <sgb-icon [icon]="m.icon" class="mt-1" />
               <span class="ml-3">{{ m.name }}</span>
             </span>
-            <gb-dropdown class="opacity-0 group-hover:opacity-100">
-              <sgb-button variant="ghost" size="small-icon" trigger>
-                <sgb-icon icon="more_vert" />
-              </sgb-button>
-              <gb-dropdown-item
-                text="Archive"
-                icon="archive"
-                (handleClick)="sidebarService.archiveMenu(m.id)"
-              />
-            </gb-dropdown>
           </a>
+          <gb-dropdown class="opacity-0 group-hover:opacity-100">
+            <sgb-button variant="ghost" size="small-icon" trigger>
+              <sgb-icon icon="more_vert" />
+            </sgb-button>
+            <gb-dropdown-item
+              text="Archive"
+              icon="archive"
+              (handleClick)="sidebarService.archiveMenu(m.id)"
+            />
+          </gb-dropdown>
         </li>
       </ul>
     </div>
