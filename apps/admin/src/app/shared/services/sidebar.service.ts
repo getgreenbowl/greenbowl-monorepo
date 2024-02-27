@@ -1,14 +1,15 @@
 import { Injectable, inject } from '@angular/core';
 import { BehaviorSubject, shareReplay, combineLatest, map } from 'rxjs';
-import { Menu } from 'src/app/layout/helpers/sidebar/menu-data';
+import { IMenu, Menu } from 'src/app/layout/helpers/sidebar/menu-data';
 import { LocalStorageService } from './local-storage.service';
+import { matchSorter } from '../utils/match-sorter';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SidebarService {
   ls = inject(LocalStorageService);
-  private menu = new BehaviorSubject(Menu);
+  private menu = new BehaviorSubject<IMenu[]>(Menu);
   private archive = new BehaviorSubject<number[]>(
     this.ls.get('archiveMenu') || []
   );
@@ -54,5 +55,14 @@ export class SidebarService {
     );
     this.archive.next(archive);
     this.ls.set('archiveMenu', archive);
+  }
+
+  filterMenu(term: string | null) {
+    if (!term) {
+      this.menu.next(Menu);
+      return;
+    }
+    const filteredMenu = matchSorter(this.menu.value, term, { keys: ['name'] });
+    this.menu.next(filteredMenu);
   }
 }

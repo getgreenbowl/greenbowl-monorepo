@@ -1,15 +1,24 @@
-import { Component, EventEmitter, Output, Input, inject } from '@angular/core';
-import { Menu } from './menu-data';
+import {
+  Component,
+  EventEmitter,
+  Output,
+  Input,
+  inject,
+  OnInit,
+  OnDestroy,
+} from '@angular/core';
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service';
 import { SidebarService } from 'src/app/shared/services/sidebar.service';
 import { Router } from '@angular/router';
+import { FormControl } from '@angular/forms';
+import { SubSink } from 'subsink';
 
 @Component({
   selector: 'gb-sidebar',
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss'],
 })
-export class SidebarComponent {
+export class SidebarComponent implements OnInit, OnDestroy {
   ls = inject(LocalStorageService);
   router = inject(Router);
   sidebarService = inject(SidebarService);
@@ -17,19 +26,25 @@ export class SidebarComponent {
   @Output() changeTheme = new EventEmitter();
   @Input() theme = 'light';
 
-  archiveMenu: number[] = this.ls.get('archiveMenu') || [];
-  menu = this.filterArchivedMenu(Menu);
+  search = new FormControl('');
 
-  handleArchiveMenu(id: number) {
-    this.archiveMenu.push(id);
-    this.ls.set('archiveMenu', this.archiveMenu);
+  private subs = new SubSink();
+
+  ngOnInit(): void {
+    this.searchTermValueChanges();
+  }
+
+  ngOnDestroy(): void {
+    this.subs.unsubscribe();
   }
 
   navigateTo(url: string) {
     this.router.navigate([url]);
   }
 
-  private filterArchivedMenu(menu: typeof Menu) {
-    return menu.filter((m) => !this.archiveMenu.includes(m.id));
+  private searchTermValueChanges() {
+    this.subs.sink = this.search.valueChanges.subscribe((term) =>
+      this.sidebarService.filterMenu(term)
+    );
   }
 }

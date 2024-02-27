@@ -15,6 +15,13 @@
           <span class="opacity-70"> Main menu </span>
         </p>
       </div> -->
+      <div class="mb-3">
+        <gb-input
+          [control]="search"
+          placeholder="Search menu"
+          [clearable]="true"
+        />
+      </div>
       <ul class="space-y-1">
         <li
           *ngFor="let m of sidebarService.mainMenu$ | async"
@@ -71,7 +78,7 @@
               <p>{{ m.name }}</p>
             </button>
             <button
-              title="Unarchive"
+              gbTooltip="Unarchive"
               (click)="sidebarService.unarchiveMenu(m.id)"
               class="cursor-pointer relative flex select-none items-center rounded-sm px-2 py-0.5 text-sm outline-none transition-colors hover:bg-accent hover:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
             >

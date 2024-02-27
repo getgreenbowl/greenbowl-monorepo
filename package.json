@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "generate-lib": "nx g @nx/js:lib name",
-    "run-many": "npx -p node@18 nx run-many -t serve -p admin api --skip-nx-cache",
+    "run-many": "npx -p node@18 nx run-many -t serve -p admin api",
     "db:sync": "node dist/apps/api/main.js --sync"
   },
   "private": true,

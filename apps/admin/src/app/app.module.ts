@@ -18,6 +18,8 @@ import { SgbIconComponent } from './shared/ui/icon';
 import { GbNotificationModule } from './shared/ui/notification/notification.module';
 import { GbDropdownModule } from './shared/ui/dropdown/dropdown.module';
 import { TokenInterceptor } from './shared/services/token-interceptor.service';
+import { GbTooltipDirective } from './shared/ui/tooltip/tooltip.directive';
+import { GbInputComponent } from './shared/ui/form/gb-input';
 
 @NgModule({
   declarations: [
@@ -35,6 +37,8 @@ import { TokenInterceptor } from './shared/services/token-interceptor.service';
     SgbButtonComponent,
     SgbIconComponent,
     GbDropdownModule,
+    GbTooltipDirective,
+    GbInputComponent,
     GbNotificationModule.forRoot(),
   ],
   providers: [

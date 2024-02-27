@@ -1,3 +1,10 @@
+export interface IMenu {
+  id: number;
+  name: string;
+  link: string;
+  children: IMenu[];
+  icon: string;
+}
 export const Menu = [
   {
     id: 1,
@@ -30,15 +37,15 @@ export const Menu = [
   {
     id: 5,
     name: 'Order List',
-    link: '/subscription',
+    link: '/order-list',
     children: [],
     icon: 'list_alt',
   },
   {
     id: 6,
     name: 'Review',
-    link: '/subscription',
+    link: '/reviews',
     children: [],
     icon: 'reviews',
   },
-] as const;
+];
